@@ -1,0 +1,51 @@
+MONGANGA — PROJET HTML / CSS / JAVASCRIPT
+
+OUVRIR LE PROJET
+Décompressez complètement l'archive, puis ouvrez index.html dans votre navigateur.
+Aucune compilation ni installation npm n'est nécessaire.
+Gardez le dossier assets à côté du fichier index.html.
+Une connexion Internet est requise pour les polices, les icônes, les graphiques
+et l'avatar chargés par le prototype depuis des services externes.
+
+FICHIERS
+- index.html : structure des 30 écrans et contenu de l'interface.
+- assets/css/styles.css : design system, styles principaux, thèmes et responsive.
+- assets/js/app.js : navigation, thèmes, interactions et graphiques.
+
+Le projet reprend le prototype HTML fourni. Ses styles contextuels en attributs
+style sont conservés pour respecter son apparence et la priorité CSS d'origine.
+Le JavaScript est nécessaire pour passer d'une page à l'autre et ouvrir les menus,
+les modales, les dossiers, les réponses FAQ et les autres états interactifs.
+
+ACCÉDER AUX ESPACES DE DÉMONSTRATION
+Depuis l'accueil, cliquez sur « Connexion ». Utilisez l'un de ces identifiants :
+- Patient : patient@monganga.cd
+- Médecin : doctor@monganga.cd
+- Administration : admin@monganga.cd
+Renseignez un mot de passe fictif non vide. Le prototype ne le vérifie pas.
+Ces identifiants ne sont pas des comptes réels : le JavaScript sélectionne
+simplement un espace d'après le texte saisi dans le champ de connexion.
+
+ÉCRANS INCLUS
+Public, 8 écrans : accueil, fonctionnement, médecins, profil médecin, tarifs,
+FAQ, contact, candidature médecin.
+Authentification, 2 écrans : connexion et inscription, avec choix patient/médecin.
+Patient, 8 écrans : accueil, recherche médecin, médecin/rendez-vous, paiement,
+téléconsultation, ordonnance, historique, profil.
+Médecin, 7 écrans : tableau de bord, agenda, disponibilités, demandes,
+patients, ordonnances, gains.
+Administration, 5 écrans : tableau de bord, validations, transactions,
+utilisateurs, rapports.
+
+ÉTAT DU PROJET
+Il s'agit d'un prototype frontend avec des données de démonstration.
+L'authentification, le paiement, la téléconsultation, les envois de fichiers,
+les téléchargements et les messages ne sont pas reliés à un backend réel.
+Les limites de mise en page et les interactions simulées du fichier fourni
+sont conservées ; ce livrable ne constitue pas une refonte du design.
+
+VÉRIFICATIONS
+La séparation HTML/CSS/JS conserve exactement le contenu du prototype source.
+Les chemins locaux, les 30 écrans, les gestionnaires d'événements et la syntaxe
+JavaScript ont été vérifiés. Le rendu visuel n'a pas été exécuté dans le
+navigateur de la session de préparation.
