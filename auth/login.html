@@ -202,6 +202,7 @@
   </div>
 </div>
 
+<script src="../assets/js/api.js"></script>
 <script src="../assets/js/app.js"></script>
 <script>
   // Toggle visibilité mot de passe
@@ -253,6 +254,15 @@
       doctor: 'Connexion réussie. Redirection vers votre espace médecin...',
       patient: 'Connexion réussie. Redirection vers votre espace patient...'
     };
+
+    if (window.MongangaApi) {
+      MongangaApi.setSession({
+        token: `demo-${role}-${Date.now()}`,
+        role,
+        email,
+        demo: true
+      });
+    }
 
     Monganga.showToast(messages[role], 'success');
 

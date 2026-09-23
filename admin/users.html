@@ -51,6 +51,7 @@
 
         <div class="doctor-header-actions">
           <input class="form-input" id="user-search" type="search" placeholder="Rechercher un utilisateur" aria-label="Rechercher un utilisateur" style="width:220px; height:36px;">
+          <select class="form-input" id="user-filter" aria-label="Filtrer les utilisateurs" style="width:auto; height:36px;"><option value="all">Tous</option><option value="patient">Patients</option><option value="medecin">Médecins</option><option value="actif">Actifs</option><option value="attente">En attente</option></select>
           <button class="btn btn-primary btn-sm" type="button" onclick="Monganga.showToast('Les comptes sont créés depuis les parcours d’inscription','info')"><i data-lucide="user-plus"></i> Ajouter</button>
         </div>
       </header>
@@ -67,7 +68,7 @@
           <div class="table-wrap">
             <table class="data-table">
               <thead>
-                <tr data-user="aline nkulu patient actif">
+                <tr>
                   <th>Utilisateur</th>
                   <th>Rôle</th>
                   <th>Inscription</th>
@@ -76,7 +77,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr data-user="aline nkulu patient actif" data-role="patient" data-user-status="actif">
                   <td>
                     <div class="timeline-main">
                       <div class="doctor-avatar">AN</div>
@@ -89,7 +90,7 @@
                   <td>Patient</td>
                   <td>12 Jan 2026</td>
                   <td><span class="badge success">Actif</span></td>
-                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails('Aline Nkulu','Patient','Actif')">Détails</button></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails(this,'Aline Nkulu','Patient','Actif')">Détails</button></td>
                 </tr>
                 <tr data-user="daniel k medecin attente">
                   <td>
@@ -104,7 +105,7 @@
                   <td>Médecin</td>
                   <td>18 Sept 2026</td>
                   <td><span class="badge warning">En attente</span></td>
-                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails('Dr. Daniel K.','Médecin','En attente')">Détails</button></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails(this,'Dr. Daniel K.','Médecin','En attente')">Détails</button></td>
                 </tr>
                 <tr data-user="sarah m medecin actif">
                   <td>
@@ -119,7 +120,7 @@
                   <td>Médecin</td>
                   <td>8 Août 2026</td>
                   <td><span class="badge success">Actif</span></td>
-                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails('Dr. Sarah M.','Médecin','Actif')">Détails</button></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails(this,'Dr. Sarah M.','Médecin','Actif')">Détails</button></td>
                 </tr>
               </tbody>
             </table>
@@ -129,13 +130,27 @@
     </main>
   </div>
 
+  <script src="../assets/js/api.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       initLucide();
-      document.getElementById('user-search').addEventListener('input', event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll('[data-user]').forEach(row => row.style.display = !query || row.dataset.user.includes(query) ? '' : 'none'); });
+      document.getElementById('user-search').addEventListener('input', filterUsers);
+      document.getElementById('user-filter').addEventListener('change', filterUsers);
     });
-    function showUserDetails(name, role, status) { Monganga.showToast(`${name} · ${role} · ${status}`, 'info'); }
+    function filterUsers() {
+      const query = document.getElementById('user-search').value.toLowerCase().trim();
+      const filter = document.getElementById('user-filter').value;
+      document.querySelectorAll('[data-user]').forEach(row => {
+        const matchesText = !query || row.dataset.user.includes(query);
+        const matchesFilter = filter === 'all' || row.dataset.role === filter || row.dataset.userStatus === filter;
+        row.style.display = matchesText && matchesFilter ? '' : 'none';
+      });
+    }
+    function showUserDetails(button, name, role, status) {
+      const nextStatus = status === 'Actif' ? 'Suspendu' : 'Actif';
+      Monganga.openModal({ action: 'info', title: `Compte de ${name}`, message: `Rôle : ${role}\\nStatut actuel : ${status}`, target: name, confirmLabel: nextStatus === 'Actif' ? 'Réactiver' : 'Suspendre', confirmClass: nextStatus === 'Actif' ? 'btn btn-primary' : 'btn btn-danger', onConfirm: () => { const row = button.closest('tr'); row.dataset.userStatus = nextStatus.toLowerCase(); row.querySelector('.badge').className = nextStatus === 'Actif' ? 'badge success' : 'badge danger'; row.querySelector('.badge').textContent = nextStatus; Monganga.closeModal(); Monganga.showToast(`${name} : compte ${nextStatus.toLowerCase()}`, 'success'); } });
+    }
   </script>
 </body>
 </html>

@@ -52,6 +52,7 @@
         <div class="doctor-header-actions">
           <button class="btn btn-secondary btn-sm" type="button" onclick="exportAdminSummary()"><i data-lucide="download"></i> Exporter</button>
           <button class="btn btn-primary btn-sm" type="button" onclick="location.href='reports.html'"><i data-lucide="plus"></i> Nouveau rapport</button>
+          <button class="btn btn-ghost btn-icon" type="button" aria-label="Ouvrir les notifications" onclick="Monganga.openNotifications()"><i data-lucide="bell"></i><span class="dot-badge"></span></button>
         </div>
       </header>
 
@@ -174,8 +175,9 @@
               <div class="card-subtitle">Vue synthétique</div>
             </div>
           </div>
-
+                <div class="card-subtitle" id="growth-period-label">6 derniers mois</div>
           <div class="perf-grid">
+              <select class="form-input" aria-label="Période de croissance" onchange="changeGrowthPeriod(this.value)" style="width:auto; height:34px;"><option value="month">Mois</option><option value="week">Semaine</option><option value="year">Année</option></select>
             <div class="perf-card">
               <div style="font-size:12px; color:var(--text-2); margin-bottom:8px;">Taux de rétention</div>
               <div style="font-size:28px; font-weight:800;">84%</div>
@@ -190,16 +192,37 @@
             </div>
           </div>
         </section>
+
+        <section class="section-row admin-alerts-grid">
+          <div class="card">
+            <div class="card-header-row">
+              <div><h2 class="card-title">Alertes opérationnelles</h2><div class="card-subtitle">Éléments nécessitant une action</div></div>
+            </div>
+            <div class="list-stack">
+              <a class="list-row" href="validations.html"><div class="list-main"><div class="doctor-avatar" style="background:var(--warning-bg);color:var(--warning-text);"><i data-lucide="file-warning"></i></div><div><div class="list-name">12 candidatures à examiner</div><div class="list-meta">Documents médicaux en attente</div></div></div><i data-lucide="chevron-right"></i></a>
+              <a class="list-row" href="transactions.html"><div class="list-main"><div class="doctor-avatar" style="background:var(--danger-bg);color:var(--danger-text);"><i data-lucide="circle-alert"></i></div><div><div class="list-name">1 paiement échoué</div><div class="list-meta">Vérifier la transaction TRX-10417</div></div></div><i data-lucide="chevron-right"></i></a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header-row"><div><h2 class="card-title">Journal système</h2><div class="card-subtitle">Dernières actions administratives</div></div></div>
+            <div class="list-stack">
+              <div class="list-row"><div><div class="list-name">Validation médecin</div><div class="list-meta">Dr. Kabamba · il y a 18 min</div></div><span class="badge success">OK</span></div>
+              <div class="list-row"><div><div class="list-name">Export transactions</div><div class="list-meta">Admin · il y a 42 min</div></div><span class="badge info">Journal</span></div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   </div>
 
+  <script src="../assets/js/api.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       initLucide();
     });
     function exportAdminSummary() { const csv = 'Indicateur,Valeur\nUtilisateurs actifs,12400\nMédecins inscrits,1800\nDemandes validées,96.4%\nVolume transactions,38600'; const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); link.download = 'monganga-synthese-admin.csv'; link.click(); Monganga.showToast('Synthèse administrative téléchargée', 'success'); }
+    function changeGrowthPeriod(period) { const labels = { week: '7 derniers jours', month: '6 derniers mois', year: '12 derniers mois' }; document.getElementById('growth-period-label').textContent = labels[period]; Monganga.showToast(`Période ${period === 'week' ? 'hebdomadaire' : period === 'year' ? 'annuelle' : 'mensuelle'} activée`, 'info'); }
   </script>
 </body>
 </html>

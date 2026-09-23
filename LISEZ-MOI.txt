@@ -11,6 +11,7 @@ FICHIERS
 - index.html : structure des 30 écrans et contenu de l'interface.
 - assets/css/styles.css : design system, styles principaux, thèmes et responsive.
 - assets/js/app.js : navigation, thèmes, interactions et graphiques.
+- assets/js/api.js : adaptateur API prêt pour le backend, session et fallback démo.
 
 Le projet reprend le prototype HTML fourni. Ses styles contextuels en attributs
 style sont conservés pour respecter son apparence et la priorité CSS d'origine.
@@ -43,6 +44,13 @@ L'authentification, le paiement, la téléconsultation, les envois de fichiers,
 les téléchargements et les messages ne sont pas reliés à un backend réel.
 Les limites de mise en page et les interactions simulées du fichier fourni
 sont conservées ; ce livrable ne constitue pas une refonte du design.
+
+PRÉPARATION BACKEND
+Le frontend expose `MongangaApi` dans assets/js/api.js. Définissez
+`window.MONGANGA_API_URL` avant son chargement pour activer les requêtes backend.
+Sans URL configurée, les écrans restent en mode démo. La session courante est
+stockée sous `monganga-session` et pourra être remplacée par le token réel après
+connexion.
 
 VÉRIFICATIONS
 La séparation HTML/CSS/JS conserve exactement le contenu du prototype source.

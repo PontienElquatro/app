@@ -352,12 +352,20 @@ body.doctor-body {
 .timeline-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .view-switcher { display: flex; gap: 4px; }
 .view-switcher .btn.active { background: var(--primary-light); color: var(--primary); border-color: var(--primary-soft); }
+.drawer-section-title { margin: 24px 0 10px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; font-weight: 800; color: var(--text-2); text-transform: uppercase; letter-spacing: .06em; }
+.validation-documents { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.validation-document { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; padding: 10px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; }
+.validation-document strong, .validation-document small { display: block; }
+.validation-document strong { font-size: 11.5px; }
+.validation-document small { margin-top: 3px; color: var(--text-3); font-size: 10.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dashboard-lower-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
 .quick-actions-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .quick-action { height: auto; min-height: 64px; justify-content: flex-start; text-align: left; white-space: normal; }
 .quick-action [data-lucide] { color: var(--primary); flex-shrink: 0; }
 .dashboard-patient-row { color: inherit; text-decoration: none; }
 .dashboard-patient-row > [data-lucide] { width: 16px; color: var(--text-3); }
+.admin-alerts-grid .list-row { color: inherit; text-decoration: none; }
+.admin-alerts-grid .list-row > [data-lucide] { width: 16px; color: var(--text-3); }
 
 .timeline-main,
 .list-main {

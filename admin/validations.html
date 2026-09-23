@@ -92,7 +92,7 @@
                   <td>24 Sept</td>
                   <td><span class="badge warning">En attente</span></td>
                   <td class="inline-actions">
-                    <button class="btn btn-secondary btn-sm" type="button" onclick="Monganga.openDrawer({ title: 'Dossier médecin', ref: 'MDS-2048', name: 'Dr. Daniel K.', spec: 'Cardiologie', date: '24 Sept 2026', doc: 'K. Evariste', status: 'En attente' })">Voir</button>
+                    <button class="btn btn-secondary btn-sm" type="button" onclick="openValidationDrawer({ title: 'Dossier médecin', ref: 'MDS-2048', name: 'Dr. Daniel K.', spec: 'Cardiologie', date: '24 Sept 2026', doc: 'K. Evariste', status: 'En attente' })">Voir</button>
                     <button class="btn btn-primary btn-sm" type="button" onclick="openValidationModal(this, 'validate', 'Dr. Daniel K.')">Accepter</button>
                   </td>
                 </tr>
@@ -112,7 +112,7 @@
                   <td>22 Sept</td>
                   <td><span class="badge info">À vérifier</span></td>
                   <td class="inline-actions">
-                    <button class="btn btn-secondary btn-sm" type="button" onclick="Monganga.openDrawer({ title: 'Dossier médecin', ref: 'MDS-2049', name: 'Dr. Sarah M.', spec: 'Dermatologie', date: '22 Sept 2026', doc: 'A. Kany', status: 'À vérifier' })">Voir</button>
+                    <button class="btn btn-secondary btn-sm" type="button" onclick="openValidationDrawer({ title: 'Dossier médecin', ref: 'MDS-2049', name: 'Dr. Sarah M.', spec: 'Dermatologie', date: '22 Sept 2026', doc: 'A. Kany', status: 'À vérifier' })">Voir</button>
                     <button class="btn btn-primary btn-sm" type="button" onclick="openValidationModal(this, 'validate', 'Dr. Sarah M.')">Accepter</button>
                   </td>
                 </tr>
@@ -132,7 +132,7 @@
                   <td>20 Sept</td>
                   <td><span class="badge danger">Dossier incomplet</span></td>
                   <td class="inline-actions">
-                    <button class="btn btn-secondary btn-sm" type="button" onclick="Monganga.openDrawer({ title: 'Dossier médecin', ref: 'MDS-2050', name: 'Dr. Théo L.', spec: 'Pédiatrie', date: '20 Sept 2026', doc: 'H. Ngalula', status: 'Dossier incomplet' })">Voir</button>
+                    <button class="btn btn-secondary btn-sm" type="button" onclick="openValidationDrawer({ title: 'Dossier médecin', ref: 'MDS-2050', name: 'Dr. Théo L.', spec: 'Pédiatrie', date: '20 Sept 2026', doc: 'H. Ngalula', status: 'Dossier incomplet' })">Voir</button>
                     <button class="btn btn-danger btn-sm" type="button" onclick="openValidationModal(this, 'reject', 'Dr. Théo L.')">Refuser</button>
                   </td>
                 </tr>
@@ -160,6 +160,9 @@
       <div class="drawer-row"><span>Date</span><strong id="drawer-date">—</strong></div>
       <div class="drawer-row"><span>Agent</span><strong id="drawer-doc">—</strong></div>
       <div class="drawer-row"><span>Statut</span><span id="drawer-status" class="badge neutral">—</span></div>
+      <div class="drawer-section-title">Pièces justificatives</div>
+      <div id="validation-documents" class="validation-documents"></div>
+      <button class="btn btn-secondary btn-block" type="button" onclick="requestMissingDocuments()"><i data-lucide="file-warning"></i> Demander un complément</button>
     </div>
   </aside>
 
@@ -181,6 +184,7 @@
     </div>
   </div>
 
+  <script src="../assets/js/api.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -188,8 +192,24 @@
       document.getElementById('validation-filter').addEventListener('change', event => document.querySelectorAll('[data-validation-status]').forEach(row => row.style.display = event.target.value === 'all' || row.dataset.validationStatus === event.target.value ? '' : 'none'));
     });
     function openValidationModal(button, action, doctor) {
-      Monganga.openModal({ action, title: action === 'validate' ? 'Valider le médecin' : 'Refuser le dossier', message: action === 'validate' ? `Confirmez l’acceptation du dossier de ${doctor} ?` : `Souhaitez-vous refuser le dossier de ${doctor} ?`, target: doctor, confirmLabel: action === 'validate' ? 'Valider' : 'Refuser', confirmClass: action === 'validate' ? 'btn btn-primary' : 'btn btn-danger', onConfirm: () => { const row = button.closest('tr'); row.querySelector('.badge').className = action === 'validate' ? 'badge success' : 'badge danger'; row.querySelector('.badge').textContent = action === 'validate' ? 'Validé' : 'Refusé'; row.querySelector('.inline-actions').innerHTML = '<span class="badge neutral">Traité</span>'; Monganga.closeModal(); Monganga.showToast(`${doctor} : dossier ${action === 'validate' ? 'validé' : 'refusé'}`, 'success'); } });
+      const reason = action === 'reject' ? window.prompt(`Motif obligatoire du refus pour ${doctor} :`) : '';
+      if (action === 'reject' && !reason) return;
+      Monganga.openModal({ action, title: action === 'validate' ? 'Valider le médecin' : 'Refuser le dossier', message: action === 'validate' ? `Confirmez l’acceptation du dossier de ${doctor} ?` : `Motif : ${reason}`, target: doctor, confirmLabel: action === 'validate' ? 'Valider' : 'Refuser', confirmClass: action === 'validate' ? 'btn btn-primary' : 'btn btn-danger', onConfirm: () => { const row = button.closest('tr'); row.querySelector('.badge').className = action === 'validate' ? 'badge success' : 'badge danger'; row.querySelector('.badge').textContent = action === 'validate' ? 'Validé' : 'Refusé'; row.querySelector('.inline-actions').innerHTML = '<span class="badge neutral">Traité</span>'; Monganga.closeModal(); Monganga.showToast(`${doctor} : dossier ${action === 'validate' ? 'validé' : 'refusé'}`, 'success'); } });
     }
+    function openValidationDrawer(details) {
+      Monganga.openDrawer(details);
+      const documents = [
+        ['Portrait professionnel', 'portrait_medecin.jpg', 'success'],
+        ['Pièce d’identité', 'piece_identite.pdf', details.status === 'Dossier incomplet' ? 'warning' : 'success'],
+        ['Diplôme de médecine', 'diplome_medecine.pdf', 'success'],
+        ['Attestation de l’Ordre', 'attestation_ordre.pdf', details.status === 'À vérifier' ? 'warning' : 'success'],
+        ['CV professionnel', 'cv_medecin.pdf', 'success']
+      ];
+      document.getElementById('validation-documents').innerHTML = documents.map(([label, file, status]) => `<div class="validation-document"><div><strong>${label}</strong><small>${file}</small></div><span class="badge ${status}">${status === 'success' ? 'Reçu' : 'À vérifier'}</span><button class="btn btn-ghost btn-icon" type="button" onclick="previewDocument('${file}')" aria-label="Prévisualiser ${label}"><i data-lucide="eye"></i></button></div>`).join('');
+      Monganga.initLucide();
+    }
+    function previewDocument(file) { Monganga.showToast(`Aperçu simulé : ${file}`, 'info'); }
+    function requestMissingDocuments() { Monganga.showToast('Demande de complément envoyée au médecin', 'success'); Monganga.closeDrawer(); }
     function exportValidations() { const csv = 'Médecin,Statut\nDr. Daniel K.,En attente\nDr. Sarah M.,À vérifier\nDr. Théo L.,Dossier incomplet'; const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); link.download = 'monganga-validations.csv'; link.click(); Monganga.showToast('Export des validations téléchargé', 'success'); }
   </script>
 </body>
