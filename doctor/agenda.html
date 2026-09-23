@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda - Docteur | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Doctor</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation principale">
+        <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link active" href="agenda.html"><i data-lucide="calendar-days"></i> Agenda</a>
+        <a class="doctor-nav-link" href="dispo.html"><i data-lucide="clock-3"></i> Disponibilités</a>
+        <a class="doctor-nav-link" href="demandes.html"><i data-lucide="inbox"></i> Demandes</a>
+        <a class="doctor-nav-link" href="patients.html"><i data-lucide="users"></i> Patients</a>
+        <a class="doctor-nav-link" href="ordonnances.html"><i data-lucide="file-text"></i> Ordonnances</a>
+        <a class="doctor-nav-link" href="gains.html"><i data-lucide="wallet"></i> Gains</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">DM</div>
+          <div class="doctor-mini-meta">
+            <strong>Dr. Manda</strong>
+            <span>Cardiologie</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Agenda</h1>
+          <p class="doctor-page-subtitle">Gérez vos consultations et disponibilités.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <div class="view-switcher" role="group" aria-label="Vue de l'agenda">
+            <button class="btn btn-secondary btn-sm active" type="button" onclick="changeCalendarView('Semaine', this)">Semaine</button>
+            <button class="btn btn-secondary btn-sm" type="button" onclick="changeCalendarView('Jour', this)">Jour</button>
+            <button class="btn btn-secondary btn-sm" type="button" onclick="changeCalendarView('Mois', this)">Mois</button>
+          </div>
+          <button class="btn btn-primary btn-sm" type="button" onclick="Monganga.showToast('Les rendez-vous sont créés depuis une demande acceptée','info')"><i data-lucide="plus"></i> Nouveau RDV</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Semaine du 21 au 27 septembre</h2>
+              <div class="card-subtitle">Vue hebdomadaire</div>
+            </div>
+            <div class="filters">
+              <select class="form-input" aria-label="Filtrer l'agenda" onchange="filterAgenda(this.value)" style="width:auto; height:34px;">
+                <option value="all">Tous les rendez-vous</option>
+                <option value="teleconsultation">Téléconsultations</option>
+                <option value="suivi">Suivis</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Jour</th>
+                  <th>Matin</th>
+                  <th>Après-midi</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Lundi</td>
+                  <td>08:30 - 12:00</td>
+                  <td>14:00 - 17:00</td>
+                  <td><span class="badge success">Complet</span></td>
+                </tr>
+                <tr>
+                  <td>Mardi</td>
+                  <td>08:00 - 12:30</td>
+                  <td>13:30 - 16:00</td>
+                  <td><span class="badge info">Partiel</span></td>
+                </tr>
+                <tr>
+                  <td>Mercredi</td>
+                  <td>09:00 - 12:00</td>
+                  <td>14:00 - 18:00</td>
+                  <td><span class="badge warning">Ouvert</span></td>
+                </tr>
+                <tr>
+                  <td>Jeudi</td>
+                  <td>08:30 - 11:30</td>
+                  <td>15:00 - 17:00</td>
+                  <td><span class="badge success">Réservé</span></td>
+                </tr>
+                <tr>
+                  <td>Vendredi</td>
+                  <td>09:00 - 12:00</td>
+                  <td>13:00 - 16:00</td>
+                  <td><span class="badge neutral">Libre</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section-row">
+          <div class="card">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Consultations prévues</h2>
+                <div class="card-subtitle">Aujourd'hui</div>
+              </div>
+            </div>
+
+            <div class="timeline-list">
+              <div class="timeline-item" data-agenda-type="suivi">
+                <div class="timeline-main">
+                  <span class="timeline-time">08:30</span>
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <div class="timeline-name">Aline Nkulu</div>
+                    <div class="timeline-meta">Consultation de suivi</div>
+                  </div>
+                </div>
+                <div class="timeline-actions"><a class="btn btn-primary btn-sm" href="consult.html?patient=aline"><i data-lucide="video"></i> Appeler</a><button class="btn btn-secondary btn-sm" onclick="manageAppointment(this, 'Aline Nkulu')" aria-label="Gérer le rendez-vous d'Aline Nkulu"><i data-lucide="ellipsis"></i></button></div>
+              </div>
+
+              <div class="timeline-item" data-agenda-type="teleconsultation">
+                <div class="timeline-main">
+                  <span class="timeline-time">10:00</span>
+                  <span class="timeline-dot" style="background:#10b981;"></span>
+                  <div>
+                    <div class="timeline-name">M. Mwamba</div>
+                    <div class="timeline-meta">Téléconsultation</div>
+                  </div>
+                </div>
+                <div class="timeline-actions"><a class="btn btn-primary btn-sm" href="consult.html?patient=mwamba"><i data-lucide="video"></i> Appeler</a><button class="btn btn-secondary btn-sm" onclick="manageAppointment(this, 'M. Mwamba')" aria-label="Gérer le rendez-vous de M. Mwamba"><i data-lucide="ellipsis"></i></button></div>
+              </div>
+
+              <div class="timeline-item" data-agenda-type="suivi">
+                <div class="timeline-main">
+                  <span class="timeline-time">12:30</span>
+                  <span class="timeline-dot" style="background:#f59e0b;"></span>
+                  <div>
+                    <div class="timeline-name">Mlle. Kanza</div>
+                    <div class="timeline-meta">Bilan cardiaque</div>
+                  </div>
+                </div>
+                <div class="timeline-actions"><span class="badge warning">45 min</span><button class="btn btn-secondary btn-sm" onclick="manageAppointment(this, 'Mlle. Kanza')" aria-label="Gérer le rendez-vous de Mlle. Kanza"><i data-lucide="ellipsis"></i></button></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">À prévoir</h2>
+                <div class="card-subtitle">Rappels</div>
+              </div>
+            </div>
+
+            <div class="list-stack">
+              <div class="list-row">
+                <div class="list-main">
+                  <div class="doctor-avatar">VK</div>
+                  <div>
+                    <div class="list-name">Vera K.</div>
+                    <div class="list-meta">Rdv de contrôle demain</div>
+                  </div>
+                </div>
+                <span class="badge neutral">09:00</span>
+              </div>
+
+              <div class="list-row">
+                <div class="list-main">
+                  <div class="doctor-avatar" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;">AR</div>
+                  <div>
+                    <div class="list-name">A. Rukundo</div>
+                    <div class="list-meta">Ordonnance à relire</div>
+                  </div>
+                </div>
+                <span class="badge info">Rappel</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+    });
+    function filterAgenda(filter) {
+      document.querySelectorAll('[data-agenda-type]').forEach(item => {
+        item.style.display = filter === 'all' || item.dataset.agendaType === filter ? '' : 'none';
+      });
+    }
+    function changeCalendarView(view, button) {
+      document.querySelectorAll('.view-switcher .btn').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      document.querySelector('.card-title').textContent = view === 'Jour' ? 'Mardi 24 septembre 2026' : view === 'Mois' ? 'Septembre 2026' : 'Semaine du 21 au 27 septembre';
+      document.querySelector('.card-subtitle').textContent = `Vue ${view.toLowerCase()}`;
+      Monganga.showToast(`Vue ${view.toLowerCase()} activée`, 'info');
+    }
+    function manageAppointment(button, patient) {
+      const action = window.prompt(`Rendez-vous de ${patient} : tapez "reporter" ou "annuler".`);
+      if (!action) return;
+      if (action.toLowerCase().startsWith('report')) Monganga.showToast(`Rendez-vous de ${patient} marqué à reporter`, 'success');
+      else if (action.toLowerCase().startsWith('annul')) { button.closest('.timeline-item').remove(); Monganga.showToast(`Rendez-vous de ${patient} annulé localement`, 'success'); }
+      else Monganga.showToast('Action non reconnue', 'error');
+    }
+  </script>
+</body>
+</html>

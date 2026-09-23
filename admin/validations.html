@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validations Admin | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation admin">
+        <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link active" href="validations.html"><i data-lucide="shield-check"></i> Validations</a>
+        <a class="doctor-nav-link" href="transactions.html"><i data-lucide="wallet"></i> Transactions</a>
+        <a class="doctor-nav-link" href="users.html"><i data-lucide="users"></i> Utilisateurs</a>
+        <a class="doctor-nav-link" href="reports.html"><i data-lucide="bar-chart-3"></i> Rapports</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">AD</div>
+          <div class="doctor-mini-meta">
+            <strong>Admin</strong>
+            <span>Superviseur</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Validations médecins</h1>
+          <p class="doctor-page-subtitle">Contrôlez les inscriptions et les dossiers médicaux en attente.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <select class="form-input" id="validation-filter" aria-label="Filtrer les validations" style="width:auto; height:36px;"><option value="all">Tous les dossiers</option><option value="pending">En attente</option><option value="review">À vérifier</option><option value="incomplete">Incomplets</option></select>
+          <button class="btn btn-primary btn-sm" type="button" onclick="exportValidations()"><i data-lucide="download"></i> Exporter</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Demandes en attente</h2>
+              <div class="card-subtitle">12 dossiers à examiner</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr data-validation-status="pending">
+                  <th>Médecin</th>
+                  <th>Spécialité</th>
+                  <th>Lieu</th>
+                  <th>Date</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar">DK</div>
+                      <div>
+                        <div class="list-name">Dr. Daniel K.</div>
+                        <div class="list-meta">danielk@monganga.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Cardiologie</td>
+                  <td>Lubumbashi</td>
+                  <td>24 Sept</td>
+                  <td><span class="badge warning">En attente</span></td>
+                  <td class="inline-actions">
+                    <button class="btn btn-secondary btn-sm" type="button" onclick="Monganga.openDrawer({ title: 'Dossier médecin', ref: 'MDS-2048', name: 'Dr. Daniel K.', spec: 'Cardiologie', date: '24 Sept 2026', doc: 'K. Evariste', status: 'En attente' })">Voir</button>
+                    <button class="btn btn-primary btn-sm" type="button" onclick="openValidationModal(this, 'validate', 'Dr. Daniel K.')">Accepter</button>
+                  </td>
+                </tr>
+
+                <tr data-validation-status="review">
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;">SM</div>
+                      <div>
+                        <div class="list-name">Dr. Sarah M.</div>
+                        <div class="list-meta">sarahm@monganga.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Dermatologie</td>
+                  <td>Goma</td>
+                  <td>22 Sept</td>
+                  <td><span class="badge info">À vérifier</span></td>
+                  <td class="inline-actions">
+                    <button class="btn btn-secondary btn-sm" type="button" onclick="Monganga.openDrawer({ title: 'Dossier médecin', ref: 'MDS-2049', name: 'Dr. Sarah M.', spec: 'Dermatologie', date: '22 Sept 2026', doc: 'A. Kany', status: 'À vérifier' })">Voir</button>
+                    <button class="btn btn-primary btn-sm" type="button" onclick="openValidationModal(this, 'validate', 'Dr. Sarah M.')">Accepter</button>
+                  </td>
+                </tr>
+
+                <tr data-validation-status="incomplete">
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#fee2e2,#fecaca);color:#b91c1c;">TL</div>
+                      <div>
+                        <div class="list-name">Dr. Théo L.</div>
+                        <div class="list-meta">theol@monganga.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Pédiatrie</td>
+                  <td>Kinshasa</td>
+                  <td>20 Sept</td>
+                  <td><span class="badge danger">Dossier incomplet</span></td>
+                  <td class="inline-actions">
+                    <button class="btn btn-secondary btn-sm" type="button" onclick="Monganga.openDrawer({ title: 'Dossier médecin', ref: 'MDS-2050', name: 'Dr. Théo L.', spec: 'Pédiatrie', date: '20 Sept 2026', doc: 'H. Ngalula', status: 'Dossier incomplet' })">Voir</button>
+                    <button class="btn btn-danger btn-sm" type="button" onclick="openValidationModal(this, 'reject', 'Dr. Théo L.')">Refuser</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
+  <aside id="drawer" class="drawer" aria-labelledby="drawer-title">
+    <div class="drawer-header">
+      <div>
+        <div class="caption">Détails</div>
+        <h3 id="drawer-title">Dossier médecin</h3>
+      </div>
+      <button class="btn btn-ghost btn-icon" type="button" onclick="Monganga.closeDrawer()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-row"><span>Référence</span><strong id="drawer-ref">—</strong></div>
+      <div class="drawer-row"><span>Nom</span><strong id="drawer-name">—</strong></div>
+      <div class="drawer-row"><span>Spécialité</span><strong id="drawer-spec">—</strong></div>
+      <div class="drawer-row"><span>Date</span><strong id="drawer-date">—</strong></div>
+      <div class="drawer-row"><span>Agent</span><strong id="drawer-doc">—</strong></div>
+      <div class="drawer-row"><span>Statut</span><span id="drawer-status" class="badge neutral">—</span></div>
+    </div>
+  </aside>
+
+  <div id="modal-overlay" class="modal-overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <div id="modal-icon" class="modal-icon info"><i data-lucide="info"></i></div>
+        <button class="btn btn-ghost btn-icon" type="button" onclick="Monganga.closeModal()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="caption" id="modal-subtitle">Cible : —</div>
+        <h3 id="modal-title">Confirmer</h3>
+        <p id="modal-message">Êtes-vous sûr ?</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" type="button" onclick="Monganga.closeModal()">Annuler</button>
+        <button id="modal-confirm-btn" class="btn btn-primary" type="button">Confirmer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+      document.getElementById('validation-filter').addEventListener('change', event => document.querySelectorAll('[data-validation-status]').forEach(row => row.style.display = event.target.value === 'all' || row.dataset.validationStatus === event.target.value ? '' : 'none'));
+    });
+    function openValidationModal(button, action, doctor) {
+      Monganga.openModal({ action, title: action === 'validate' ? 'Valider le médecin' : 'Refuser le dossier', message: action === 'validate' ? `Confirmez l’acceptation du dossier de ${doctor} ?` : `Souhaitez-vous refuser le dossier de ${doctor} ?`, target: doctor, confirmLabel: action === 'validate' ? 'Valider' : 'Refuser', confirmClass: action === 'validate' ? 'btn btn-primary' : 'btn btn-danger', onConfirm: () => { const row = button.closest('tr'); row.querySelector('.badge').className = action === 'validate' ? 'badge success' : 'badge danger'; row.querySelector('.badge').textContent = action === 'validate' ? 'Validé' : 'Refusé'; row.querySelector('.inline-actions').innerHTML = '<span class="badge neutral">Traité</span>'; Monganga.closeModal(); Monganga.showToast(`${doctor} : dossier ${action === 'validate' ? 'validé' : 'refusé'}`, 'success'); } });
+    }
+    function exportValidations() { const csv = 'Médecin,Statut\nDr. Daniel K.,En attente\nDr. Sarah M.,À vérifier\nDr. Théo L.,Dossier incomplet'; const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); link.download = 'monganga-validations.csv'; link.click(); Monganga.showToast('Export des validations téléchargé', 'success'); }
+  </script>
+</body>
+</html>

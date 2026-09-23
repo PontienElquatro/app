@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation admin">
+        <a class="doctor-nav-link active" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link" href="validations.html"><i data-lucide="shield-check"></i> Validations</a>
+        <a class="doctor-nav-link" href="transactions.html"><i data-lucide="wallet"></i> Transactions</a>
+        <a class="doctor-nav-link" href="users.html"><i data-lucide="users"></i> Utilisateurs</a>
+        <a class="doctor-nav-link" href="reports.html"><i data-lucide="bar-chart-3"></i> Rapports</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">AD</div>
+          <div class="doctor-mini-meta">
+            <strong>Admin</strong>
+            <span>Superviseur</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Tableau de bord</h1>
+          <p class="doctor-page-subtitle">Vue d’ensemble de la plateforme et des performances.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <button class="btn btn-secondary btn-sm" type="button" onclick="exportAdminSummary()"><i data-lucide="download"></i> Exporter</button>
+          <button class="btn btn-primary btn-sm" type="button" onclick="location.href='reports.html'"><i data-lucide="plus"></i> Nouveau rapport</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="kpi-grid" data-stagger>
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="users"></i> Utilisateurs actifs</div>
+            <div class="kpi-value">12.4K</div>
+            <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +8.2% ce mois</span>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="stethoscope"></i> Médecins inscrits</div>
+            <div class="kpi-value">1.8K</div>
+            <span class="kpi-trend neutral"><i data-lucide="activity"></i> 142 nouveaux</span>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="clipboard-check"></i> Demandes validées</div>
+            <div class="kpi-value">96.4%</div>
+            <span class="kpi-trend success"><i data-lucide="check-circle-2"></i> Très bon taux</span>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="wallet"></i> Volume transactions</div>
+            <div class="kpi-value">$38.6K</div>
+            <span class="kpi-trend up"><i data-lucide="trending-up"></i> +14.7%</span>
+          </article>
+        </section>
+
+        <section class="section-row">
+          <div class="card">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Croissance utilisateurs</h2>
+                <div class="card-subtitle">6 derniers mois</div>
+              </div>
+            </div>
+
+            <div class="bar-chart" aria-label="Graphique de croissance utilisateurs">
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 30%;"></div>
+                <span class="bar-label">Jan</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 45%;"></div>
+                <span class="bar-label">Fév</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 58%;"></div>
+                <span class="bar-label">Mar</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 66%;"></div>
+                <span class="bar-label">Avr</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 82%;"></div>
+                <span class="bar-label">Mai</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 92%;"></div>
+                <span class="bar-label">Jui</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Activités récentes</h2>
+                <div class="card-subtitle">Évolution système</div>
+              </div>
+            </div>
+
+            <div class="timeline-list">
+              <div class="timeline-item">
+                <div class="timeline-main">
+                  <span class="timeline-time">08:26</span>
+                  <span class="timeline-dot"></span>
+                  <div>
+                    <div class="timeline-name">Nouveau médecin validé</div>
+                    <div class="timeline-meta">Dr. Kabamba — Kinshasa</div>
+                  </div>
+                </div>
+                <span class="badge success">OK</span>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-main">
+                  <span class="timeline-time">09:10</span>
+                  <span class="timeline-dot" style="background:#f59e0b;"></span>
+                  <div>
+                    <div class="timeline-name">Paiement en attente</div>
+                    <div class="timeline-meta">Transaction #9241</div>
+                  </div>
+                </div>
+                <span class="badge warning">À suivre</span>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-main">
+                  <span class="timeline-time">11:40</span>
+                  <span class="timeline-dot" style="background:#10b981;"></span>
+                  <div>
+                    <div class="timeline-name">Rapport complété</div>
+                    <div class="timeline-meta">Suivi mensuel généré</div>
+                  </div>
+                </div>
+                <span class="badge info">Système</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Performance globale</h2>
+              <div class="card-subtitle">Vue synthétique</div>
+            </div>
+          </div>
+
+          <div class="perf-grid">
+            <div class="perf-card">
+              <div style="font-size:12px; color:var(--text-2); margin-bottom:8px;">Taux de rétention</div>
+              <div style="font-size:28px; font-weight:800;">84%</div>
+            </div>
+            <div class="perf-card">
+              <div style="font-size:12px; color:var(--text-2); margin-bottom:8px;">Consultations/mois</div>
+              <div style="font-size:28px; font-weight:800;">5.4K</div>
+            </div>
+            <div class="perf-card">
+              <div style="font-size:12px; color:var(--text-2); margin-bottom:8px;">Satisfaction</div>
+              <div style="font-size:28px; font-weight:800;">4.8/5</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+    });
+    function exportAdminSummary() { const csv = 'Indicateur,Valeur\nUtilisateurs actifs,12400\nMédecins inscrits,1800\nDemandes validées,96.4%\nVolume transactions,38600'; const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); link.download = 'monganga-synthese-admin.csv'; link.click(); Monganga.showToast('Synthèse administrative téléchargée', 'success'); }
+  </script>
+</body>
+</html>

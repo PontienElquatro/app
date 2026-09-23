@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — MONGANGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+<header class="pub-header">
+  <div class="pub-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pub-nav">
+      <a class="pub-nav-link" href="../index.html">Accueil</a>
+      <a class="pub-nav-link" href="how.html">Comment ça marche</a>
+      <a class="pub-nav-link" href="doctors.html">Médecins</a>
+      <a class="pub-nav-link" href="pricing.html">Tarifs</a>
+      <a class="pub-nav-link" href="faq.html">FAQ</a>
+    </nav>
+    <div class="pub-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
+        <i data-lucide="moon" data-theme-icon></i>
+      </button>
+      <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+  </div>
+  <div class="drawer-content">
+    <a class="menu-link" href="../index.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="menu-link" href="how.html"><i data-lucide="book-open"></i> Comment ça marche</a>
+    <a class="menu-link" href="doctors.html"><i data-lucide="stethoscope"></i> Médecins</a>
+    <a class="menu-link" href="pricing.html"><i data-lucide="tag"></i> Tarifs</a>
+    <a class="menu-link" href="faq.html"><i data-lucide="help-circle"></i> FAQ</a>
+    <a class="menu-link" href="contact.html"><i data-lucide="mail"></i> Contact</a>
+    <a class="menu-link" href="candidature.html"><i data-lucide="user-plus"></i> Devenir médecin</a>
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:8px;">
+      <a class="btn btn-secondary btn-block" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-block" href="../auth/register.html">S'inscrire</a>
+    </div>
+  </div>
+</aside>
+
+<main class="container section" style="padding-bottom:72px;">
+  <div class="breadcrumb mb-3">
+    <a href="../index.html">Accueil</a>
+    <i data-lucide="chevron-right"></i>
+    <span>Mentions légales</span>
+  </div>
+
+  <h1 class="h1 mb-4">Mentions légales</h1>
+  <p class="text-2" style="max-width: 720px; margin-bottom: 28px;">
+    Les présentes mentions légales régissent l'utilisation de la plateforme MONGANGA.
+  </p>
+
+  <div class="card card-block" style="max-width:880px;">
+    <div class="mb-5">
+      <h2 class="h3 mb-2">1. Éditeur du site</h2>
+      <p class="text-2">MONGANGA est une plateforme de mise en relation entre patients et professionnels de santé,
+      opérée dans le cadre d'un service numérique digital.</p>
+    </div>
+
+    <div class="mb-5">
+      <h2 class="h3 mb-2">2. Hébergement</h2>
+      <p class="text-2">Le site est hébergé sur des infrastructures sécurisées et conformes aux standards de sécurité applicables.
+      Les données sont traitées dans des conditions prévues par la politique de confidentialité.</p>
+    </div>
+
+    <div class="mb-5">
+      <h2 class="h3 mb-2">3. Propriété intellectuelle</h2>
+      <p class="text-2">Tous les éléments du site, textes, visuels, logos et contenus, sont protégés par le droit d'auteur et restent la propriété de leur titulaire.</p>
+    </div>
+
+    <div>
+      <h2 class="h3 mb-2">4. Contact</h2>
+      <p class="text-2">Pour toute demande concernant les conditions d'utilisation, la confidentialité ou les services proposés,
+      merci d'utiliser le formulaire de contact disponible sur la plateforme.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="pub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+          <span class="logo-text">MONGANGA</span>
+        </div>
+        <p>Monganga na yo, na tshombo na yo. La santé à portée de main, à Kinshasa.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Produit</h5>
+        <a href="how.html">Comment ça marche</a>
+        <a href="doctors.html">Trouver un médecin</a>
+        <a href="pricing.html">Tarifs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Aide</h5>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="candidature.html">Devenir médecin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MONGANGA. Tous droits réservés.</span>
+      <span>🇨🇩 Fait à Kinshasa</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

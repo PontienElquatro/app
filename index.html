@@ -4,1968 +4,455 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MONGANGA — Téléconsultation médicale à Kinshasa</title>
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Lucide -->
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<link rel="stylesheet" href="assets/css/styles.css">
+
+<!-- Styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/animations.css">
 </head>
 <body>
 
 <!-- ============================================================
-     ZONE 1 : PUBLIC APP
+     HEADER
      ============================================================ -->
-<div id="zone-public" class="app-zone active">
+<header class="pub-header">
+  <div class="pub-header-inner">
+    <a class="logo" href="index.html">
+      <div class="logo-icon logo-image-wrap"><img src="assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
 
-  <!-- PUBLIC HEADER -->
-  <header class="pub-header">
-    <div class="pub-header-inner">
-      <div class="logo" onclick="showPubScreen('home')">
-        <div class="logo-icon"><i data-lucide="activity"></i></div>
-        <span class="logo-text">MONGANGA</span>
-      </div>
+    <nav class="pub-nav">
+      <a class="pub-nav-link active" href="index.html">Accueil</a>
+      <a class="pub-nav-link" href="public/how.html">Comment ça marche</a>
+      <a class="pub-nav-link" href="public/doctors.html">Médecins</a>
+      <a class="pub-nav-link" href="public/pricing.html">Tarifs</a>
+      <a class="pub-nav-link" href="public/faq.html">FAQ</a>
+    </nav>
 
-      <nav class="pub-nav">
-        <a class="pub-nav-link active" data-pub="home" onclick="showPubScreen('home')">Accueil</a>
-        <a class="pub-nav-link" data-pub="how" onclick="showPubScreen('how')">Comment ça marche</a>
-        <a class="pub-nav-link" data-pub="doctors" onclick="showPubScreen('doctors')">Médecins</a>
-        <a class="pub-nav-link" data-pub="pricing" onclick="showPubScreen('pricing')">Tarifs</a>
-        <a class="pub-nav-link" data-pub="faq" onclick="showPubScreen('faq')">FAQ</a>
-      </nav>
-
-      <div class="pub-actions">
-        <button class="icon-btn" onclick="toggleTheme()" aria-label="Thème" style="width:40px; height:40px;">
-          <i data-lucide="moon" id="pubThemeIcon"></i>
-        </button>
-        <button class="btn btn-ghost btn-sm" onclick="showZone('auth'); switchAuth('login')">Se connecter</button>
-        <button class="btn btn-primary btn-sm" onclick="showZone('auth'); switchAuth('register')">S'inscrire</button>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-          <i data-lucide="menu"></i>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Mobile menu -->
-  <div class="sidebar-overlay" id="pubMenuOverlay" onclick="toggleMobileMenu()"></div>
-  <div style="position:fixed; top:0; right:-300px; width:280px; height:100vh; background:var(--surface); z-index:200; padding:24px; transition:right 0.3s; box-shadow:-10px 0 30px rgba(0,0,0,0.15);" id="pubMobileMenu">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-      <span style="font-weight:800; font-size:16px;">Menu</span>
-      <button class="icon-btn" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
-    </div>
-    <a class="menu-item" onclick="showPubScreen('home'); toggleMobileMenu()"><div class="menu-item-left"><i data-lucide="home"></i> Accueil</div></a>
-    <a class="menu-item" onclick="showPubScreen('how'); toggleMobileMenu()"><div class="menu-item-left"><i data-lucide="book-open"></i> Comment ça marche</div></a>
-    <a class="menu-item" onclick="showPubScreen('doctors'); toggleMobileMenu()"><div class="menu-item-left"><i data-lucide="stethoscope"></i> Médecins</div></a>
-    <a class="menu-item" onclick="showPubScreen('pricing'); toggleMobileMenu()"><div class="menu-item-left"><i data-lucide="tag"></i> Tarifs</div></a>
-    <a class="menu-item" onclick="showPubScreen('faq'); toggleMobileMenu()"><div class="menu-item-left"><i data-lucide="help-circle"></i> FAQ</div></a>
-    <a class="menu-item" onclick="showPubScreen('contact'); toggleMobileMenu()"><div class="menu-item-left"><i data-lucide="mail"></i> Contact</div></a>
-    <a class="menu-item" onclick="showPubScreen('doc-signup'); toggleMobileMenu()"><div class="menu-item-left"><i data-lucide="user-plus"></i> Devenir médecin</div></a>
-    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:8px;">
-      <button class="btn btn-secondary btn-block" onclick="showZone('auth'); switchAuth('login'); toggleMobileMenu()">Se connecter</button>
-      <button class="btn btn-primary btn-block" onclick="showZone('auth'); switchAuth('register'); toggleMobileMenu()">S'inscrire</button>
+    <div class="pub-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
+        <i data-lucide="moon" data-theme-icon></i>
+      </button>
+      <a class="btn btn-ghost btn-sm" href="auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-sm" href="auth/register.html">S'inscrire</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
   </div>
-
-  <!-- PUBLIC SCREENS -->
-  <main>
-
-    <!-- HOME -->
-    <div id="pub-screen-home" class="screen active">
-      <section class="container">
-        <div class="hero">
-          <div>
-            <h1>Monganga na yo,<br><em>na tshombo na yo</em></h1>
-            <p>Consultez un médecin vérifié depuis chez vous, sans vous déplacer. La santé à portée de main, à Kinshasa.</p>
-            <div class="hero-cta">
-              <button class="btn btn-primary btn-lg" onclick="showPubScreen('doctors')">
-                <i data-lucide="video"></i> Trouver un médecin
-              </button>
-              <button class="btn btn-secondary btn-lg" onclick="showPubScreen('how')">
-                <i data-lucide="play-circle"></i> Comment ça marche
-              </button>
-            </div>
-            <div class="hero-trust">
-              <span><i data-lucide="shield-check"></i> Médecins vérifiés</span>
-              <span><i data-lucide="smartphone"></i> Mobile Money</span>
-              <span><i data-lucide="lock"></i> Données sécurisées</span>
-            </div>
-          </div>
-          <div class="hero-visual"><i data-lucide="heart-pulse"></i></div>
-        </div>
-      </section>
-
-      <section class="section section-alt">
-        <div class="container">
-          <h2 class="section-title">Comment ça marche ?</h2>
-          <div class="steps-grid">
-            <div class="step-card">
-              <div class="step-icon"><i data-lucide="search"></i></div>
-              <div class="step-num">Étape 1</div>
-              <div class="step-title">Trouvez un médecin</div>
-              <div class="step-desc">Recherchez par spécialité, commune ou géolocalisation.</div>
-            </div>
-            <div class="step-card">
-              <div class="step-icon"><i data-lucide="calendar-check"></i></div>
-              <div class="step-num">Étape 2</div>
-              <div class="step-title">Choisissez un créneau</div>
-              <div class="step-desc">Sélectionnez l'heure qui vous convient.</div>
-            </div>
-            <div class="step-card">
-              <div class="step-icon"><i data-lucide="credit-card"></i></div>
-              <div class="step-num">Étape 3</div>
-              <div class="step-title">Payez en Mobile Money</div>
-              <div class="step-desc">M-Pesa, Orange Money, Airtel Money.</div>
-            </div>
-            <div class="step-card">
-              <div class="step-icon"><i data-lucide="file-text"></i></div>
-              <div class="step-num">Étape 4</div>
-              <div class="step-title">Recevez votre ordonnance</div>
-              <div class="step-desc">Vidéo, audio ou chat — puis ordonnance numérique.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <h2 class="section-title">Pourquoi MONGANGA ?</h2>
-          <div class="grid-2">
-            <div class="diff-card">
-              <div class="diff-icon"><i data-lucide="wifi-off"></i></div>
-              <h3>Connexion faible ? Bascule audio en un clic</h3>
-              <p>Notre système détecte automatiquement la qualité du réseau et vous propose la meilleure option — sans couper la consultation.</p>
-            </div>
-            <div class="diff-card">
-              <div class="diff-icon"><i data-lucide="file-badge"></i></div>
-              <h3>Votre ordonnance, toujours avec vous</h3>
-              <p>Une carte numérique sécurisée, montrable en pharmacie. Plus besoin d'imprimer.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="container" style="padding:0 24px 72px;">
-        <div class="cta-final">
-          <h2>Prêt à consulter un médecin ?</h2>
-          <p>Créez votre compte en 1 minute et prenez votre premier rendez-vous.</p>
-          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-            <button class="btn btn-primary btn-lg" onclick="showZone('auth'); switchAuth('register')">Créer un compte</button>
-            <button class="btn btn-secondary btn-lg" onclick="showPubScreen('doctors')">Voir les médecins</button>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- HOW IT WORKS -->
-    <div id="pub-screen-how" class="screen">
-      <div class="container section">
-        <h1 class="section-title" style="text-align:left;">Comment ça marche</h1>
-        <p style="font-size:16px; color:var(--text-2); max-width:680px; margin-bottom:40px;">
-          MONGANGA simplifie l'accès aux soins de santé à Kinshasa. En 4 étapes, consultez un médecin vérifié depuis votre téléphone.
-        </p>
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-icon"><i data-lucide="user-plus"></i></div>
-            <div class="step-num">Étape 1</div>
-            <div class="step-title">Créez votre compte</div>
-            <div class="step-desc">Inscription rapide par téléphone avec code OTP sécurisé.</div>
-          </div>
-          <div class="step-card">
-            <div class="step-icon"><i data-lucide="search"></i></div>
-            <div class="step-num">Étape 2</div>
-            <div class="step-title">Trouvez votre médecin</div>
-            <div class="step-desc">Filtrez par spécialité, commune ou disponibilité.</div>
-          </div>
-          <div class="step-card">
-            <div class="step-icon"><i data-lucide="credit-card"></i></div>
-            <div class="step-num">Étape 3</div>
-            <div class="step-title">Payez en Mobile Money</div>
-            <div class="step-desc">M-Pesa, Orange Money, Airtel Money ou carte bancaire.</div>
-          </div>
-          <div class="step-card">
-            <div class="step-icon"><i data-lucide="video"></i></div>
-            <div class="step-num">Étape 4</div>
-            <div class="step-title">Consultez à distance</div>
-            <div class="step-desc">Vidéo HD, audio ou chat — puis recevez votre ordonnance numérique.</div>
-          </div>
-        </div>
-
-        <h2 class="section-title" style="text-align:left; margin-top:72px;">Nos différenciateurs</h2>
-        <div class="grid-2">
-          <div class="diff-card">
-            <div class="diff-icon"><i data-lucide="wifi-off"></i></div>
-            <h3>Bascule audio automatique</h3>
-            <p>Si votre connexion est faible, MONGANGA détecte et vous propose de passer en audio en un clic — sans couper la consultation.</p>
-          </div>
-          <div class="diff-card">
-            <div class="diff-icon"><i data-lucide="file-badge"></i></div>
-            <h3>Ordonnance numérique sécurisée</h3>
-            <p>Une carte numérique au format ticket, montrable en pharmacie. Plus besoin d'imprimer.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DOCTORS LIST -->
-    <div id="pub-screen-doctors" class="screen">
-      <div class="container section">
-        <div style="margin-bottom:32px;">
-          <h1 class="section-title" style="text-align:left; margin-bottom:12px;">Trouvez un médecin</h1>
-          <p style="font-size:15px; color:var(--text-2);">
-            Découvrez un aperçu de nos médecins vérifiés. Créez un compte pour voir tous les profils et prendre rendez-vous.
-          </p>
-        </div>
-
-        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px;">
-          <button class="chip active">Tous</button>
-          <button class="chip">Médecine générale</button>
-          <button class="chip">Pédiatrie</button>
-          <button class="chip">Gynécologie</button>
-          <button class="chip">Dermatologie</button>
-          <button class="chip">Cardiologie</button>
-        </div>
-
-        <div class="doctors-grid">
-          <div class="doctor-card" onclick="showPubScreen('doctor')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar">DI</div>
-              <div style="flex:1;">
-                <div class="doctor-name">Dr Ilunga</div>
-                <div class="doctor-specialty">Médecine générale</div>
-              </div>
-            </div>
-            <div class="doctor-meta">
-              <span><i data-lucide="map-pin"></i> Gombe • 2,3 km</span>
-              <span><i data-lucide="star"></i> 4.8</span>
-            </div>
-            <div class="badge success"><i data-lucide="shield-check"></i> Vérifié par l'Ordre</div>
-          </div>
-
-          <div class="doctor-card" onclick="showPubScreen('doctor')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar">DK</div>
-              <div style="flex:1;">
-                <div class="doctor-name">Dr Kabila</div>
-                <div class="doctor-specialty">Pédiatrie</div>
-              </div>
-            </div>
-            <div class="doctor-meta">
-              <span><i data-lucide="map-pin"></i> Lingwala • 4,1 km</span>
-              <span><i data-lucide="star"></i> 4.6</span>
-            </div>
-            <div class="badge success"><i data-lucide="shield-check"></i> Vérifié par l'Ordre</div>
-          </div>
-
-          <div class="doctor-card" onclick="showPubScreen('doctor')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar">DM</div>
-              <div style="flex:1;">
-                <div class="doctor-name">Dr Mbuyi</div>
-                <div class="doctor-specialty">Dermatologie</div>
-              </div>
-            </div>
-            <div class="doctor-meta">
-              <span><i data-lucide="map-pin"></i> Kalamu • 5,2 km</span>
-              <span><i data-lucide="star"></i> 4.7</span>
-            </div>
-            <div class="badge success"><i data-lucide="shield-check"></i> Vérifié par l'Ordre</div>
-          </div>
-
-          <div class="doctor-card" style="opacity:0.5; cursor:not-allowed; position:relative;" onclick="showToast('Créez un compte pour voir tous les profils', 'info')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar" style="background:var(--surface-2); color:var(--text-3);">?</div>
-              <div style="flex:1;">
-                <div class="doctor-name">+ 47 autres médecins</div>
-                <div class="doctor-specialty">Connectez-vous pour les voir</div>
-              </div>
-            </div>
-            <div class="badge info"><i data-lucide="lock"></i> Compte requis</div>
-          </div>
-        </div>
-
-        <div class="cta-final" style="margin-top:48px;">
-          <h2>Voir tous les médecins disponibles</h2>
-          <p>Créez un compte gratuit pour accéder à toutes les fiches, prendre rendez-vous et consulter.</p>
-          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-            <button class="btn btn-primary btn-lg" onclick="showZone('auth'); switchAuth('register')">Créer un compte gratuit</button>
-            <button class="btn btn-secondary btn-lg" onclick="showZone('auth'); switchAuth('login')">Se connecter</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DOCTOR PUBLIC PROFILE -->
-    <div id="pub-screen-doctor" class="screen">
-      <div class="container">
-        <div style="padding:20px 0;">
-          <a class="btn btn-ghost btn-sm" onclick="showPubScreen('doctors')" style="padding:0;">
-            <i data-lucide="arrow-left"></i> Retour
-          </a>
-        </div>
-        <div class="doctor-profile-layout">
-          <aside class="doctor-profile-sidebar">
-            <div class="avatar-xl">DI</div>
-            <h1>Dr Ilunga</h1>
-            <p class="specialty">Médecine générale</p>
-            <p class="meta">Gombe • 4.8 (32 avis)</p>
-            <div style="text-align:center; margin-bottom:16px;">
-              <span class="badge success"><i data-lucide="shield-check"></i> Vérifié par l'Ordre</span>
-            </div>
-            <div class="section-block">
-              <h4>À propos</h4>
-              <p>Médecin généraliste, 10 ans d'expérience. Consultations vidéo, audio et chat.</p>
-            </div>
-            <div class="section-block">
-              <h4>Diplômes & vérifications</h4>
-              <div class="check-item"><i data-lucide="check-circle-2"></i> Diplôme — UNIKIN</div>
-              <div class="check-item"><i data-lucide="check-circle-2"></i> Ordre n° 12345</div>
-            </div>
-          </aside>
-
-          <main>
-            <div class="slots-panel">
-              <h3>Créneaux disponibles</h3>
-              <div class="slot-day">
-                <h4>Jeudi 24 septembre</h4>
-                <div class="slots-row">
-                  <div class="slot">10h00</div>
-                  <div class="slot">11h00</div>
-                  <div class="slot">14h00</div>
-                  <div class="slot">15h00</div>
-                </div>
-              </div>
-              <div class="slot-day">
-                <h4>Vendredi 25 septembre</h4>
-                <div class="slots-row">
-                  <div class="slot">09h00</div>
-                  <div class="slot">10h00</div>
-                </div>
-              </div>
-              <div class="alert info" style="margin-top:20px;">
-                <i data-lucide="info"></i>
-                <span>Vous devez être connecté pour prendre rendez-vous.</span>
-              </div>
-              <button class="btn btn-primary btn-lg btn-block" style="margin-top:20px;" onclick="showZone('auth'); switchAuth('register')">
-                <i data-lucide="calendar-check"></i> Créer un compte pour prendre RDV
-              </button>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-
-    <!-- PRICING -->
-    <div id="pub-screen-pricing" class="screen">
-      <div class="container section">
-        <h1 class="section-title">Tarifs des consultations</h1>
-        <p style="text-align:center; font-size:15px; color:var(--text-2); margin-bottom:40px; max-width:640px; margin-left:auto; margin-right:auto;">
-          Les tarifs sont fixés par MONGANGA pour garantir la transparence et l'équité. Aucun frais caché.
-        </p>
-
-        <div class="pricing-grid">
-          <div class="pricing-card">
-            <div class="plan-name">Consultation Standard</div>
-            <div class="price">20 $<small> / séance</small></div>
-            <div class="price-sub">Vidéo, audio ou chat — 30 min</div>
-            <ul class="pricing-features">
-              <li><i data-lucide="check-circle-2"></i> Consultation avec médecin généraliste vérifié</li>
-              <li><i data-lucide="check-circle-2"></i> Ordonnance numérique sécurisée</li>
-              <li><i data-lucide="check-circle-2"></i> Suivi de dossier médical</li>
-              <li><i data-lucide="check-circle-2"></i> Bascule audio automatique</li>
-            </ul>
-            <button class="btn btn-primary btn-block" onclick="showZone('auth'); switchAuth('register')">Prendre RDV</button>
-          </div>
-
-          <div class="pricing-card featured">
-            <div class="plan-name">Consultation Spécialiste</div>
-            <div class="price">30 $<small> / séance</small></div>
-            <div class="price-sub">Vidéo HD — 45 min</div>
-            <ul class="pricing-features">
-              <li><i data-lucide="check-circle-2"></i> Consultation avec spécialiste vérifié</li>
-              <li><i data-lucide="check-circle-2"></i> Envoi de documents (radios, analyses)</li>
-              <li><i data-lucide="check-circle-2"></i> Ordonnance numérique sécurisée</li>
-              <li><i data-lucide="check-circle-2"></i> Suivi prioritaire</li>
-            </ul>
-            <button class="btn btn-primary btn-block" onclick="showZone('auth'); switchAuth('register')">Prendre RDV</button>
-          </div>
-        </div>
-
-        <div class="alert info" style="max-width:640px; margin:32px auto 0;">
-          <i data-lucide="info"></i>
-          <span>Les tarifs incluent les frais de service. Le paiement s'effectue en Mobile Money (M-Pesa, Orange Money, Airtel Money) ou par carte bancaire.</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div id="pub-screen-faq" class="screen">
-      <div class="container section">
-        <h1 class="section-title">Questions fréquentes</h1>
-        <div class="faq-list">
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Comment prendre un rendez-vous ?</span>
-              <i data-lucide="chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              Créez un compte gratuit, recherchez un médecin par spécialité ou commune, choisissez un créneau disponible et payez en Mobile Money. Vous recevrez une confirmation immédiate.
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Quels sont les moyens de paiement acceptés ?</span>
-              <i data-lucide="chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              Nous acceptons M-Pesa, Orange Money, Airtel Money et les cartes bancaires Visa/Mastercard. Le paiement est sécurisé et confirmé instantanément.
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Que faire si ma connexion est faible pendant une consultation ?</span>
-              <i data-lucide="chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              MONGANGA détecte automatiquement la qualité du réseau et vous propose de basculer en mode audio en un clic, sans couper la consultation. Vous pouvez aussi ignorer et continuer en vidéo.
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Comment obtenir mon ordonnance après la consultation ?</span>
-              <i data-lucide="chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              L'ordonnance est émise directement par le médecin à la fin de la consultation. Elle apparaît immédiatement dans votre espace personnel sous forme de carte numérique, que vous pouvez montrer en pharmacie ou télécharger.
-            </div>
-          </div>
-          <div class="faq-item" onclick="toggleFaq(this)">
-            <div class="faq-question">
-              <span>Comment devenir médecin partenaire MONGANGA ?</span>
-              <i data-lucide="chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              Cliquez sur "Devenir médecin" en bas de page, remplissez le formulaire de candidature et déposez vos pièces justificatives (diplôme, inscription à l'Ordre, CV). Notre équipe examine votre dossier sous 48h.
-            </div>
-          </div>
-        </div>
-
-        <div class="cta-final" style="margin-top:48px;">
-          <h2>Vous n'avez pas trouvé votre réponse ?</h2>
-          <p>Contactez notre équipe, nous répondons sous 24h.</p>
-          <button class="btn btn-primary btn-lg" onclick="showPubScreen('contact')">
-            <i data-lucide="mail"></i> Nous contacter
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTACT -->
-    <div id="pub-screen-contact" class="screen">
-      <div class="container section">
-        <h1 class="section-title">Contactez-nous</h1>
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="icon"><i data-lucide="mail"></i></div>
-              <div>
-                <h4>Email</h4>
-                <p>contact@monganga.cd</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="icon"><i data-lucide="phone"></i></div>
-              <div>
-                <h4>Téléphone</h4>
-                <p>+243 800 000 000</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="icon"><i data-lucide="map-pin"></i></div>
-              <div>
-                <h4>Adresse</h4>
-                <p>Gombe, Kinshasa — RDC</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="icon"><i data-lucide="clock"></i></div>
-              <div>
-                <h4>Horaires</h4>
-                <p>Lun-Sam : 8h-20h</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="icon"><i data-lucide="message-circle"></i></div>
-              <div>
-                <h4>WhatsApp</h4>
-                <p>Support 24/7</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 style="font-size:18px; font-weight:700; margin-bottom:16px;">Envoyez-nous un message</h3>
-            <div class="form-group">
-              <label class="form-label">Nom complet</label>
-              <input class="form-input" placeholder="Votre nom">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-input" placeholder="votre@email.com">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Sujet</label>
-              <input class="form-input" placeholder="Ex : Question sur les tarifs">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Message</label>
-              <textarea class="form-input" placeholder="Votre message..."></textarea>
-            </div>
-            <button class="btn btn-primary btn-block btn-lg" onclick="showToast('Message envoyé. Nous vous répondrons sous 24h.', 'success')">
-              <i data-lucide="send"></i> Envoyer
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DOCTOR SIGNUP (Candidature) -->
-    <div id="pub-screen-doc-signup" class="screen">
-      <div class="container candidature-layout">
-        <h1 class="section-title" style="text-align:left; margin-bottom:12px;">Devenir médecin partenaire</h1>
-        <p style="font-size:15px; color:var(--text-2); margin-bottom:32px;">
-          Rejoignez MONGANGA et proposez vos consultations à distance. Remplissez le formulaire ci-dessous, notre équipe examine votre dossier sous 48h.
-        </p>
-
-        <div class="stepper">
-          <div class="stepper-dot active">1</div>
-          <div class="stepper-line"></div>
-          <div class="stepper-dot">2</div>
-          <div class="stepper-line"></div>
-          <div class="stepper-dot">3</div>
-        </div>
-
-        <div class="card">
-          <h3 style="font-size:16px; font-weight:700; margin-bottom:16px;">Informations personnelles</h3>
-
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">Prénom *</label>
-              <input class="form-input" placeholder="Jean">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Nom *</label>
-              <input class="form-input" placeholder="Ilunga">
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">Email professionnel *</label>
-              <input type="email" class="form-input" placeholder="dr.ilunga@email.com">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Téléphone *</label>
-              <input class="form-input" placeholder="+243 8XX XXX XXX">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Spécialité *</label>
-            <select class="form-input">
-              <option>Médecine générale</option>
-              <option>Pédiatrie</option>
-              <option>Gynécologie</option>
-              <option>Dermatologie</option>
-              <option>Cardiologie</option>
-              <option>Ophtalmologie</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Commune d'exercice *</label>
-            <select class="form-input">
-              <option>Gombe</option>
-              <option>Lingwala</option>
-              <option>Kalamu</option>
-              <option>Limete</option>
-              <option>Ngaliema</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Bio professionnelle</label>
-            <textarea class="form-input" placeholder="Décrivez votre parcours et vos domaines d'expertise..."></textarea>
-          </div>
-
-          <h3 style="font-size:16px; font-weight:700; margin:24px 0 16px;">Pièces justificatives</h3>
-
-          <div class="form-group">
-            <label class="form-label">Pièce d'identité *</label>
-            <div class="dropzone" onclick="showToast('Fichier déposé', 'success')">
-              <div class="icon"><i data-lucide="upload-cloud"></i></div>
-              <div class="title">Déposer votre pièce d'identité</div>
-              <div class="hint">PDF, JPG ou PNG — max 10 Mo</div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Diplôme de médecine *</label>
-            <div class="dropzone" onclick="showToast('Fichier déposé', 'success')">
-              <div class="icon"><i data-lucide="upload-cloud"></i></div>
-              <div class="title">Déposer votre diplôme</div>
-              <div class="hint">PDF, JPG ou PNG — max 10 Mo</div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Attestation d'inscription à l'Ordre *</label>
-            <div class="dropzone" onclick="showToast('Fichier déposé', 'success')">
-              <div class="icon"><i data-lucide="upload-cloud"></i></div>
-              <div class="title">Déposer l'attestation</div>
-              <div class="hint">PDF, JPG ou PNG — max 10 Mo</div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">CV professionnel *</label>
-            <div class="dropzone" onclick="showToast('Fichier déposé', 'success')">
-              <div class="icon"><i data-lucide="upload-cloud"></i></div>
-              <div class="title">Déposer votre CV</div>
-              <div class="hint">PDF, JPG ou PNG — max 10 Mo</div>
-            </div>
-          </div>
-
-          <div class="alert info" style="margin:20px 0;">
-            <i data-lucide="info"></i>
-            <span>Votre dossier sera examiné sous 48h. Vous recevrez une notification par email.</span>
-          </div>
-
-          <button class="btn btn-primary btn-lg btn-block" onclick="showToast('Candidature envoyée. Nous vous contacterons sous 48h.', 'success'); showPubScreen('home')">
-            <i data-lucide="send"></i> Envoyer ma candidature
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- PUBLIC FOOTER -->
-  <footer class="pub-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo">
-            <div class="logo-icon"><i data-lucide="activity"></i></div>
-            <span class="logo-text">MONGANGA</span>
-          </div>
-          <p>Monganga na yo, na tshombo na yo. La santé à portée de main, à Kinshasa.</p>
-        </div>
-        <div class="footer-col">
-          <h5>Produit</h5>
-          <a onclick="showPubScreen('how')">Comment ça marche</a>
-          <a onclick="showPubScreen('doctors')">Trouver un médecin</a>
-          <a onclick="showPubScreen('pricing')">Tarifs</a>
-        </div>
-        <div class="footer-col">
-          <h5>Aide</h5>
-          <a onclick="showPubScreen('faq')">FAQ</a>
-          <a onclick="showPubScreen('contact')">Contact</a>
-          <a onclick="showPubScreen('doc-signup')">Devenir médecin</a>
-        </div>
-        <div class="footer-col">
-          <h5>Légal</h5>
-          <a>Conditions d'utilisation</a>
-          <a>Politique de confidentialité</a>
-          <a>Mentions légales</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 MONGANGA. Tous droits réservés.</span>
-        <span>🇨🇩 Fait à Kinshasa</span>
-      </div>
-    </div>
-  </footer>
-
-</div>
-
-
-<!-- ============================================================
-     ZONE 2 : AUTH
-     ============================================================ -->
-<div id="zone-auth" class="app-zone">
-
-  <!-- LOGIN -->
-  <div id="auth-screen-login" class="screen active">
-    <div class="auth-wrapper">
-      <div class="auth-card">
-        <div class="auth-brand">
-          <div class="logo-icon"><i data-lucide="activity"></i></div>
-          <span class="auth-brand-text">MONGANGA</span>
-        </div>
-        <h2 class="auth-title">Bon retour</h2>
-        <p class="auth-subtitle">Connectez-vous pour accéder à votre espace</p>
-
-        <form onsubmit="handleLogin(event)">
-          <div class="form-group">
-            <label class="form-label">Email ou téléphone</label>
-            <div class="input-wrap">
-              <i data-lucide="mail" class="icon-left"></i>
-              <input type="text" class="form-input" placeholder="vous@monganga.cd" required id="loginEmail">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Mot de passe</label>
-            <div class="input-wrap">
-              <i data-lucide="lock" class="icon-left"></i>
-              <input type="password" class="form-input" placeholder="••••••••" required>
-            </div>
-          </div>
-
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <label style="font-size:12px; display:flex; gap:6px; align-items:center;">
-              <input type="checkbox"> Se souvenir
-            </label>
-            <a class="auth-link" style="font-size:12px;" onclick="showToast('Un lien de réinitialisation vous a été envoyé', 'info')">Mot de passe oublié ?</a>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-lg btn-block">
-            Se connecter <i data-lucide="arrow-right"></i>
-          </button>
-        </form>
-
-        <div class="alert info" style="margin-top:20px; font-size:12px;">
-          <i data-lucide="info"></i>
-          <span><strong>Démo :</strong> saisissez n'importe quel email → le rôle est détecté automatiquement (patient / médecin / admin selon le préfixe).</span>
-        </div>
-
-        <div class="auth-footer">
-          Pas encore de compte ? <a class="auth-link" onclick="switchAuth('register')">Créer un compte</a>
-        </div>
-        <div class="auth-footer" style="margin-top:8px;">
-          <a class="auth-link" style="font-size:12px;" onclick="showZone('public')">← Retour à l'accueil</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- REGISTER -->
-  <div id="auth-screen-register" class="screen">
-    <div class="auth-wrapper">
-      <div class="auth-card">
-        <div class="auth-brand">
-          <div class="logo-icon"><i data-lucide="activity"></i></div>
-          <span class="auth-brand-text">MONGANGA</span>
-        </div>
-        <h2 class="auth-title">Créer un compte</h2>
-        <p class="auth-subtitle">Choisissez votre type de compte</p>
-
-        <div class="role-tabs">
-          <div class="role-tab active" data-role="patient" onclick="selectRegRole('patient', this)">
-            <i data-lucide="user"></i> Patient
-          </div>
-          <div class="role-tab" data-role="doctor" onclick="selectRegRole('doctor', this)">
-            <i data-lucide="stethoscope"></i> Médecin
-          </div>
-        </div>
-
-        <!-- PATIENT FORM -->
-        <div id="reg-form-patient">
-          <form onsubmit="handleRegister(event, 'patient')">
-            <div class="form-group">
-              <label class="form-label">Nom complet</label>
-              <div class="input-wrap">
-                <i data-lucide="user" class="icon-left"></i>
-                <input type="text" class="form-input" placeholder="Aline Kabila" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Téléphone</label>
-              <div class="input-wrap">
-                <i data-lucide="phone" class="icon-left"></i>
-                <input type="tel" class="form-input" placeholder="+243 8XX XXX XXX" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Email (optionnel)</label>
-              <div class="input-wrap">
-                <i data-lucide="mail" class="icon-left"></i>
-                <input type="email" class="form-input" placeholder="aline@email.com">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">
-              Créer mon compte patient
-            </button>
-          </form>
-        </div>
-
-        <!-- DOCTOR FORM -->
-        <div id="reg-form-doctor" style="display:none;">
-          <div class="alert info" style="margin-bottom:16px;">
-            <i data-lucide="info"></i>
-            <span>Pour devenir médecin, remplissez le formulaire de candidature complet.</span>
-          </div>
-          <button class="btn btn-primary btn-lg btn-block" onclick="showZone('public'); showPubScreen('doc-signup')">
-            <i data-lucide="user-plus"></i> Formulaire de candidature
-          </button>
-        </div>
-
-        <div class="auth-footer">
-          Déjà inscrit ? <a class="auth-link" onclick="switchAuth('login')">Se connecter</a>
-        </div>
-        <div class="auth-footer" style="margin-top:8px;">
-          <a class="auth-link" style="font-size:12px;" onclick="showZone('public')">← Retour à l'accueil</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- ============================================================
-     ZONE 3 : PATIENT APP (espace privé)
-     ============================================================ -->
-<div id="zone-patient" class="app-zone">
-  <header class="patient-header">
-    <div class="patient-header-inner">
-      <div class="logo" onclick="showPatientScreen('home')">
-        <div class="logo-icon"><i data-lucide="activity"></i></div>
-        <span class="logo-text">MONGANGA</span>
-      </div>
-      <nav class="patient-nav">
-        <a class="patient-nav-link active" data-ps="home" onclick="showPatientScreen('home')">Accueil</a>
-        <a class="patient-nav-link" data-ps="search" onclick="showPatientScreen('search')">Rechercher</a>
-        <a class="patient-nav-link" data-ps="history" onclick="showPatientScreen('history')">Mes RDV</a>
-        <a class="patient-nav-link" data-ps="prescription" onclick="showPatientScreen('prescription')">Ordonnances</a>
-        <a class="patient-nav-link" data-ps="profile" onclick="showPatientScreen('profile')">Profil</a>
-      </nav>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <button class="icon-btn" onclick="toggleTheme()"><i data-lucide="moon" id="patThemeIcon"></i></button>
-        <button class="icon-btn" onclick="showToast('3 notifications', 'info')">
-          <i data-lucide="bell"></i>
-          <span class="dot-badge"></span>
-        </button>
-        <button class="btn btn-ghost btn-sm" onclick="logout()">
-          <i data-lucide="log-out"></i>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main class="patient-main">
-
-    <!-- PATIENT HOME -->
-    <div id="pat-screen-home" class="screen active">
-      <div class="container" style="padding:40px 24px;">
-        <h1 class="page-title" style="margin-bottom:6px;">Bonjour Aline 👋</h1>
-        <p class="page-subtitle" style="margin-bottom:28px;">Que puis-je faire pour vous aujourd'hui ?</p>
-
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-label"><i data-lucide="calendar"></i> Prochains RDV</div>
-            <div class="kpi-value">1</div>
-            <span class="kpi-trend up"><i data-lucide="clock"></i> Jeudi 10h00</span>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label"><i data-lucide="file-text"></i> Ordonnances</div>
-            <div class="kpi-value">3</div>
-            <span class="kpi-trend up">Actives</span>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label"><i data-lucide="history"></i> Consultations</div>
-            <div class="kpi-value">12</div>
-            <span class="kpi-trend up">Depuis 2026</span>
-          </div>
-        </div>
-
-        <div class="card-block">
-          <div class="card-header-row">
-            <div>
-              <div class="card-title">Prochain rendez-vous</div>
-              <div class="card-subtitle">Jeudi 24 septembre 2026</div>
-            </div>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px; padding:14px; background:var(--surface-2); border-radius:var(--r-md); flex-wrap:wrap;">
-            <div class="table-avatar">DI</div>
-            <div style="flex:1; min-width:200px;">
-              <div style="font-weight:700; font-size:14px;">Dr Ilunga</div>
-              <div style="font-size:12px; color:var(--text-2);">10h00 — Consultation générale</div>
-            </div>
-            <span class="badge success"><i data-lucide="check-circle-2"></i> Confirmé</span>
-            <button class="btn btn-primary btn-sm" onclick="showPatientScreen('consult')">
-              <i data-lucide="video"></i> Rejoindre
-            </button>
-          </div>
-        </div>
-
-        <div class="card-block">
-          <div class="card-header-row">
-            <div class="card-title">Actions rapides</div>
-          </div>
-          <div class="grid-3">
-            <button class="btn btn-secondary" style="justify-content:flex-start; padding:16px;" onclick="showPatientScreen('search')">
-              <i data-lucide="search"></i> Trouver un médecin
-            </button>
-            <button class="btn btn-secondary" style="justify-content:flex-start; padding:16px;" onclick="showPatientScreen('history')">
-              <i data-lucide="calendar"></i> Voir mes RDV
-            </button>
-            <button class="btn btn-secondary" style="justify-content:flex-start; padding:16px;" onclick="showPatientScreen('prescription')">
-              <i data-lucide="file-text"></i> Mes ordonnances
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PATIENT SEARCH -->
-    <div id="pat-screen-search" class="screen">
-      <div class="container" style="padding:40px 24px;">
-        <h1 class="page-title" style="margin-bottom:6px;">Trouver un médecin</h1>
-        <p class="page-subtitle" style="margin-bottom:24px;">48 médecins disponibles à Kinshasa</p>
-
-        <div class="grid-4" style="margin-bottom:24px;">
-          <input class="form-input" placeholder="🔍 Rechercher...">
-          <select class="form-input">
-            <option>Spécialité</option>
-            <option>Médecine générale</option>
-            <option>Pédiatrie</option>
-            <option>Gynécologie</option>
-          </select>
-          <select class="form-input">
-            <option>Commune</option>
-            <option>Gombe</option>
-            <option>Lingwala</option>
-          </select>
-          <select class="form-input">
-            <option>Disponibilité</option>
-            <option>Aujourd'hui</option>
-            <option>Cette semaine</option>
-          </select>
-        </div>
-
-        <div class="doctors-grid">
-          <div class="doctor-card" onclick="showPatientScreen('doctor')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar">DI</div>
-              <div style="flex:1;">
-                <div class="doctor-name">Dr Ilunga</div>
-                <div class="doctor-specialty">Médecine générale</div>
-              </div>
-            </div>
-            <div class="doctor-meta">
-              <span><i data-lucide="map-pin"></i> Gombe • 2,3 km</span>
-              <span><i data-lucide="star"></i> 4.8</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-              <span style="font-size:12px; color:var(--primary); font-weight:700;">20 $</span>
-            </div>
-          </div>
-
-          <div class="doctor-card" onclick="showPatientScreen('doctor')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar">DK</div>
-              <div style="flex:1;">
-                <div class="doctor-name">Dr Kabila</div>
-                <div class="doctor-specialty">Pédiatrie</div>
-              </div>
-            </div>
-            <div class="doctor-meta">
-              <span><i data-lucide="map-pin"></i> Lingwala • 4,1 km</span>
-              <span><i data-lucide="star"></i> 4.6</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-              <span style="font-size:12px; color:var(--primary); font-weight:700;">25 $</span>
-            </div>
-          </div>
-
-          <div class="doctor-card" onclick="showPatientScreen('doctor')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar">DM</div>
-              <div style="flex:1;">
-                <div class="doctor-name">Dr Mbuyi</div>
-                <div class="doctor-specialty">Dermatologie</div>
-              </div>
-            </div>
-            <div class="doctor-meta">
-              <span><i data-lucide="map-pin"></i> Kalamu • 5,2 km</span>
-              <span><i data-lucide="star"></i> 4.7</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-              <span style="font-size:12px; color:var(--primary); font-weight:700;">30 $</span>
-            </div>
-          </div>
-
-          <div class="doctor-card" onclick="showPatientScreen('doctor')">
-            <div class="doctor-card-header">
-              <div class="doctor-avatar">DL</div>
-              <div style="flex:1;">
-                <div class="doctor-name">Dr Lukusa</div>
-                <div class="doctor-specialty">Gynécologie</div>
-              </div>
-            </div>
-            <div class="doctor-meta">
-              <span><i data-lucide="map-pin"></i> Gombe • 1,8 km</span>
-              <span><i data-lucide="star"></i> 4.9</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-              <span style="font-size:12px; color:var(--primary); font-weight:700;">30 $</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PATIENT DOCTOR PROFILE -->
-    <div id="pat-screen-doctor" class="screen">
-      <div class="container">
-        <div style="padding:20px 0;">
-          <a class="btn btn-ghost btn-sm" onclick="showPatientScreen('search')" style="padding:0;">
-            <i data-lucide="arrow-left"></i> Retour
-          </a>
-        </div>
-        <div class="doctor-profile-layout">
-          <aside class="doctor-profile-sidebar">
-            <div class="avatar-xl">DI</div>
-            <h1>Dr Ilunga</h1>
-            <p class="specialty">Médecine générale</p>
-            <p class="meta">Gombe • 4.8 (32 avis)</p>
-            <div style="text-align:center; margin-bottom:16px;">
-              <span class="badge success"><i data-lucide="shield-check"></i> Vérifié par l'Ordre</span>
-            </div>
-            <div class="section-block">
-              <h4>À propos</h4>
-              <p>Médecin généraliste, 10 ans d'expérience. Consultations vidéo, audio et chat.</p>
-            </div>
-            <div class="section-block">
-              <h4>Diplômes & vérifications</h4>
-              <div class="check-item"><i data-lucide="check-circle-2"></i> Diplôme — UNIKIN</div>
-              <div class="check-item"><i data-lucide="check-circle-2"></i> Ordre n° 12345</div>
-            </div>
-            <div class="section-block">
-              <h4>Tarif (fixé par MONGANGA)</h4>
-              <p style="font-size:22px; font-weight:800; color:var(--primary);">
-                20 $ <span style="font-size:13px; font-weight:400; color:var(--text-3);">/ consultation</span>
-              </p>
-            </div>
-          </aside>
-
-          <main>
-            <div class="slots-panel">
-              <h3>Choisissez un créneau</h3>
-              <div class="slot-day">
-                <h4>Jeudi 24 septembre</h4>
-                <div class="slots-row">
-                  <div class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 10h00')">10h00</div>
-                  <div class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 11h00')">11h00</div>
-                  <div class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 14h00')">14h00</div>
-                  <div class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 15h00')">15h00</div>
-                </div>
-              </div>
-              <div class="slot-day">
-                <h4>Vendredi 25 septembre</h4>
-                <div class="slots-row">
-                  <div class="slot" onclick="selectSlot(this, 'Vendredi 25 sept. à 09h00')">09h00</div>
-                  <div class="slot" onclick="selectSlot(this, 'Vendredi 25 sept. à 10h00')">10h00</div>
-                </div>
-              </div>
-              <div class="alert info" style="margin-top:20px;">
-                <i data-lucide="info"></i>
-                <span>Demande à faire au moins 24h avant. Réponse du médecin sous 4h.</span>
-              </div>
-              <div id="pat-recap-box" class="card-block" style="display:none; background:var(--primary-light); border-color:var(--primary);">
-                <div style="font-weight:700; margin-bottom:10px;">Récapitulatif</div>
-                <p style="font-size:13px; margin-bottom:4px;">Dr Ilunga — Médecine générale</p>
-                <p style="font-size:13px; color:var(--text-2); margin-bottom:12px;" id="pat-recap-slot">—</p>
-                <div style="font-size:22px; font-weight:800; color:var(--primary); margin-bottom:14px;">20 $</div>
-                <button class="btn btn-primary btn-block" onclick="showPatientScreen('payment')">Demander la consultation</button>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-
-    <!-- PATIENT PAYMENT -->
-    <div id="pat-screen-payment" class="screen">
-      <div class="container" style="max-width:560px; margin:0 auto; padding:40px 24px;">
-        <div class="card">
-          <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Paiement</h2>
-
-          <div style="padding:18px; background:var(--surface-2); border-radius:var(--r-md); margin-bottom:20px;">
-            <div style="display:flex; justify-content:space-between; padding:7px 0; font-size:13px;"><span>Consultation Dr Ilunga</span><span>20,00 $</span></div>
-            <div style="display:flex; justify-content:space-between; padding:7px 0; font-size:13px;"><span>Frais de service</span><span>1,00 $</span></div>
-            <div style="display:flex; justify-content:space-between; padding:14px 0 0; margin-top:6px; border-top:1px solid var(--border); font-size:18px; font-weight:800;"><span>Total</span><span>21,00 $</span></div>
-          </div>
-
-          <h3 style="font-size:15px; font-weight:700; margin-bottom:14px;">Moyen de paiement</h3>
-          <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
-            <div class="payment-method selected" onclick="selectPayment(this)" style="padding:14px 18px; border:1px solid var(--primary); border-radius:var(--r-md); display:flex; justify-content:space-between; align-items:center; cursor:pointer; background:var(--primary-light);">
-              <span style="display:flex; align-items:center; gap:12px; font-weight:600; font-size:13px;"><i data-lucide="smartphone" style="color:var(--primary);"></i> M-Pesa</span>
-              <span style="width:20px; height:20px; border-radius:50%; border:2px solid var(--primary); display:flex; align-items:center; justify-content:center;"><span style="width:10px; height:10px; border-radius:50%; background:var(--primary);"></span></span>
-            </div>
-            <div class="payment-method" onclick="selectPayment(this)" style="padding:14px 18px; border:1px solid var(--border); border-radius:var(--r-md); display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-              <span style="display:flex; align-items:center; gap:12px; font-weight:600; font-size:13px;"><i data-lucide="smartphone" style="color:var(--primary);"></i> Orange Money</span>
-              <span style="width:20px; height:20px; border-radius:50%; border:2px solid var(--border-strong);"></span>
-            </div>
-            <div class="payment-method" onclick="selectPayment(this)" style="padding:14px 18px; border:1px solid var(--border); border-radius:var(--r-md); display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-              <span style="display:flex; align-items:center; gap:12px; font-weight:600; font-size:13px;"><i data-lucide="smartphone" style="color:var(--primary);"></i> Airtel Money</span>
-              <span style="width:20px; height:20px; border-radius:50%; border:2px solid var(--border-strong);"></span>
-            </div>
-            <div class="payment-method" onclick="selectPayment(this)" style="padding:14px 18px; border:1px solid var(--border); border-radius:var(--r-md); display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-              <span style="display:flex; align-items:center; gap:12px; font-weight:600; font-size:13px;"><i data-lucide="credit-card" style="color:var(--primary);"></i> Carte bancaire</span>
-              <span style="width:20px; height:20px; border-radius:50%; border:2px solid var(--border-strong);"></span>
-            </div>
-          </div>
-
-          <button class="btn btn-primary btn-lg btn-block" onclick="showPatientScreen('consult')">Confirmer le paiement</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PATIENT CONSULTATION -->
-    <div id="pat-screen-consult" class="screen">
-      <div style="min-height:calc(100vh - 68px); background:#0A0A0B; color:#FAFAFA; display:flex; flex-direction:column;">
-        <div style="padding:14px 20px; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.5); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="display:flex; align-items:center; gap:10px; font-size:13px; font-weight:600;">
-            <span style="width:8px; height:8px; border-radius:50%; background:#EF4444;"></span>
-            En direct — 10:02
-          </div>
-          <span style="font-weight:600; display:flex; align-items:center; gap:6px; font-size:13px;">
-            <i data-lucide="clock" style="width:14px; height:14px;"></i> 12:34
-          </span>
-        </div>
-
-        <div style="flex:1; display:grid; grid-template-columns: 1fr 360px; min-height:0;">
-          <div style="position:relative; background:#18181B; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.3);">
-            <i data-lucide="user-round" style="width:100px; height:100px; stroke-width:1;"></i>
-            <div style="position:absolute; bottom:20px; right:20px; width:140px; height:105px; background:#27272A; border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.1);">
-              <i data-lucide="user-round" style="width:36px; height:36px; color:rgba(255,255,255,0.4);"></i>
-            </div>
-          </div>
-
-          <aside style="background:#18181B; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.06);">
-            <div style="display:flex; border-bottom:1px solid rgba(255,255,255,0.06);">
-              <button style="flex:1; padding:14px 10px; font-size:12px; font-weight:600; color:#fff; border-bottom:2px solid var(--primary); background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;"><i data-lucide="message-square" style="width:13px; height:13px;"></i> Chat</button>
-              <button style="flex:1; padding:14px 10px; font-size:12px; font-weight:600; color:rgba(255,255,255,0.5); border-bottom:2px solid transparent; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;"><i data-lucide="paperclip" style="width:13px; height:13px;"></i> Docs</button>
-            </div>
-            <div style="flex:1; padding:18px; overflow-y:auto; display:flex; flex-direction:column; gap:14px;">
-              <div><div style="font-size:11px; font-weight:700; color:#60A5FA; text-transform:uppercase; margin-bottom:4px;">Dr Ilunga</div><div style="font-size:13px; color:rgba(255,255,255,0.9);">Bonjour Aline, comment vous sentez-vous ?</div></div>
-              <div><div style="font-size:11px; font-weight:700; color:#60A5FA; text-transform:uppercase; margin-bottom:4px;">Vous</div><div style="font-size:13px; color:rgba(255,255,255,0.9);">J'ai mal à la gorge depuis 3 jours.</div></div>
-            </div>
-            <div style="display:flex; gap:8px; padding:12px; border-top:1px solid rgba(255,255,255,0.06);">
-              <input type="text" placeholder="Écrire un message…" style="flex:1; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); color:#fff; padding:10px 14px; border-radius:999px; font-size:13px;">
-              <button style="width:40px; height:40px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center;"><i data-lucide="send"></i></button>
-            </div>
-          </aside>
-        </div>
-
-        <div style="padding:18px 20px; display:flex; justify-content:center; gap:12px; background:rgba(0,0,0,0.6); backdrop-filter:blur(16px); border-top:1px solid rgba(255,255,255,0.06);">
-          <button style="width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.1); color:#fff; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.08);" onclick="showToast('Micro activé/désactivé', 'info')"><i data-lucide="mic"></i></button>
-          <button style="width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.1); color:#fff; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.08);" onclick="showToast('Caméra activée/désactivée', 'info')"><i data-lucide="video"></i></button>
-          <button style="width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.1); color:#fff; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.08);" onclick="showToast('Chat ouvert', 'info')"><i data-lucide="message-square"></i></button>
-          <button style="width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.1); color:#fff; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.08);" onclick="showToast('Document envoyé', 'info')"><i data-lucide="paperclip"></i></button>
-          <button style="width:52px; height:52px; border-radius:50%; background:var(--danger); color:#fff; display:flex; align-items:center; justify-content:center;" onclick="showPatientScreen('prescription')"><i data-lucide="phone-off"></i></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PATIENT PRESCRIPTION -->
-    <div id="pat-screen-prescription" class="screen">
-      <div class="container" style="padding:40px 24px;">
-        <div style="max-width:440px; margin:0 auto; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); overflow:hidden; box-shadow:var(--shadow-lg);">
-          <div style="background:var(--text); color:var(--bg); padding:22px; text-align:center;">
-            <div style="font-size:10px; letter-spacing:0.25em; opacity:0.6; font-weight:700; margin-bottom:4px;">ORDONNANCE</div>
-            <div style="font-size:20px; font-weight:800; letter-spacing:0.1em;">MONGANGA</div>
-          </div>
-          <div style="padding:22px;">
-            <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px;"><span style="color:var(--text-3); font-size:11px; font-weight:700; text-transform:uppercase;">Médecin</span><span>Dr Ilunga</span></div>
-            <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px;"><span style="color:var(--text-3); font-size:11px; font-weight:700; text-transform:uppercase;">N° Ordre</span><span>12345</span></div>
-            <div style="border-top:1px dashed var(--border); margin:14px 0;"></div>
-            <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px;"><span style="color:var(--text-3); font-size:11px; font-weight:700; text-transform:uppercase;">Patient</span><span>Aline K.</span></div>
-            <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px;"><span style="color:var(--text-3); font-size:11px; font-weight:700; text-transform:uppercase;">Date</span><span>24 septembre 2026</span></div>
-            <div style="border-top:1px dashed var(--border); margin:14px 0;"></div>
-            <div style="padding:10px 0;">
-              <div style="font-weight:600; font-size:14px; margin-bottom:2px;">Paracétamol 500mg</div>
-              <div style="font-size:12px; color:var(--text-3);">1 comprimé 3x/jour — 5 jours</div>
-            </div>
-            <div style="padding:10px 0;">
-              <div style="font-weight:600; font-size:14px; margin-bottom:2px;">Amoxicilline 500mg</div>
-              <div style="font-size:12px; color:var(--text-3);">1 gélule 2x/jour — 7 jours</div>
-            </div>
-          </div>
-          <div style="padding:12px 22px; background:var(--success-bg); color:var(--success-text); display:flex; align-items:center; gap:8px; font-size:12px; font-weight:700;">
-            <i data-lucide="shield-check" style="width:14px; height:14px;"></i> Document sécurisé — vérifiable en pharmacie
-          </div>
-        </div>
-        <div style="max-width:440px; margin:20px auto 0; display:flex; gap:10px;">
-          <button class="btn btn-primary btn-block" onclick="showToast('Ordonnance prête pour la pharmacie', 'success')">
-            <i data-lucide="qr-code"></i> Montrer en pharmacie
-          </button>
-          <button class="btn btn-secondary btn-icon" onclick="showToast('Téléchargement en cours', 'info')">
-            <i data-lucide="download"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PATIENT HISTORY -->
-    <div id="pat-screen-history" class="screen">
-      <div class="container" style="padding:40px 24px;">
-        <h1 class="page-title" style="margin-bottom:24px;">Mes rendez-vous</h1>
-
-        <div style="display:flex; gap:4px; border-bottom:1px solid var(--border); margin-bottom:20px;">
-          <button style="padding:12px 16px; font-size:13px; font-weight:600; color:var(--primary); border-bottom:2px solid var(--primary); background:none; cursor:pointer;">À venir</button>
-          <button style="padding:12px 16px; font-size:13px; font-weight:600; color:var(--text-3); border-bottom:2px solid transparent; background:none; cursor:pointer;">Passés</button>
-          <button style="padding:12px 16px; font-size:13px; font-weight:600; color:var(--text-3); border-bottom:2px solid transparent; background:none; cursor:pointer;">Annulés</button>
-        </div>
-
-        <div class="card" style="margin-bottom:12px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-            <div>
-              <div style="display:flex; gap:8px; align-items:center; margin-bottom:6px;">
-                <span class="badge success"><i data-lucide="check-circle-2"></i> Confirmé</span>
-                <strong>Dr Ilunga</strong>
-              </div>
-              <p style="font-size:13px; color:var(--text-2);">Jeudi 24 septembre 2026 à 10h00</p>
-              <p style="font-size:12px; color:var(--text-3);">Médecine générale • 20 $</p>
-            </div>
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-secondary btn-sm">Détails</button>
-              <button class="btn btn-primary btn-sm" onclick="showPatientScreen('consult')">
-                <i data-lucide="video"></i> Rejoindre
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-            <div>
-              <div style="display:flex; gap:8px; align-items:center; margin-bottom:6px;">
-                <span class="badge neutral"><i data-lucide="check"></i> Terminé</span>
-                <strong>Dr Mbayo</strong>
-              </div>
-              <p style="font-size:13px; color:var(--text-2);">12 août 2026 à 14h00</p>
-              <p style="font-size:12px; color:var(--text-3);">Dermatologie • 30 $</p>
-            </div>
-            <button class="btn btn-secondary btn-sm" onclick="showPatientScreen('prescription')">Voir l'ordonnance</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PATIENT PROFILE -->
-    <div id="pat-screen-profile" class="screen">
-      <div class="container" style="padding:40px 24px; max-width:800px;">
-        <h1 class="page-title" style="margin-bottom:24px;">Mon profil</h1>
-
-        <div class="card" style="margin-bottom:20px;">
-          <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
-            <div style="width:80px; height:80px; border-radius:var(--r-lg); background:var(--primary-light); color:var(--primary); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:28px;">AK</div>
-            <div>
-              <h2 style="font-size:20px; font-weight:800;">Aline Kabila</h2>
-              <p style="font-size:13px; color:var(--text-2);">+243 8XX XXX XXX • aline@email.com</p>
-              <p style="font-size:12px; color:var(--text-3); margin-top:4px;">Membre depuis septembre 2026</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3 style="font-size:16px; font-weight:700; margin-bottom:16px;">Informations personnelles</h3>
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">Nom complet</label>
-              <input class="form-input" value="Aline Kabila">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Téléphone</label>
-              <input class="form-input" value="+243 8XX XXX XXX">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Commune</label>
-              <input class="form-input" value="Gombe">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Groupe sanguin</label>
-              <input class="form-input" value="O+">
-            </div>
-          </div>
-
-          <h3 style="font-size:16px; font-weight:700; margin:24px 0 16px;">Informations médicales</h3>
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">Allergies connues</label>
-              <input class="form-input" value="Pénicilline">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Pathologies chroniques</label>
-              <input class="form-input" value="Asthme">
-            </div>
-          </div>
-
-          <button class="btn btn-primary" style="margin-top:20px;" onclick="showToast('Profil enregistré', 'success')">
-            <i data-lucide="save"></i> Enregistrer
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </main>
-</div>
-
-
-<!-- ============================================================
-     ZONE 4 : MÉDECIN APP
-     ============================================================ -->
-<div id="zone-doctor" class="app-zone">
-  <div class="dash-app">
-    <div class="sidebar-overlay" id="docSidebarOverlay" onclick="toggleDashSidebar('doc')"></div>
-
-    <aside class="dash-sidebar" id="docSidebar">
-      <div class="sidebar-header">
-        <div class="logo-icon"><i data-lucide="activity"></i></div>
-        <span class="logo-text">MONGANGA</span>
-      </div>
-      <div class="sidebar-content">
-        <div class="menu-group">
-          <div class="menu-title">MENU</div>
-          <a class="menu-item active" data-ds="doc-dashboard" onclick="showDoctorScreen('doc-dashboard', this)">
-            <div class="menu-item-left"><i data-lucide="layout-dashboard"></i> Tableau de bord</div>
-          </a>
-          <a class="menu-item" data-ds="doc-agenda" onclick="showDoctorScreen('doc-agenda', this)">
-            <div class="menu-item-left"><i data-lucide="calendar"></i> Agenda</div>
-          </a>
-          <a class="menu-item" data-ds="doc-dispo" onclick="showDoctorScreen('doc-dispo', this)">
-            <div class="menu-item-left"><i data-lucide="clock"></i> Disponibilités</div>
-          </a>
-          <a class="menu-item" data-ds="doc-demandes" onclick="showDoctorScreen('doc-demandes', this)">
-            <div class="menu-item-left"><i data-lucide="inbox"></i> Demandes</div>
-            <span class="badge-counter">3</span>
-          </a>
-          <a class="menu-item" data-ds="doc-patients" onclick="showDoctorScreen('doc-patients', this)">
-            <div class="menu-item-left"><i data-lucide="users"></i> Patients</div>
-          </a>
-          <a class="menu-item" data-ds="doc-ordonnances" onclick="showDoctorScreen('doc-ordonnances', this)">
-            <div class="menu-item-left"><i data-lucide="file-text"></i> Ordonnances</div>
-          </a>
-          <a class="menu-item" data-ds="doc-gains" onclick="showDoctorScreen('doc-gains', this)">
-            <div class="menu-item-left"><i data-lucide="wallet"></i> Gains</div>
-          </a>
-        </div>
-        <div class="menu-group">
-          <div class="menu-title">COMPTE</div>
-          <a class="menu-item" onclick="logout()">
-            <div class="menu-item-left"><i data-lucide="log-out"></i> Déconnexion</div>
-          </a>
-        </div>
-      </div>
-    </aside>
-
-    <div class="dash-main">
-      <header class="dash-header">
-        <div class="dash-header-left">
-          <button class="mobile-menu-btn" onclick="toggleDashSidebar('doc')"><i data-lucide="menu"></i></button>
-          <div class="search-box">
-            <i data-lucide="search"></i>
-            <input type="text" placeholder="Rechercher patient...">
-          </div>
-        </div>
-        <div class="dash-header-right">
-          <button class="icon-btn" onclick="toggleTheme()"><i data-lucide="moon" id="docThemeIcon"></i></button>
-          <button class="icon-btn" onclick="showToast('2 nouvelles demandes', 'info')">
-            <i data-lucide="bell"></i>
-            <span class="dot-badge"></span>
-          </button>
-          <div class="user-profile">
-            <div class="user-info">
-              <div class="user-name">Dr Kabeya</div>
-              <div class="user-role">Médecin généraliste</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&auto=format&fit=crop&q=80" class="avatar" alt="User">
-          </div>
-        </div>
-      </header>
-
-      <main class="dash-content">
-
-        <!-- DOCTOR DASHBOARD -->
-        <div id="d-doc-dashboard" class="d-screen active">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Bonjour Dr Kabeya 👋</h1>
-              <p class="page-subtitle">Voici votre activité aujourd'hui.</p>
-            </div>
-          </div>
-
-          <div class="kpi-grid">
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="calendar"></i> RDV du jour</div>
-              <div class="kpi-value">8</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +20%</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="inbox"></i> Demandes</div>
-              <div class="kpi-value" style="color:var(--warning);">3</div>
-              <span class="kpi-trend down"><i data-lucide="clock"></i> À traiter</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="wallet"></i> Gains du mois</div>
-              <div class="kpi-value" style="color:var(--success);">1 240 $</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +12%</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="users"></i> Patients actifs</div>
-              <div class="kpi-value">148</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +5</span>
-            </div>
-          </div>
-
-          <div class="card-block">
-            <div class="card-header-row">
-              <div>
-                <div class="card-title">Prochain rendez-vous</div>
-                <div class="card-subtitle">Jeudi 24 septembre 2026</div>
-              </div>
-            </div>
-            <div style="display:flex; align-items:center; gap:14px; padding:14px; background:var(--surface-2); border-radius:var(--r-md); flex-wrap:wrap;">
-              <div class="table-avatar">AK</div>
-              <div style="flex:1; min-width:200px;">
-                <div style="font-weight:700; font-size:14px;">Aline Kabila</div>
-                <div style="font-size:12px; color:var(--text-2);">10h00 — Consultation générale</div>
-              </div>
-              <span class="badge success"><i data-lucide="check-circle-2"></i> Confirmé</span>
-              <button class="btn btn-primary btn-sm" onclick="showPatientScreen('consult'); showZone('patient')">
-                <i data-lucide="video"></i> Rejoindre
-              </button>
-            </div>
-          </div>
-
-          <div class="card-block">
-            <div class="card-header-row">
-              <div class="card-title">Agenda du jour</div>
-              <button class="btn btn-ghost btn-sm" onclick="showDoctorScreen('doc-agenda')">Voir tout</button>
-            </div>
-            <div class="table-responsive">
-              <table class="table">
-                <thead><tr><th>Heure</th><th>Patient</th><th>Motif</th><th>Statut</th><th></th></tr></thead>
-                <tbody>
-                  <tr><td><strong>10h00</strong></td><td>Aline K.</td><td>Mal de gorge</td><td><span class="badge success">Confirmé</span></td><td><button class="btn btn-primary btn-sm">Rejoindre</button></td></tr>
-                  <tr><td><strong>11h00</strong></td><td>Patrick M.</td><td>Suivi tension</td><td><span class="badge success">Confirmé</span></td><td><button class="btn btn-secondary btn-sm">Détails</button></td></tr>
-                  <tr><td><strong>14h00</strong></td><td>Sarah T.</td><td>Première consultation</td><td><span class="badge warning">En attente</span></td><td><button class="btn btn-secondary btn-sm">Détails</button></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- DOCTOR AGENDA -->
-        <div id="d-doc-agenda" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Agenda</h1>
-              <p class="page-subtitle">Jeudi 24 septembre 2026</p>
-            </div>
-            <div class="page-actions">
-              <button class="btn btn-secondary btn-sm">← Hier</button>
-              <button class="btn btn-secondary btn-sm">Aujourd'hui</button>
-              <button class="btn btn-secondary btn-sm">Demain →</button>
-            </div>
-          </div>
-
-          <div class="agenda-grid">
-            <div class="agenda-hour">09h00</div><div class="agenda-slot"></div>
-            <div class="agenda-hour">10h00</div>
-            <div class="agenda-slot">
-              <div class="agenda-event confirmed">
-                <div><strong style="font-size:14px;">Aline K.</strong><div style="font-size:12px; color:var(--text-2);">Mal de gorge — 30 min</div></div>
-                <button class="btn btn-primary btn-sm">Rejoindre</button>
-              </div>
-            </div>
-            <div class="agenda-hour">11h00</div>
-            <div class="agenda-slot">
-              <div class="agenda-event confirmed">
-                <div><strong style="font-size:14px;">Patrick M.</strong><div style="font-size:12px; color:var(--text-2);">Suivi tension — 30 min</div></div>
-                <button class="btn btn-primary btn-sm">Rejoindre</button>
-              </div>
-            </div>
-            <div class="agenda-hour">12h00</div><div class="agenda-slot"></div>
-            <div class="agenda-hour">14h00</div>
-            <div class="agenda-slot">
-              <div class="agenda-event pending">
-                <div><strong style="font-size:14px;">Sarah T.</strong><div style="font-size:12px; color:var(--text-2);">En attente de paiement</div></div>
-                <span class="badge warning">Attente</span>
-              </div>
-            </div>
-            <div class="agenda-hour">15h00</div><div class="agenda-slot"></div>
-          </div>
-        </div>
-
-        <!-- DOCTOR DISPO -->
-        <div id="d-doc-dispo" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Mes disponibilités</h1>
-              <p class="page-subtitle">Cliquez sur un créneau pour l'ouvrir ou le fermer.</p>
-            </div>
-          </div>
-
-          <div class="card-block">
-            <div class="dispo-day">
-              <h4>Jeudi 24 septembre</h4>
-              <div class="dispo-slots">
-                <div class="dispo-slot open" onclick="toggleDispo(this)">09h00</div>
-                <div class="dispo-slot open" onclick="toggleDispo(this)">10h00</div>
-                <div class="dispo-slot closed" onclick="toggleDispo(this)">11h00</div>
-                <div class="dispo-slot open" onclick="toggleDispo(this)">14h00</div>
-                <div class="dispo-slot closed" onclick="toggleDispo(this)">15h00</div>
-                <div class="dispo-slot closed" onclick="toggleDispo(this)">16h00</div>
-              </div>
-            </div>
-            <div class="dispo-day">
-              <h4>Vendredi 25 septembre</h4>
-              <div class="dispo-slots">
-                <div class="dispo-slot closed" onclick="toggleDispo(this)">09h00</div>
-                <div class="dispo-slot closed" onclick="toggleDispo(this)">10h00</div>
-                <div class="dispo-slot closed" onclick="toggleDispo(this)">11h00</div>
-                <div class="dispo-slot closed" onclick="toggleDispo(this)">14h00</div>
-              </div>
-            </div>
-            <button class="btn btn-primary" onclick="showToast('Disponibilités enregistrées', 'success')">
-              <i data-lucide="save"></i> Enregistrer
-            </button>
-          </div>
-        </div>
-
-        <!-- DOCTOR DEMANDES -->
-        <div id="d-doc-demandes" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Demandes en attente</h1>
-              <p class="page-subtitle">Répondez sous 4h de traitement.</p>
-            </div>
-          </div>
-          <div class="grid-2">
-            <div class="demande-card">
-              <div>
-                <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
-                  <strong>Aline K.</strong>
-                  <span class="badge info">Nouveau</span>
-                </div>
-                <p style="font-size:13px; color:var(--text-2);">Jeudi 24 septembre à 10h00</p>
-                <p style="font-size:12px; color:var(--text-3); margin-top:6px;">Motif : mal de gorge depuis 3 jours</p>
-              </div>
-              <div class="demande-actions">
-                <button class="btn btn-primary btn-sm" onclick="showToast('Demande acceptée', 'success')">Accepter</button>
-                <button class="btn btn-secondary btn-sm" onclick="triggerModal('reject', 'Aline K.')">Refuser</button>
-              </div>
-            </div>
-            <div class="demande-card">
-              <div>
-                <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
-                  <strong>Patrick M.</strong>
-                </div>
-                <p style="font-size:13px; color:var(--text-2);">Vendredi 25 septembre à 09h00</p>
-                <p style="font-size:12px; color:var(--danger); margin-top:6px;">⚠️ Expire dans 2h</p>
-              </div>
-              <div class="demande-actions">
-                <button class="btn btn-primary btn-sm" onclick="showToast('Demande acceptée', 'success')">Accepter</button>
-                <button class="btn btn-secondary btn-sm" onclick="triggerModal('reject', 'Patrick M.')">Refuser</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DOCTOR PATIENTS -->
-        <div id="d-doc-patients" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Mes patients</h1>
-              <p class="page-subtitle">148 patients actifs</p>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table">
-              <thead><tr><th>Patient</th><th>Dernière consultation</th><th>Pathologie</th><th>Statut</th></tr></thead>
-              <tbody>
-                <tr><td><div class="table-user"><div class="table-avatar">AK</div><div><div class="table-name">Aline Kabila</div><div class="table-sub">aline.k@email.com</div></div></div></td><td>24/09/2026</td><td>Mal de gorge</td><td><span class="badge success">Actif</span></td></tr>
-                <tr><td><div class="table-user"><div class="table-avatar">PM</div><div><div class="table-name">Patrick Mwamba</div><div class="table-sub">p.mwamba@email.com</div></div></div></td><td>22/09/2026</td><td>Hypertension</td><td><span class="badge success">Actif</span></td></tr>
-                <tr><td><div class="table-user"><div class="table-avatar">ST</div><div><div class="table-name">Sarah Tshibangu</div><div class="table-sub">s.tshibangu@email.com</div></div></div></td><td>20/09/2026</td><td>Asthme</td><td><span class="badge success">Actif</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- DOCTOR ORDONNANCES -->
-        <div id="d-doc-ordonnances" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Ordonnances émises</h1>
-              <p class="page-subtitle">34 ordonnances ce mois</p>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table">
-              <thead><tr><th>Réf.</th><th>Patient</th><th>Date</th><th>Médicaments</th><th>Statut</th></tr></thead>
-              <tbody>
-                <tr><td>#ORD-1024</td><td>Aline Kabila</td><td>24/09/2026</td><td>Paracétamol, Amoxicilline</td><td><span class="badge success">Envoyée</span></td></tr>
-                <tr><td>#ORD-1023</td><td>Patrick Mwamba</td><td>22/09/2026</td><td>Amlodipine</td><td><span class="badge success">Envoyée</span></td></tr>
-                <tr><td>#ORD-1022</td><td>Sarah Tshibangu</td><td>20/09/2026</td><td>Salbutamol</td><td><span class="badge success">Envoyée</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- DOCTOR GAINS -->
-        <div id="d-doc-gains" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Mon portefeuille</h1>
-              <p class="page-subtitle">Suivi de vos gains et retraits</p>
-            </div>
-          </div>
-          <div class="wallet-hero">
-            <div class="label-sm">Solde disponible</div>
-            <div class="balance">145,00 $</div>
-            <div class="sub">En attente : 21,00 $ • Total perçu (sept.) : 320,00 $</div>
-          </div>
-          <div style="display:flex; gap:10px; margin-bottom:24px;">
-            <button class="btn btn-primary" onclick="showToast('Demande de retrait envoyée', 'success')">
-              <i data-lucide="arrow-down-to-line"></i> Demander un retrait
-            </button>
-            <button class="btn btn-secondary" onclick="showToast('Export en cours', 'info')">
-              <i data-lucide="download"></i> Exporter
-            </button>
-          </div>
-          <div class="card-block">
-            <div class="card-title" style="margin-bottom:14px;">Historique financier</div>
-            <div class="table-responsive">
-              <table class="table">
-                <thead><tr><th>Date</th><th>Description</th><th>Montant</th></tr></thead>
-                <tbody>
-                  <tr><td>24/09/2026</td><td>Consultation — Aline K.</td><td style="color:var(--success); font-weight:700;">+20,00 $</td></tr>
-                  <tr><td>23/09/2026</td><td>Consultation — Paul M.</td><td style="color:var(--success); font-weight:700;">+25,00 $</td></tr>
-                  <tr><td>22/09/2026</td><td>Consultation — Sarah T.</td><td style="color:var(--success); font-weight:700;">+20,00 $</td></tr>
-                  <tr><td>20/09/2026</td><td>Retrait — Mobile Money</td><td style="color:var(--danger); font-weight:700;">−50,00 $</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-      </main>
-    </div>
-  </div>
-</div>
-
-
-<!-- ============================================================
-     ZONE 5 : ADMIN APP
-     ============================================================ -->
-<div id="zone-admin" class="app-zone">
-  <div class="dash-app">
-    <div class="sidebar-overlay" id="adminSidebarOverlay" onclick="toggleDashSidebar('admin')"></div>
-
-    <aside class="dash-sidebar" id="adminSidebar">
-      <div class="sidebar-header">
-        <div class="logo-icon"><i data-lucide="activity"></i></div>
-        <span class="logo-text">MONGANGA</span>
-      </div>
-      <div class="sidebar-content">
-        <div class="menu-group">
-          <div class="menu-title">ADMINISTRATION</div>
-          <a class="menu-item active" data-as="admin-dashboard" onclick="showAdminScreen('admin-dashboard', this)">
-            <div class="menu-item-left"><i data-lucide="layout-dashboard"></i> Tableau de bord</div>
-          </a>
-          <a class="menu-item" data-as="admin-validations" onclick="showAdminScreen('admin-validations', this)">
-            <div class="menu-item-left"><i data-lucide="file-check-2"></i> Validations</div>
-            <span class="badge-counter" id="adminValidationsBadge">3</span>
-          </a>
-          <a class="menu-item" data-as="admin-transactions" onclick="showAdminScreen('admin-transactions', this)">
-            <div class="menu-item-left"><i data-lucide="credit-card"></i> Transactions</div>
-          </a>
-          <a class="menu-item" data-as="admin-users" onclick="showAdminScreen('admin-users', this)">
-            <div class="menu-item-left"><i data-lucide="users"></i> Utilisateurs</div>
-          </a>
-          <a class="menu-item" data-as="admin-reports" onclick="showAdminScreen('admin-reports', this)">
-            <div class="menu-item-left"><i data-lucide="bar-chart-3"></i> Rapports</div>
-          </a>
-        </div>
-        <div class="menu-group">
-          <div class="menu-title">COMPTE</div>
-          <a class="menu-item" onclick="logout()">
-            <div class="menu-item-left"><i data-lucide="log-out"></i> Déconnexion</div>
-          </a>
-        </div>
-      </div>
-    </aside>
-
-    <div class="dash-main">
-      <header class="dash-header">
-        <div class="dash-header-left">
-          <button class="mobile-menu-btn" onclick="toggleDashSidebar('admin')"><i data-lucide="menu"></i></button>
-          <div class="search-box">
-            <i data-lucide="search"></i>
-            <input type="text" placeholder="Rechercher patient, dossier...">
-          </div>
-        </div>
-        <div class="dash-header-right">
-          <button class="icon-btn" onclick="toggleTheme()"><i data-lucide="moon" id="adminThemeIcon"></i></button>
-          <button class="icon-btn" onclick="showToast('3 notifications', 'info')">
-            <i data-lucide="bell"></i>
-            <span class="dot-badge"></span>
-          </button>
-          <div class="user-profile">
-            <div class="user-info">
-              <div class="user-name">Admin MONGANGA</div>
-              <div class="user-role">Administrateur</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&auto=format&fit=crop&q=80" class="avatar" alt="User">
-          </div>
-        </div>
-      </header>
-
-      <main class="dash-content">
-
-        <!-- ADMIN DASHBOARD -->
-        <div id="d-admin-dashboard" class="d-screen active">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Tableau de bord</h1>
-              <p class="page-subtitle">Vue d'ensemble de la plateforme MONGANGA</p>
-            </div>
-          </div>
-
-          <div class="kpi-grid">
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="file-clock"></i> Dossiers en attente</div>
-              <div class="kpi-value">14</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +3</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="credit-card"></i> Transactions / Mois</div>
-              <div class="kpi-value">$12,450</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +8.7%</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="users"></i> Patients inscrits</div>
-              <div class="kpi-value">3,892</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +48</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="stethoscope"></i> Praticiens actifs</div>
-              <div class="kpi-value">142</div>
-              <span class="kpi-trend up"><i data-lucide="check"></i> Vérifiés</span>
-            </div>
-          </div>
-
-          <div class="card-block">
-            <div class="card-header-row">
-              <div>
-                <div class="card-title">Activité de la plateforme</div>
-                <div class="card-subtitle">Consultations et ordonnances par mois</div>
-              </div>
-            </div>
-            <div id="adminChart"></div>
-          </div>
-        </div>
-
-        <!-- ADMIN VALIDATIONS -->
-        <div id="d-admin-validations" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Validation des dossiers</h1>
-              <p class="page-subtitle">Examinez et validez les pièces justificatives</p>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table">
-              <thead><tr><th>Demandeur</th><th>Spécialité</th><th>Type de pièce</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
-              <tbody>
-                <tr onclick="openDrawer('Dr. Marc Tshimanga', 'Cardiologie', 'Licence_CNOM_RDC.pdf', '22/09/2026', 'En attente', 'DOS-8902')">
-                  <td><strong>Dr. Marc Tshimanga</strong></td>
-                  <td>Cardiologie</td>
-                  <td>Licence CNOM RDC</td>
-                  <td>22/09/2026</td>
-                  <td><span class="badge warning">En attente</span></td>
-                  <td onclick="event.stopPropagation()">
-                    <button class="btn-action-sm btn-validate" onclick="triggerModal('validate', 'Dr. Marc Tshimanga')">Valider</button>
-                    <button class="btn-action-sm btn-reject" onclick="triggerModal('reject', 'Dr. Marc Tshimanga')">Rejeter</button>
-                  </td>
-                </tr>
-                <tr onclick="openDrawer('Dr. Sarah Lukusa', 'Pédiatrie', 'Diplome_Doctorat_UNIKIN.pdf', '21/09/2026', 'En attente', 'DOS-8891')">
-                  <td><strong>Dr. Sarah Lukusa</strong></td>
-                  <td>Pédiatrie</td>
-                  <td>Diplôme Doctorat UNIKIN</td>
-                  <td>21/09/2026</td>
-                  <td><span class="badge warning">En attente</span></td>
-                  <td onclick="event.stopPropagation()">
-                    <button class="btn-action-sm btn-validate" onclick="triggerModal('validate', 'Dr. Sarah Lukusa')">Valider</button>
-                    <button class="btn-action-sm btn-reject" onclick="triggerModal('reject', 'Dr. Sarah Lukusa')">Rejeter</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- ADMIN TRANSACTIONS -->
-        <div id="d-admin-transactions" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Transactions</h1>
-              <p class="page-subtitle">Historique des paiements</p>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table">
-              <thead><tr><th>Réf.</th><th>Patient</th><th>Service</th><th>Montant</th><th>Mode</th><th>Statut</th></tr></thead>
-              <tbody>
-                <tr><td>#TX-1092</td><td>Mpolo Jean</td><td>Consultation Générale</td><td><strong>$45.00</strong></td><td>M-Pesa</td><td><span class="badge success">Confirmé</span></td></tr>
-                <tr><td>#TX-1093</td><td>Kalala Marie</td><td>Suivi Pédiatrique</td><td><strong>$35.00</strong></td><td>Orange Money</td><td><span class="badge success">Confirmé</span></td></tr>
-                <tr><td>#TX-1094</td><td>Tshimanga Paul</td><td>Consultation Dermato</td><td><strong>$55.00</strong></td><td>Airtel Money</td><td><span class="badge warning">En attente</span></td></tr>
-                <tr><td>#TX-1095</td><td>Mbayo Céline</td><td>Consultation Gynéco</td><td><strong>$50.00</strong></td><td>Carte bancaire</td><td><span class="badge danger">Échoué</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- ADMIN USERS -->
-        <div id="d-admin-users" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Utilisateurs</h1>
-              <p class="page-subtitle">Patients, praticiens et administrateurs</p>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table">
-              <thead><tr><th>Nom</th><th>Rôle</th><th>Email</th><th>Inscription</th><th>Statut</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Admin MONGANGA</strong></td><td>Administrateur</td><td>admin@monganga.cd</td><td>01/09/2026</td><td><span class="badge success">Actif</span></td></tr>
-                <tr><td><strong>Aline Kabila</strong></td><td>Patiente</td><td>aline.k@email.com</td><td>10/09/2026</td><td><span class="badge success">Actif</span></td></tr>
-                <tr><td><strong>Dr. Jean Ilunga</strong></td><td>Médecin</td><td>jean.ilunga@monganga.cd</td><td>20/09/2026</td><td><span class="badge warning">En attente</span></td></tr>
-                <tr><td><strong>Patrick Tshimanga</strong></td><td>Patient</td><td>p.tshimanga@email.com</td><td>05/09/2026</td><td><span class="badge danger">Suspendu</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- ADMIN REPORTS -->
-        <div id="d-admin-reports" class="d-screen">
-          <div class="page-header">
-            <div>
-              <h1 class="page-title">Rapports & Analytiques</h1>
-              <p class="page-subtitle">Bilans financiers et statistiques</p>
-            </div>
-          </div>
-          <div class="kpi-grid">
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="bar-chart-3"></i> CA annuel</div>
-              <div class="kpi-value">$124,500</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +22%</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="percent"></i> Commissions</div>
-              <div class="kpi-value">$12,450</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +18%</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="wallet"></i> Honoraires versés</div>
-              <div class="kpi-value">$98,400</div>
-              <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +25%</span>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-label"><i data-lucide="activity"></i> Croissance</div>
-              <div class="kpi-value" style="color:var(--success);">+34%</div>
-              <span class="kpi-trend up">vs 2025</span>
-            </div>
-          </div>
-          <div class="card-block">
-            <div class="card-header-row">
-              <div>
-                <div class="card-title">Évolution annuelle</div>
-                <div class="card-subtitle">Comparatif 2025 / 2026</div>
-              </div>
-            </div>
-            <div id="reportChart"></div>
-          </div>
-        </div>
-
-      </main>
-    </div>
-  </div>
-</div>
-
-
-<!-- ============================================================
-     DRAWER GLOBAL (validations admin)
-     ============================================================ -->
-<div id="drawer-overlay" class="drawer-overlay" onclick="closeDrawer()"></div>
-<aside id="drawer" class="drawer">
+</header>
+
+<!-- Mobile drawer -->
+<div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
   <div class="drawer-header">
-    <div class="drawer-title" id="drawer-title">Détails</div>
-    <button class="icon-btn" onclick="closeDrawer()"><i data-lucide="x"></i></button>
+    <span class="drawer-title">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()">
+      <i data-lucide="x"></i>
+    </button>
   </div>
   <div class="drawer-content">
-    <div class="drawer-section">
-      <div class="drawer-section-title">Informations</div>
-      <div class="detail-row"><span class="detail-label">Identifiant</span><span class="detail-value" id="drawer-ref">—</span></div>
-      <div class="detail-row"><span class="detail-label">Nom</span><span class="detail-value" id="drawer-name">—</span></div>
-      <div class="detail-row"><span class="detail-label">Spécialité</span><span class="detail-value" id="drawer-spec">—</span></div>
-      <div class="detail-row"><span class="detail-label">Date</span><span class="detail-value" id="drawer-date">—</span></div>
-      <div class="detail-row"><span class="detail-label">Statut</span><span class="detail-value"><span id="drawer-status" class="badge warning">—</span></span></div>
-    </div>
-    <div class="drawer-section">
-      <div class="drawer-section-title">Pièce jointe</div>
-      <div style="border:1px solid var(--border); padding:12px; border-radius:var(--r-sm); display:flex; align-items:center; gap:12px;">
-        <i data-lucide="file-text" style="color:var(--primary); width:24px; height:24px;"></i>
-        <div style="flex:1;">
-          <div style="font-weight:600; font-size:12.5px;" id="drawer-doc">Document.pdf</div>
-          <div style="font-size:11px; color:var(--text-3);">PDF • 2.4 MB</div>
-        </div>
-        <button class="icon-btn" onclick="showToast('Téléchargement en cours', 'info')"><i data-lucide="download" style="width:16px;"></i></button>
-      </div>
-    </div>
-    <div class="drawer-actions">
-      <button class="btn btn-success btn-block" onclick="triggerModalFromDrawer('validate')">
-        <i data-lucide="check-circle-2"></i> Approuver
-      </button>
-      <button class="btn btn-danger-outline btn-block" onclick="triggerModalFromDrawer('reject')">
-        <i data-lucide="x"></i> Rejeter
-      </button>
+    <a class="menu-link" href="index.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="menu-link" href="public/how.html"><i data-lucide="book-open"></i> Comment ça marche</a>
+    <a class="menu-link" href="public/doctors.html"><i data-lucide="stethoscope"></i> Médecins</a>
+    <a class="menu-link" href="public/pricing.html"><i data-lucide="tag"></i> Tarifs</a>
+    <a class="menu-link" href="public/faq.html"><i data-lucide="help-circle"></i> FAQ</a>
+    <a class="menu-link" href="public/contact.html"><i data-lucide="mail"></i> Contact</a>
+    <a class="menu-link" href="public/candidature.html"><i data-lucide="user-plus"></i> Devenir médecin</a>
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:8px;">
+      <a class="btn btn-secondary btn-block" href="auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-block" href="auth/register.html">S'inscrire</a>
     </div>
   </div>
 </aside>
 
+<main>
 
-<!-- ============================================================
-     MODAL
-     ============================================================ -->
-<div id="modal-overlay" class="modal-overlay">
-  <div class="modal">
-    <div class="modal-header">
-      <div id="modal-icon" class="modal-icon validate"><i data-lucide="check-circle-2"></i></div>
-      <div>
-        <div class="modal-title" id="modal-title">Confirmer</div>
-        <div class="modal-sub" id="modal-subtitle">Cible: —</div>
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="container">
+    <div class="hero">
+      <div class="slide-in-left">
+        <h1 class="hero-title">
+          Monganga na yo,<br>
+          <em>na tshombo na yo</em>
+        </h1>
+        <p class="hero-desc">
+          Consultez un médecin vérifié depuis chez vous, sans vous déplacer.
+          La santé à portée de main, à Kinshasa.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="public/doctors.html">
+            <i data-lucide="video"></i> Trouver un médecin
+          </a>
+          <a class="btn btn-secondary btn-lg" href="public/how.html">
+            <i data-lucide="play-circle"></i> Comment ça marche
+          </a>
+        </div>
+        <div class="hero-trust">
+          <span><i data-lucide="shield-check"></i> Médecins vérifiés</span>
+          <span><i data-lucide="smartphone"></i> Mobile Money</span>
+          <span><i data-lucide="lock"></i> Données sécurisées</span>
+        </div>
+      </div>
+
+      <div class="hero-visual slide-in-right">
+        <div class="hero-visual-card">
+          <div class="hero-visual-top">
+            <span class="hero-pill">En ligne</span>
+            <span class="hero-rating"><i data-lucide="star"></i> 4.9/5</span>
+          </div>
+
+          <div class="hero-patient-card">
+            <div class="hero-avatar">DI</div>
+            <div>
+              <strong>Dr. Ilunga</strong>
+              <span>Médecine générale</span>
+            </div>
+          </div>
+
+          <div class="hero-callout">
+            <i data-lucide="video"></i>
+            Consultation 10:00
+          </div>
+        </div>
+        <i data-lucide="heart-pulse" class="icon-pulse"></i>
       </div>
     </div>
-    <div class="modal-body">
-      <p id="modal-message">Êtes-vous sûr ?</p>
+  </section>
+
+  <!-- ============================================================
+       COMMENT ÇA MARCHE
+       ============================================================ -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="h2 text-center mb-8">Comment ça marche ?</h2>
+
+      <div class="steps-grid" data-stagger>
+        <div class="step-card">
+          <div class="step-icon"><i data-lucide="search"></i></div>
+          <div class="step-num">Étape 1</div>
+          <div class="step-title">Trouvez un médecin</div>
+          <div class="step-desc">Recherchez par spécialité, commune ou disponibilité.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon"><i data-lucide="calendar-check"></i></div>
+          <div class="step-num">Étape 2</div>
+          <div class="step-title">Choisissez un créneau</div>
+          <div class="step-desc">Sélectionnez l'heure qui vous convient.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon"><i data-lucide="credit-card"></i></div>
+          <div class="step-num">Étape 3</div>
+          <div class="step-title">Payez en Mobile Money</div>
+          <div class="step-desc">M-Pesa, Orange Money, Airtel Money.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon"><i data-lucide="file-text"></i></div>
+          <div class="step-num">Étape 4</div>
+          <div class="step-title">Recevez votre ordonnance</div>
+          <div class="step-desc">Vidéo, audio ou chat puis ordonnance numérique.</div>
+        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal()">Annuler</button>
-      <button id="modal-confirm-btn" class="btn btn-primary" onclick="confirmModal()">Confirmer</button>
+  </section>
+
+  <!-- ============================================================
+       POURQUOI MONGANGA
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+      <h2 class="h2 text-center mb-8">Pourquoi MONGANGA ?</h2>
+
+      <div class="grid-2">
+        <div class="diff-card">
+          <div class="diff-icon"><i data-lucide="wifi-off"></i></div>
+          <h3 class="h3 mb-2">Connexion faible ? Bascule audio en un clic</h3>
+          <p class="text-2">
+            Notre système détecte automatiquement la qualité du réseau et vous propose
+            la meilleure option — sans couper la consultation.
+          </p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon"><i data-lucide="file-badge"></i></div>
+          <h3 class="h3 mb-2">Votre ordonnance, toujours avec vous</h3>
+          <p class="text-2">
+            Une carte numérique sécurisée, montrable en pharmacie.
+            Plus besoin d'imprimer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA FINAL
+       ============================================================ -->
+  <section class="container" style="padding: 0 24px 72px;">
+    <div class="cta-final">
+      <h2 class="h1 mb-2" style="color: inherit;">Prêt à consulter un médecin ?</h2>
+      <p style="opacity: 0.85; margin-bottom: 28px;">
+        Créez votre compte en 1 minute et prenez votre premier rendez-vous.
+      </p>
+      <div class="row" style="justify-content: center; flex-wrap: wrap; gap: 12px;">
+        <a class="btn btn-primary btn-lg" href="auth/register.html">Créer un compte</a>
+        <a class="btn btn-secondary btn-lg" href="public/doctors.html">Voir les médecins</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="pub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon logo-image-wrap"><img src="assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+          <span class="logo-text">MONGANGA</span>
+        </div>
+        <p>Monganga na yo, na tshombo na yo. La santé à portée de main, à Kinshasa.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Produit</h5>
+        <a href="public/how.html">Comment ça marche</a>
+        <a href="public/doctors.html">Trouver un médecin</a>
+        <a href="public/pricing.html">Tarifs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Aide</h5>
+        <a href="public/faq.html">FAQ</a>
+        <a href="public/contact.html">Contact</a>
+        <a href="public/candidature.html">Devenir médecin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <a href="public/conditions-utilisation.html">Conditions d'utilisation</a>
+        <a href="public/politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="public/mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MONGANGA. Tous droits réservés.</span>
+      <span>🇨🇩 Fait à Kinshasa</span>
     </div>
   </div>
-</div>
+</footer>
 
+<!-- ============================================================
+     STYLES SPÉCIFIQUES À CETTE PAGE
+     ============================================================ -->
+<style>
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+  padding: 72px 0 56px;
+}
+.hero-title {
+  font-size: clamp(32px, 4.2vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+.hero-title em { font-style: normal; color: var(--primary); }
+.hero-desc {
+  font-size: 16px;
+  color: var(--text-2);
+  margin-bottom: 32px;
+  max-width: 520px;
+  line-height: 1.65;
+}
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+.hero-trust {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--text-2); font-weight: 600;
+}
+.hero-trust span {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 12px; border-radius: var(--r-full);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--border);
+}
+.hero-trust [data-lucide] { width: 15px; height: 15px; color: var(--primary); }
 
+.hero-visual {
+  aspect-ratio: 1 / 0.95;
+  background: linear-gradient(135deg, rgba(60,80,224,0.12) 0%, rgba(125,152,255,0.28) 100%);
+  border-radius: var(--r-xl);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(60, 80, 224, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 20px 45px rgba(60, 80, 224, 0.12);
+}
+.hero-visual-card {
+  position: relative;
+  z-index: 1;
+  width: min(84%, 360px);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 18px 40px rgba(15,23,42,0.12);
+  backdrop-filter: blur(8px);
+}
+.hero-visual-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 11.5px; font-weight: 700;
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--success-bg); color: var(--success-text);
+  padding: 5px 10px; border-radius: 999px;
+}
+.hero-rating {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: #f59e0b;
+}
+.hero-rating [data-lucide] { width: 12px; height: 12px; }
+.hero-patient-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0 14px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, #6d7df2 100%);
+  color: #fff; font-weight: 800; font-size: 12px;
+}
+.hero-patient-card strong {
+  display: block; font-size: 15px; font-weight: 800;
+}
+.hero-patient-card span {
+  display: block; font-size: 11px; color: var(--text-2);
+}
+.hero-callout {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 14px; background: var(--primary-light); color: var(--primary);
+  border-radius: 999px; padding: 8px 12px; font-size: 12px; font-weight: 700;
+}
+.hero-callout [data-lucide] { width: 14px; height: 14px; }
+.hero-visual [data-lucide="heart-pulse"] {
+  position: absolute; right: 12%; bottom: 10%; width: 160px; height: 160px; stroke-width: 1; opacity: 0.18;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.step-card {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition: all var(--t);
+}
+.step-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.step-icon {
+  width: 44px; height: 44px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+  transition: all var(--t);
+}
+.step-icon [data-lucide] { width: 22px; height: 22px; }
+.step-card:hover .step-icon { background: var(--primary); color: #fff; }
+.step-num {
+  font-size: 11px; font-weight: 800;
+  color: var(--primary); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.step-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.step-desc { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+.diff-card {
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  display: flex; flex-direction: column; gap: 14px;
+  transition: all var(--t);
+}
+.diff-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+.diff-icon {
+  width: 48px; height: 48px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+}
+.diff-icon [data-lucide] { width: 24px; height: 24px; }
+
+.cta-final {
+  background: var(--text);
+  color: var(--bg);
+  padding: 64px 32px;
+  text-align: center;
+  border-radius: var(--r-lg);
+  position: relative;
+  overflow: hidden;
+}
+.cta-final .btn-secondary {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+  color: inherit;
+}
+
+.menu-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-weight: 500;
+  margin-bottom: 3px;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.menu-link:hover { background: var(--surface-2); color: var(--text); }
+.menu-link [data-lucide] { width: 18px; height: 18px; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; }
+  .hero-visual { max-width: 400px; margin: 0 auto; width: 100%; }
+}
+</style>
+
+<!-- Scripts -->
 <script src="assets/js/app.js"></script>
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const isOpen = menu.style.right === '0px';
+    menu.style.right = isOpen ? '-300px' : '0px';
+    overlay.classList.toggle('active');
+  }
+</script>
+
 </body>
 </html>

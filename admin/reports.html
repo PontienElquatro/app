@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapports Admin | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation admin">
+        <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link" href="validations.html"><i data-lucide="shield-check"></i> Validations</a>
+        <a class="doctor-nav-link" href="transactions.html"><i data-lucide="wallet"></i> Transactions</a>
+        <a class="doctor-nav-link" href="users.html"><i data-lucide="users"></i> Utilisateurs</a>
+        <a class="doctor-nav-link active" href="reports.html"><i data-lucide="bar-chart-3"></i> Rapports</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">AD</div>
+          <div class="doctor-mini-meta">
+            <strong>Admin</strong>
+            <span>Superviseur</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Rapports & analytics</h1>
+          <p class="doctor-page-subtitle">Analyse détaillée des performances et tendances de la plateforme.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <select class="form-input" aria-label="Période du rapport" onchange="changeReportPeriod(this.value)" style="width:auto; height:36px;"><option value="month">Mois</option><option value="week">Semaine</option><option value="year">Année</option></select>
+          <button class="btn btn-primary btn-sm" type="button" onclick="generateReport()"><i data-lucide="download"></i> Générer</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="kpi-grid" data-stagger>
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="activity"></i> Taux d’utilisation</div>
+            <div class="kpi-value">78%</div>
+            <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +6.2%</span>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="stethoscope"></i> Médecins actifs</div>
+            <div class="kpi-value">1,320</div>
+            <span class="kpi-trend neutral"><i data-lucide="activity"></i> +11 cette semaine</span>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="calendar-check-2"></i> Consultations / semaine</div>
+            <div class="kpi-value">4,890</div>
+            <span class="kpi-trend success"><i data-lucide="check-circle-2"></i> Stable</span>
+          </article>
+        </section>
+
+        <section class="section-row">
+          <div class="card">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Tendance des consultations</h2>
+                <div class="card-subtitle">Par semaine</div>
+              </div>
+            </div>
+
+            <div class="bar-chart" aria-label="Graphique des consultations par semaine">
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 40%;"></div>
+                <span class="bar-label">S1</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 52%;"></div>
+                <span class="bar-label">S2</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 68%;"></div>
+                <span class="bar-label">S3</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 74%;"></div>
+                <span class="bar-label">S4</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 82%;"></div>
+                <span class="bar-label">S5</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar-stack" style="height: 91%;"></div>
+                <span class="bar-label">S6</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Points clés</h2>
+                <div class="card-subtitle">Insights</div>
+              </div>
+            </div>
+
+            <div class="list-stack">
+              <div class="list-row">
+                <div class="list-main">
+                  <div class="doctor-avatar">01</div>
+                  <div>
+                    <div class="list-name">Hausse du trafic mobile</div>
+                    <div class="list-meta">+18% sur 30 jours</div>
+                  </div>
+                </div>
+                <span class="badge success">Positive</span>
+              </div>
+
+              <div class="list-row">
+                <div class="list-main">
+                  <div class="doctor-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309;">02</div>
+                  <div>
+                    <div class="list-name">Rupture de conversion</div>
+                    <div class="list-meta">Validation des médecins</div>
+                  </div>
+                </div>
+                <span class="badge warning">À revoir</span>
+              </div>
+
+              <div class="list-row">
+                <div class="list-main">
+                  <div class="doctor-avatar" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#047857;">03</div>
+                  <div>
+                    <div class="list-name">Paiements stabilisés</div>
+                    <div class="list-meta">95% de transactions validées</div>
+                  </div>
+                </div>
+                <span class="badge success">OK</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+    });
+    function changeReportPeriod(period) { Monganga.showToast(`Période du rapport : ${period === 'week' ? 'semaine' : period === 'year' ? 'année' : 'mois'}`, 'info'); }
+    function generateReport() { window.print(); Monganga.showToast('Rapport prêt pour impression ou export PDF', 'success'); }
+  </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes rendez-vous — MONGANGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
+<link rel="stylesheet" href="../assets/css/patient.css">
+<style>
+  .tabs {
+    display: flex; gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 14px 18px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-3);
+    border-bottom: 2px solid transparent;
+    background: none; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .tab [data-lucide] { width: 15px; height: 15px; }
+  .tab .tab-count {
+    background: var(--surface-2);
+    color: var(--text-2);
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .tab.active .tab-count { background: var(--primary-light); color: var(--primary); }
+
+  .rdv-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+  .rdv-card:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+
+  .rdv-avatar {
+    width: 56px; height: 56px;
+    border-radius: var(--r-md);
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px;
+    flex-shrink: 0;
+  }
+  .rdv-info { min-width: 0; }
+  .rdv-title-row { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+  .rdv-doctor-name { font-size: 15px; font-weight: 700; }
+  .rdv-specialty { font-size: 12.5px; color: var(--text-2); }
+  .rdv-date-row {
+    display: flex; gap: 14px; align-items: center;
+    font-size: 12.5px; color: var(--text-2);
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .rdv-date-row span { display: flex; align-items: center; gap: 5px; }
+  .rdv-date-row [data-lucide] { width: 13px; height: 13px; color: var(--text-3); }
+
+  .rdv-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  @media (max-width: 640px) {
+    .rdv-card { grid-template-columns: auto 1fr; }
+    .rdv-actions { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="pat-header">
+  <div class="pat-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pat-nav">
+      <a class="pat-nav-link" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+      <a class="pat-nav-link" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+      <a class="pat-nav-link active" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
+      <a class="pat-nav-link" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
+      <a class="pat-nav-link" href="profile.html"><i data-lucide="user"></i> Profil</a>
+    </nav>
+    <div class="pat-header-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()"><i data-lucide="moon" data-theme-icon></i></button>
+      <button class="btn btn-ghost btn-icon" onclick="Monganga.openNotifications()" aria-label="Ouvrir les notifications"><i data-lucide="bell"></i><span class="dot-badge"></span></button>
+      <button class="btn btn-ghost btn-icon" onclick="logout()"><i data-lucide="log-out"></i></button>
+    </div>
+  </div>
+</header>
+
+<main class="pat-main">
+  <div class="pat-content">
+
+    <div class="fade-in" style="margin-bottom: 24px;">
+      <h1 class="pat-page-title">Mes rendez-vous</h1>
+      <p class="pat-page-sub">Historique de toutes vos consultations</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-status="upcoming" onclick="switchTab(this)">
+        <i data-lucide="calendar-check"></i> À venir <span class="tab-count">1</span>
+      </button>
+      <button class="tab" data-status="past" onclick="switchTab(this)">
+        <i data-lucide="history"></i> Passés <span class="tab-count">2</span>
+      </button>
+      <button class="tab" data-status="cancelled" onclick="switchTab(this)">
+        <i data-lucide="x-circle"></i> Annulés <span class="tab-count">0</span>
+      </button>
+    </div>
+
+    <!-- Liste RDV -->
+    <div data-stagger>
+
+      <div class="rdv-card" data-rdv-status="upcoming">
+        <div class="rdv-avatar" data-avatar-storage="monganga_doctor_photo" data-avatar-alt="Portrait du médecin">DI</div>
+        <div class="rdv-info">
+          <div class="rdv-title-row">
+            <span class="rdv-doctor-name">Dr Ilunga</span>
+            <span class="badge success"><i data-lucide="check-circle-2"></i> Confirmé</span>
+          </div>
+          <div class="rdv-specialty">Médecine générale — Vidéo</div>
+          <div class="rdv-date-row">
+            <span><i data-lucide="calendar"></i> Jeudi 24 septembre 2026</span>
+            <span><i data-lucide="clock"></i> 10h00 — 10h30</span>
+            <span><i data-lucide="banknote"></i> 20 $</span>
+          </div>
+        </div>
+        <div class="rdv-actions">
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Détails du RDV','info')">
+            <i data-lucide="eye"></i> Détails
+          </button>
+          <a class="btn btn-primary btn-sm" href="consult.html">
+            <i data-lucide="video"></i> Rejoindre
+          </a>
+        </div>
+      </div>
+
+      <div class="rdv-card" data-rdv-status="past">
+        <div class="rdv-avatar" style="background: var(--surface-2); color: var(--text-2);">DM</div>
+        <div class="rdv-info">
+          <div class="rdv-title-row">
+            <span class="rdv-doctor-name">Dr Mbayo</span>
+            <span class="badge neutral"><i data-lucide="check"></i> Terminé</span>
+          </div>
+          <div class="rdv-specialty">Dermatologie — Vidéo</div>
+          <div class="rdv-date-row">
+            <span><i data-lucide="calendar"></i> 12 août 2026</span>
+            <span><i data-lucide="clock"></i> 14h00</span>
+            <span><i data-lucide="banknote"></i> 30 $</span>
+          </div>
+        </div>
+        <div class="rdv-actions">
+          <a class="btn btn-secondary btn-sm" href="prescription.html">
+            <i data-lucide="file-text"></i> Ordonnance
+          </a>
+        </div>
+      </div>
+
+      <div class="rdv-card" data-rdv-status="past">
+        <div class="rdv-avatar" style="background: var(--surface-2); color: var(--text-2);">DK</div>
+        <div class="rdv-info">
+          <div class="rdv-title-row">
+            <span class="rdv-doctor-name">Dr Kabila</span>
+            <span class="badge neutral"><i data-lucide="check"></i> Terminé</span>
+          </div>
+          <div class="rdv-specialty">Pédiatrie — Chat</div>
+          <div class="rdv-date-row">
+            <span><i data-lucide="calendar"></i> 3 juin 2026</span>
+            <span><i data-lucide="clock"></i> 09h00</span>
+            <span><i data-lucide="banknote"></i> 25 $</span>
+          </div>
+        </div>
+        <div class="rdv-actions">
+          <a class="btn btn-secondary btn-sm" href="prescription.html">
+            <i data-lucide="file-text"></i> Ordonnance
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA nouveau RDV -->
+    <div class="card" style="margin-top: 32px; text-align: center; padding: 32px 20px;">
+      <i data-lucide="calendar-plus" style="width: 40px; height: 40px; color: var(--primary); margin: 0 auto 12px;"></i>
+      <h3 class="h4 mb-2">Besoin d'une nouvelle consultation ?</h3>
+      <p class="text-2 mb-4" style="font-size: 13.5px;">Trouvez un médecin et prenez rendez-vous en quelques clics.</p>
+      <a class="btn btn-primary" href="search.html">
+        <i data-lucide="plus"></i> Prendre un nouveau RDV
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<nav class="pat-mobile-nav">
+  <a class="pat-mobile-item" href="dashboard.html"><i data-lucide="home"></i><span>Accueil</span></a>
+  <a class="pat-mobile-item" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
+  <a class="pat-mobile-item active" href="history.html"><i data-lucide="calendar"></i><span>Mes RDV</span></a>
+  <a class="pat-mobile-item" href="prescription.html"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
+  <a class="pat-mobile-item" href="profile.html"><i data-lucide="user"></i><span>Profil</span></a>
+</nav>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  function logout() {
+    Monganga.showToast('Vous êtes déconnecté', 'info');
+    setTimeout(() => window.location.href = '../index.html', 600);
+  }
+  function switchTab(el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.rdv-card').forEach(card => {
+      card.style.display = card.dataset.rdvStatus === el.dataset.status ? '' : 'none';
+    });
+    const visible = [...document.querySelectorAll('.rdv-card')].some(card => card.style.display !== 'none');
+    document.getElementById('empty-rdv-state')?.remove();
+    if (!visible) {
+      const empty = document.createElement('div');
+      empty.id = 'empty-rdv-state';
+      empty.className = 'empty-state';
+      empty.innerHTML = '<i data-lucide="calendar-off"></i><h3>Aucun rendez-vous dans cette catégorie</h3><p>Votre historique se mettra à jour après vos prochaines consultations.</p>';
+      document.querySelector('[data-stagger]').appendChild(empty);
+      Monganga.initLucide();
+    }
+  }
+  document.addEventListener('DOMContentLoaded', () => switchTab(document.querySelector('.tab.active')));
+</script>
+</body>
+</html>

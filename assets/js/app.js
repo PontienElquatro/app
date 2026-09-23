@@ -1,430 +1,254 @@
+/* ============================================================
+   MONGANGA — Logique partagée
+   ============================================================ */
 
-// ============================================================
-// INIT
-// ============================================================
-lucide.createIcons();
-
-let currentAction = null;
-let currentTarget = null;
-let adminChart = null;
-let reportChart = null;
-
-// ============================================================
-// ZONE ROUTER
-// ============================================================
-function showZone(zoneName) {
-  ['public', 'auth', 'patient', 'doctor', 'admin'].forEach(z => {
-    const el = document.getElementById('zone-' + z);
-    if (el) el.classList.remove('active');
-  });
-  const target = document.getElementById('zone-' + zoneName);
-  if (target) target.classList.add('active');
-  window.scrollTo(0, 0);
-  lucide.createIcons();
-
-  if (zoneName === 'admin') setTimeout(() => { initAdminChart(); initReportChart(); }, 100);
+// ---------- Init Lucide ----------
+function initLucide() {
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// ============================================================
-// PUBLIC SCREENS
-// ============================================================
-function showPubScreen(id) {
-  document.querySelectorAll('#zone-public .screen').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById('pub-screen-' + id);
-  if (target) target.classList.add('active');
-
-  document.querySelectorAll('.pub-nav-link').forEach(l => {
-    l.classList.toggle('active', l.dataset.pub === id);
-  });
-
-  window.scrollTo(0, 0);
-  lucide.createIcons();
+// ---------- Theme ----------
+function initTheme() {
+  const saved = localStorage.getItem('monganga-theme');
+  if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  updateThemeIcons();
 }
 
-// ============================================================
-// AUTH SCREENS
-// ============================================================
-function switchAuth(view) {
-  document.querySelectorAll('#zone-auth .screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('auth-screen-' + view).classList.add('active');
-  lucide.createIcons();
-}
-
-function selectRegRole(role, el) {
-  document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('reg-form-patient').style.display = role === 'patient' ? 'block' : 'none';
-  document.getElementById('reg-form-doctor').style.display = role === 'doctor' ? 'block' : 'none';
-}
-
-// ============================================================
-// LOGIN (détection auto du rôle)
-// ============================================================
-function handleLogin(e) {
-  e.preventDefault();
-  const email = document.getElementById('loginEmail').value.toLowerCase();
-
-  let role = 'patient';
-  if (email.includes('admin')) role = 'admin';
-  else if (email.includes('doctor') || email.includes('dr.') || email.includes('medecin') || email.includes('médecin')) role = 'doctor';
-
-  showToast('Connexion réussie. Redirection...', 'success');
-  setTimeout(() => showZone(role), 500);
-}
-
-function handleRegister(e, role) {
-  e.preventDefault();
-  showToast('Compte créé avec succès', 'success');
-  setTimeout(() => showZone(role), 500);
-}
-
-function logout() {
-  showToast('Vous êtes déconnecté', 'info');
-  setTimeout(() => showZone('public'), 300);
-}
-
-// ============================================================
-// PATIENT SCREENS
-// ============================================================
-function showPatientScreen(id) {
-  document.querySelectorAll('#zone-patient .screen').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById('pat-screen-' + id);
-  if (target) target.classList.add('active');
-
-  document.querySelectorAll('.patient-nav-link').forEach(l => {
-    l.classList.toggle('active', l.dataset.ps === id);
-  });
-
-  window.scrollTo(0, 0);
-  lucide.createIcons();
-}
-
-// ============================================================
-// DOCTOR SCREENS
-// ============================================================
-function showDoctorScreen(id, el) {
-  document.querySelectorAll('#zone-doctor .d-screen').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById('d-' + id);
-  if (target) target.classList.add('active');
-
-  if (el) {
-    document.querySelectorAll('#docSidebar .menu-item').forEach(m => m.classList.remove('active'));
-    el.classList.add('active');
-  }
-  if (window.innerWidth <= 1024) toggleDashSidebar('doc');
-  window.scrollTo(0, 0);
-  lucide.createIcons();
-}
-
-// ============================================================
-// ADMIN SCREENS
-// ============================================================
-function showAdminScreen(id, el) {
-  document.querySelectorAll('#zone-admin .d-screen').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById('d-' + id);
-  if (target) target.classList.add('active');
-
-  if (el) {
-    document.querySelectorAll('#adminSidebar .menu-item').forEach(m => m.classList.remove('active'));
-    el.classList.add('active');
-  }
-  if (window.innerWidth <= 1024) toggleDashSidebar('admin');
-  window.scrollTo(0, 0);
-  lucide.createIcons();
-
-  if (id === 'admin-dashboard') setTimeout(initAdminChart, 100);
-  if (id === 'admin-reports') setTimeout(initReportChart, 100);
-}
-
-// ============================================================
-// MOBILE MENU (public)
-// ============================================================
-function toggleMobileMenu() {
-  const menu = document.getElementById('pubMobileMenu');
-  const overlay = document.getElementById('pubMenuOverlay');
-  const isOpen = menu.style.right === '0px';
-  menu.style.right = isOpen ? '-300px' : '0px';
-  overlay.classList.toggle('active');
-  lucide.createIcons();
-}
-
-// ============================================================
-// DASH SIDEBAR MOBILE
-// ============================================================
-function toggleDashSidebar(type) {
-  const sidebar = document.getElementById(type === 'doc' ? 'docSidebar' : 'adminSidebar');
-  const overlay = document.getElementById(type === 'doc' ? 'docSidebarOverlay' : 'adminSidebarOverlay');
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('active');
-}
-
-// ============================================================
-// THEME
-// ============================================================
 function toggleTheme() {
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
   html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('monganga-theme', isDark ? 'light' : 'dark');
+  updateThemeIcons();
+  if (typeof updateChartsTheme === 'function') updateChartsTheme();
+}
 
-  ['pubThemeIcon', 'patThemeIcon', 'docThemeIcon', 'adminThemeIcon'].forEach(id => {
-    const icon = document.getElementById(id);
-    if (icon) icon.setAttribute('data-lucide', isDark ? 'moon' : 'sun');
+function updateThemeIcons() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.querySelectorAll('[data-theme-icon]').forEach(icon => {
+    icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
   });
-  lucide.createIcons();
-  updateChartsTheme();
-
-  try { localStorage.setItem('monganga-theme', isDark ? 'light' : 'dark'); } catch(e) {}
+  initLucide();
 }
 
-(function restoreTheme() {
-  try {
-    if (localStorage.getItem('monganga-theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      setTimeout(() => {
-        ['pubThemeIcon', 'patThemeIcon', 'docThemeIcon', 'adminThemeIcon'].forEach(id => {
-          const icon = document.getElementById(id);
-          if (icon) icon.setAttribute('data-lucide', 'sun');
-        });
-        lucide.createIcons();
-      }, 100);
-    }
-  } catch(e) {}
-})();
+// ---------- Toast ----------
+function showToast(message, type = 'success') {
+  document.querySelectorAll('.toast').forEach(t => t.remove());
 
-// ============================================================
-// INTERACTIONS
-// ============================================================
-function selectSlot(el, label) {
-  el.parentNode.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
-  el.classList.add('selected');
-  const box = document.getElementById('pat-recap-box');
-  if (box) {
-    box.style.display = 'block';
-    document.getElementById('pat-recap-slot').textContent = label;
-  }
+  const toast = document.createElement('div');
+  toast.className = 'toast toast-' + type;
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  const icon = type === 'success' ? 'check-circle-2'
+             : type === 'error' ? 'alert-circle'
+             : 'info';
+  toast.innerHTML = `<i data-lucide="${icon}"></i><span>${message}</span>`;
+  document.body.appendChild(toast);
+  initLucide();
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(120%)';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3200);
 }
 
-function selectPayment(el) {
-  document.querySelectorAll('.payment-method').forEach(m => {
-    m.style.borderColor = 'var(--border)';
-    m.style.background = 'transparent';
-    const radio = m.querySelector('span:last-child');
-    if (radio) {
-      radio.style.borderColor = 'var(--border-strong)';
-      radio.innerHTML = '';
-    }
+function openNotifications() {
+  document.getElementById('monganga-notifications')?.remove();
+  const panel = document.createElement('aside');
+  panel.id = 'monganga-notifications';
+  panel.className = 'notifications-panel';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-labelledby', 'notifications-title');
+  panel.innerHTML = `
+    <div class="notifications-header">
+      <div><strong id="notifications-title">Notifications</strong><span>3 nouvelles</span></div>
+      <button class="btn btn-ghost btn-icon" type="button" aria-label="Fermer" data-close-notifications><i data-lucide="x"></i></button>
+    </div>
+    <div class="notification-item unread"><i data-lucide="calendar-check"></i><div><strong>Rendez-vous confirmé</strong><p>Votre consultation avec Dr Ilunga est prévue jeudi à 10h.</p><small>Il y a 12 min</small></div></div>
+    <div class="notification-item unread"><i data-lucide="file-text"></i><div><strong>Nouvelle ordonnance</strong><p>Votre ordonnance est disponible dans votre espace.</p><small>Il y a 1 h</small></div></div>
+    <div class="notification-item"><i data-lucide="shield-check"></i><div><strong>Profil sécurisé</strong><p>Vos informations sont protégées.</p><small>Hier</small></div></div>
+    <button class="btn btn-secondary btn-block" type="button" data-mark-notifications>Marquer comme lues</button>`;
+  document.body.appendChild(panel);
+  initLucide();
+  panel.querySelector('[data-close-notifications]').addEventListener('click', () => panel.remove());
+  panel.querySelector('[data-mark-notifications]').addEventListener('click', () => {
+    panel.querySelectorAll('.unread').forEach(item => item.classList.remove('unread'));
+    document.querySelectorAll('.dot-badge').forEach(dot => dot.remove());
+    showToast('Notifications marquées comme lues', 'success');
   });
-  el.style.borderColor = 'var(--primary)';
-  el.style.background = 'var(--primary-light)';
-  const radio = el.querySelector('span:last-child');
-  if (radio) {
-    radio.style.borderColor = 'var(--primary)';
-    radio.innerHTML = '<span style="width:10px; height:10px; border-radius:50%; background:var(--primary);"></span>';
-  }
 }
 
-function toggleDispo(el) {
-  if (el.classList.contains('open')) {
-    el.classList.remove('open'); el.classList.add('closed');
+function setButtonLoading(button, loading, label = 'Chargement...') {
+  if (!button) return;
+  if (loading) {
+    button.dataset.originalLabel = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = `<span class="loader" aria-hidden="true"></span> ${label}`;
   } else {
-    el.classList.remove('closed'); el.classList.add('open');
+    button.disabled = false;
+    button.innerHTML = button.dataset.originalLabel || button.innerHTML;
   }
 }
 
-function toggleFaq(el) {
-  el.classList.toggle('open');
+function applySavedAvatars() {
+  document.querySelectorAll('[data-avatar-storage]').forEach(avatar => {
+    const image = localStorage.getItem(avatar.dataset.avatarStorage);
+    if (!image) return;
+    avatar.textContent = '';
+    const img = document.createElement('img');
+    img.src = image;
+    img.alt = avatar.dataset.avatarAlt || 'Photo de profil';
+    img.className = 'avatar-image';
+    avatar.appendChild(img);
+    avatar.classList.add('has-image');
+  });
 }
 
-// ============================================================
-// DRAWER
-// ============================================================
-function openDrawer(name, spec, doc, date, status, ref) {
-  document.getElementById('drawer-name').innerText = name;
-  document.getElementById('drawer-spec').innerText = spec;
-  document.getElementById('drawer-doc').innerText = doc;
-  document.getElementById('drawer-date').innerText = date;
-  document.getElementById('drawer-ref').innerText = ref;
+// ---------- Modal ----------
+let modalState = { action: null, target: null };
 
-  const statusEl = document.getElementById('drawer-status');
-  const map = { 'En attente': 'warning', 'Validé': 'success', 'Confirmé': 'success', 'Rejeté': 'danger' };
-  const cls = map[status] || 'warning';
-  statusEl.className = 'badge ' + cls;
-  statusEl.innerText = status;
-
-  document.getElementById('drawer').classList.add('active');
-  document.getElementById('drawer-overlay').classList.add('active');
-}
-
-function closeDrawer() {
-  document.getElementById('drawer').classList.remove('active');
-  document.getElementById('drawer-overlay').classList.remove('active');
-}
-
-function triggerModalFromDrawer(action) {
-  const name = document.getElementById('drawer-name').innerText;
-  closeDrawer();
-  setTimeout(() => triggerModal(action, name), 250);
-}
-
-// ============================================================
-// MODAL
-// ============================================================
-function triggerModal(action, name) {
-  currentAction = action;
-  currentTarget = name;
+function openModal({ action, title, message, target, confirmLabel, confirmClass, onConfirm }) {
+  modalState = { action, target, onConfirm };
 
   const icon = document.getElementById('modal-icon');
-  const title = document.getElementById('modal-title');
-  const msg = document.getElementById('modal-message');
-  const btn = document.getElementById('modal-confirm-btn');
+  const titleEl = document.getElementById('modal-title');
+  const subEl = document.getElementById('modal-subtitle');
+  const msgEl = document.getElementById('modal-message');
+  const btnEl = document.getElementById('modal-confirm-btn');
 
-  if (action === 'validate') {
-    icon.className = 'modal-icon validate';
-    icon.innerHTML = '<i data-lucide="check-circle-2"></i>';
-    title.innerText = 'Valider';
-    msg.innerText = `Confirmer la validation de ${name} ?`;
-    btn.style.background = 'var(--success)';
-    btn.innerText = 'Confirmer';
-  } else {
-    icon.className = 'modal-icon reject';
-    icon.innerHTML = '<i data-lucide="alert-triangle"></i>';
-    title.innerText = 'Rejeter';
-    msg.innerText = `Confirmer le rejet de ${name} ? Une notification sera envoyée.`;
-    btn.style.background = 'var(--danger)';
-    btn.innerText = 'Confirmer le rejet';
+  if (icon) {
+    const iconType = action === 'validate' ? 'validate'
+                   : action === 'reject' ? 'reject'
+                   : 'info';
+    const iconName = action === 'validate' ? 'check-circle-2'
+                    : action === 'reject' ? 'alert-triangle'
+                    : 'info';
+    icon.className = 'modal-icon ' + iconType;
+    icon.innerHTML = `<i data-lucide="${iconName}"></i>`;
   }
 
-  document.getElementById('modal-subtitle').innerText = 'Cible: ' + name;
-  document.getElementById('modal-overlay').classList.add('active');
-  lucide.createIcons();
+  if (titleEl) titleEl.innerText = title || 'Confirmer';
+  if (subEl) subEl.innerText = 'Cible : ' + (target || '—');
+  if (msgEl) msgEl.innerText = message || 'Êtes-vous sûr ?';
+  if (btnEl) {
+    btnEl.innerText = confirmLabel || 'Confirmer';
+    btnEl.className = confirmClass || 'btn btn-primary';
+    btnEl.onclick = () => {
+      if (typeof modalState.onConfirm === 'function') modalState.onConfirm();
+      else closeModal();
+    };
+  }
+
+  document.getElementById('modal-overlay')?.classList.add('active');
+  initLucide();
 }
 
 function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('active');
-  currentAction = null;
-  currentTarget = null;
+  document.getElementById('modal-overlay')?.classList.remove('active');
+  modalState = { action: null, target: null, onConfirm: null };
 }
 
-function confirmModal() {
-  const action = currentAction;
-  const target = currentTarget;
+// ---------- Drawer ----------
+function openDrawer(details = {}) {
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.innerText = val || '—';
+  };
 
-  if (action === 'validate') {
-    showToast('✅ ' + target + ' validé', 'success');
-    const badge = document.getElementById('adminValidationsBadge');
-    if (badge) badge.innerText = Math.max(0, parseInt(badge.innerText) - 1);
-  } else {
-    showToast('❌ ' + target + ' rejeté', 'error');
-    const badge = document.getElementById('adminValidationsBadge');
-    if (badge) badge.innerText = Math.max(0, parseInt(badge.innerText) - 1);
+  set('drawer-title', details.title || 'Détails');
+  set('drawer-ref', details.ref);
+  set('drawer-name', details.name);
+  set('drawer-spec', details.spec);
+  set('drawer-date', details.date);
+  set('drawer-doc', details.doc);
+
+  const statusEl = document.getElementById('drawer-status');
+  if (statusEl && details.status) {
+    const map = {
+      'En attente': 'warning',
+      'Validé': 'success',
+      'Confirmé': 'success',
+      'Actif': 'success',
+      'Rejeté': 'danger',
+      'Échoué': 'danger',
+      'Suspendu': 'danger'
+    };
+    const cls = map[details.status] || 'warning';
+    statusEl.className = 'badge ' + cls;
+    statusEl.innerText = details.status;
   }
-  closeModal();
+
+  document.getElementById('drawer')?.classList.add('active');
+  document.getElementById('drawer-overlay')?.classList.add('active');
+  initLucide();
 }
 
-document.getElementById('modal-overlay').addEventListener('click', (e) => {
-  if (e.target.id === 'modal-overlay') closeModal();
-});
+function closeDrawer() {
+  document.getElementById('drawer')?.classList.remove('active');
+  document.getElementById('drawer-overlay')?.classList.remove('active');
+}
 
+// ---------- Sidebar mobile ----------
+function toggleSidebar(sidebarId, overlayId) {
+  const sidebar = document.getElementById(sidebarId);
+  const overlay = document.getElementById(overlayId);
+  if (!sidebar || !overlay) return;
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('active');
+}
+
+// ---------- Escape / backdrop ----------
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeModal();
     closeDrawer();
+    document.getElementById('monganga-notifications')?.remove();
   }
 });
 
-// ============================================================
-// TOAST
-// ============================================================
-function showToast(message, type = 'success') {
-  document.querySelectorAll('.toast').forEach(t => t.remove());
-  const toast = document.createElement('div');
-  toast.className = 'toast toast-' + type;
-  const icon = type === 'success' ? 'check-circle-2' : type === 'error' ? 'alert-circle' : 'info';
-  toast.innerHTML = `<i data-lucide="${icon}"></i><span>${message}</span>`;
-  document.body.appendChild(toast);
-  lucide.createIcons();
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transition = 'opacity 0.3s';
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-
-// ============================================================
-// CHARTS
-// ============================================================
-function getChartTheme() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  return {
-    textColor: isDark ? '#94A3B8' : '#64748B',
-    gridColor: isDark ? '#283346' : '#E2E8F0',
-    theme: isDark ? 'dark' : 'light'
-  };
-}
-
-function initAdminChart() {
-  const el = document.querySelector("#adminChart");
-  if (!el || adminChart) return;
-  const { textColor, gridColor, theme } = getChartTheme();
-
-  adminChart = new ApexCharts(el, {
-    series: [
-      { name: 'Consultations', data: [31, 40, 28, 51, 42, 68, 55, 72, 65, 82, 78, 95] },
-      { name: 'Ordonnances', data: [18, 22, 15, 30, 25, 40, 35, 48, 42, 55, 52, 65] }
-    ],
-    chart: { type: 'area', height: 300, toolbar: { show: false }, fontFamily: 'Plus Jakarta Sans', foreColor: textColor },
-    colors: ['#3C50E0', '#80CAEE'],
-    stroke: { curve: 'smooth', width: 2.5 },
-    fill: { type: 'gradient', gradient: { opacityFrom: 0.35, opacityTo: 0.02 } },
-    dataLabels: { enabled: false },
-    xaxis: {
-      categories: ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'],
-      labels: { style: { colors: textColor, fontSize: '12px' } }
-    },
-    yaxis: { labels: { style: { colors: textColor, fontSize: '12px' } } },
-    grid: { borderColor: gridColor, strokeDashArray: 4 },
-    legend: { position: 'top', horizontalAlign: 'right', labels: { colors: textColor } },
-    tooltip: { theme }
+document.addEventListener('DOMContentLoaded', () => {
+  // Modal close on backdrop
+  document.getElementById('modal-overlay')?.addEventListener('click', (e) => {
+    if (e.target.id === 'modal-overlay') closeModal();
   });
-  adminChart.render();
-}
 
-function initReportChart() {
-  const el = document.querySelector("#reportChart");
-  if (!el || reportChart) return;
-  const { textColor, gridColor, theme } = getChartTheme();
+  // Drawer close on backdrop
+  document.getElementById('drawer-overlay')?.addEventListener('click', closeDrawer);
 
-  reportChart = new ApexCharts(el, {
-    series: [
-      { name: '2025', data: [45, 52, 38, 65, 48, 72, 60, 78, 68, 85, 78, 92] },
-      { name: '2026', data: [55, 68, 52, 82, 72, 95, 85, 105, 98, 118, 112, 135] }
-    ],
-    chart: { type: 'bar', height: 300, toolbar: { show: false }, fontFamily: 'Plus Jakarta Sans', foreColor: textColor },
-    colors: ['#80CAEE', '#3C50E0'],
-    plotOptions: { bar: { columnWidth: '55%', borderRadius: 6, borderRadiusApplication: 'end' } },
-    dataLabels: { enabled: false },
-    xaxis: {
-      categories: ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'],
-      labels: { style: { colors: textColor, fontSize: '12px' } }
-    },
-    yaxis: { labels: { style: { colors: textColor, fontSize: '12px' } } },
-    grid: { borderColor: gridColor, strokeDasharray: 4 },
-    legend: { position: 'top', horizontalAlign: 'right', labels: { colors: textColor } },
-    tooltip: { theme }
+  // Init
+  initTheme();
+  initLucide();
+  applySavedAvatars();
+
+  // Stagger class auto
+  document.querySelectorAll('[data-stagger]').forEach(el => {
+    el.classList.add('stagger');
   });
-  reportChart.render();
+});
+
+// ---------- Helpers ----------
+function formatDate(date) {
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: '2-digit', month: 'long', year: 'numeric'
+  }).format(date);
 }
 
-function updateChartsTheme() {
-  const { textColor, gridColor, theme } = getChartTheme();
-  const opts = {
-    chart: { foreColor: textColor },
-    xaxis: { labels: { style: { colors: textColor } } },
-    yaxis: { labels: { style: { colors: textColor } } },
-    grid: { borderColor: gridColor },
-    legend: { labels: { colors: textColor } },
-    tooltip: { theme }
-  };
-  if (adminChart) adminChart.updateOptions(opts);
-  if (reportChart) reportChart.updateOptions(opts);
+function classNames(...args) {
+  return args.filter(Boolean).join(' ');
 }
+
+// Exposer les helpers globaux
+window.Monganga = {
+  showToast,
+  openModal,
+  closeModal,
+  openDrawer,
+  closeDrawer,
+  toggleTheme,
+  toggleSidebar,
+  initLucide,
+  openNotifications,
+  setButtonLoading
+};

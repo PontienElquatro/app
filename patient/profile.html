@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon profil — MONGANGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
+<link rel="stylesheet" href="../assets/css/patient.css">
+<style>
+  .profile-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 28px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .profile-sidebar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 28px;
+    text-align: center;
+    height: fit-content;
+    position: sticky;
+    top: 88px;
+  }
+  .profile-avatar {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, #5B6FF0 100%);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 36px;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 24px rgba(60, 80, 224, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-avatar-image {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+  .profile-avatar.has-image .profile-avatar-image { display: block; }
+  .profile-avatar.has-image .profile-avatar-initials { display: none; }
+  .profile-avatar-edit {
+    position: absolute; bottom: 0; right: 0;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border: 2px solid var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .profile-avatar-edit [data-lucide] { width: 14px; height: 14px; }
+
+  .profile-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .profile-email { font-size: 13px; color: var(--text-2); margin-bottom: 4px; }
+  .profile-since { font-size: 11.5px; color: var(--text-3); }
+
+  .profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .profile-stat-value { font-size: 22px; font-weight: 800; color: var(--primary); }
+  .profile-stat-label { font-size: 11px; color: var(--text-2); font-weight: 600; }
+
+  .profile-menu { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .profile-menu-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--r-sm);
+    color: var(--text-2);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--t);
+    text-decoration: none;
+    margin-bottom: 2px;
+  }
+  .profile-menu-item:hover { background: var(--surface-2); color: var(--text); }
+  .profile-menu-item.active { background: var(--primary-light); color: var(--primary); }
+  .profile-menu-item [data-lucide] { width: 18px; height: 18px; }
+  .profile-menu-item .arrow { margin-left: auto; opacity: 0.4; }
+
+  .form-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .form-section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .form-section-icon {
+    width: 40px; height: 40px;
+    border-radius: var(--r-sm);
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .form-section-icon [data-lucide] { width: 20px; height: 20px; }
+
+  .grid-cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  @media (max-width: 900px) {
+    .profile-layout { grid-template-columns: 1fr; }
+    .profile-sidebar { position: static; }
+    .grid-cols-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="pat-header">
+  <div class="pat-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pat-nav">
+      <a class="pat-nav-link" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+      <a class="pat-nav-link" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+      <a class="pat-nav-link" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
+      <a class="pat-nav-link" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
+      <a class="pat-nav-link active" href="profile.html"><i data-lucide="user"></i> Profil</a>
+    </nav>
+    <div class="pat-header-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()"><i data-lucide="moon" data-theme-icon></i></button>
+      <button class="btn btn-ghost btn-icon" onclick="Monganga.openNotifications()" aria-label="Ouvrir les notifications"><i data-lucide="bell"></i><span class="dot-badge"></span></button>
+      <button class="btn btn-ghost btn-icon" onclick="logout()"><i data-lucide="log-out"></i></button>
+    </div>
+  </div>
+</header>
+
+<main class="pat-main">
+  <div class="pat-content">
+
+    <div class="fade-in" style="margin-bottom: 24px;">
+      <h1 class="pat-page-title">Mon profil</h1>
+      <p class="pat-page-sub">Gérez vos informations personnelles et médicales</p>
+    </div>
+
+    <div class="profile-layout">
+
+      <!-- Sidebar -->
+      <aside class="profile-sidebar slide-in-left">
+        <div class="profile-avatar" id="patient-avatar">
+          <span class="profile-avatar-initials">AK</span>
+          <img class="profile-avatar-image" id="patient-avatar-image" alt="Photo de profil d'Aline Kabila">
+          <button class="profile-avatar-edit" type="button" onclick="document.getElementById('patient-photo-input').click()" aria-label="Changer la photo de profil">
+            <i data-lucide="camera"></i>
+          </button>
+        </div>
+        <input id="patient-photo-input" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="previewPatientPhoto(this)">
+        <p class="text-3" style="font-size: 11px; margin: -8px 0 14px;">JPG, PNG ou WebP · 5 Mo max.</p>
+        <h2 class="profile-name">Aline Kabila</h2>
+        <p class="profile-email">aline.k@email.com</p>
+        <p class="profile-since">Membre depuis septembre 2026</p>
+
+        <div class="profile-stats">
+          <div>
+            <div class="profile-stat-value">12</div>
+            <div class="profile-stat-label">Consultations</div>
+          </div>
+          <div>
+            <div class="profile-stat-value">3</div>
+            <div class="profile-stat-label">Ordonnances</div>
+          </div>
+          <div>
+            <div class="profile-stat-value">4.9</div>
+            <div class="profile-stat-label">Note</div>
+          </div>
+        </div>
+
+        <div class="profile-menu">
+          <a class="profile-menu-item active" href="profile.html">
+            <i data-lucide="user"></i> Informations
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </a>
+          <a class="profile-menu-item" onclick="showToast('Section Sécurité','info')">
+            <i data-lucide="shield-check"></i> Sécurité
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </a>
+          <a class="profile-menu-item" onclick="showToast('Section Notifications','info')">
+            <i data-lucide="bell"></i> Notifications
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </a>
+          <a class="profile-menu-item" onclick="showToast('Section Confidentialité','info')">
+            <i data-lucide="lock"></i> Confidentialité
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </a>
+          <a class="profile-menu-item" onclick="logout()">
+            <i data-lucide="log-out"></i> Déconnexion
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <div class="slide-in-right">
+
+        <!-- Informations personnelles -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <div class="form-section-icon"><i data-lucide="user"></i></div>
+            <div>
+              <h3 class="h4 mb-1">Informations personnelles</h3>
+              <p class="text-3" style="font-size: 12.5px;">Vos coordonnées</p>
+            </div>
+          </div>
+
+          <div class="grid-cols-2">
+            <div class="form-group">
+              <label class="form-label">Prénom</label>
+              <input type="text" class="form-input" value="Aline">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nom</label>
+              <input type="text" class="form-input" value="Kabila">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <div class="input-wrap">
+              <i data-lucide="mail" class="icon-left"></i>
+              <input type="email" class="form-input" value="aline.k@email.com">
+            </div>
+          </div>
+
+          <div class="grid-cols-2">
+            <div class="form-group">
+              <label class="form-label">Téléphone</label>
+              <div class="input-wrap">
+                <i data-lucide="phone" class="icon-left"></i>
+                <input type="tel" class="form-input" value="+243 8XX XXX XXX">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date de naissance</label>
+              <input type="date" class="form-input" value="1990-05-15">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Commune</label>
+            <select class="form-input">
+              <option selected>Gombe</option>
+              <option>Lingwala</option>
+              <option>Kalamu</option>
+              <option>Limete</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Informations médicales -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <div class="form-section-icon"><i data-lucide="heart-pulse"></i></div>
+            <div>
+              <h3 class="h4 mb-1">Informations médicales</h3>
+              <p class="text-3" style="font-size: 12.5px;">Partagées avec vos médecins</p>
+            </div>
+          </div>
+
+          <div class="grid-cols-2">
+            <div class="form-group">
+              <label class="form-label">Groupe sanguin</label>
+              <select class="form-input">
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option selected>O+</option>
+                <option>O-</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Taille</label>
+              <input type="text" class="form-input" value="168 cm">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Allergies connues</label>
+            <input type="text" class="form-input" value="Pénicilline">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Pathologies chroniques</label>
+            <input type="text" class="form-input" value="Asthme">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Médicaments en cours</label>
+            <textarea class="form-input" placeholder="Listez vos médicaments actuels...">Ventoline (en cas de crise)</textarea>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap;">
+          <button class="btn btn-secondary">Annuler</button>
+          <button class="btn btn-primary" type="button" onclick="saveProfile(this)">
+            <i data-lucide="save"></i> Enregistrer les modifications
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<nav class="pat-mobile-nav">
+  <a class="pat-mobile-item" href="dashboard.html"><i data-lucide="home"></i><span>Accueil</span></a>
+  <a class="pat-mobile-item" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
+  <a class="pat-mobile-item" href="history.html"><i data-lucide="calendar"></i><span>Mes RDV</span></a>
+  <a class="pat-mobile-item" href="prescription.html"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
+  <a class="pat-mobile-item active" href="profile.html"><i data-lucide="user"></i><span>Profil</span></a>
+</nav>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  function logout() {
+    Monganga.showToast('Vous êtes déconnecté', 'info');
+    setTimeout(() => window.location.href = '../index.html', 600);
+  }
+  function saveProfile(button) {
+    Monganga.setButtonLoading(button, true, 'Enregistrement...');
+    setTimeout(() => Monganga.setButtonLoading(button, false), 700);
+    Monganga.showToast('Profil enregistré avec succès', 'success');
+  }
+  function previewPatientPhoto(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/') || file.size > 5 * 1024 * 1024) {
+      input.value = '';
+      Monganga.showToast('Choisissez une image de 5 Mo maximum', 'error');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = event => {
+      const avatar = document.getElementById('patient-avatar');
+      const image = document.getElementById('patient-avatar-image');
+      image.src = event.target.result;
+      avatar.classList.add('has-image');
+      localStorage.setItem('monganga_patient_photo', event.target.result);
+      Monganga.showToast('Photo de profil mise à jour', 'success');
+    };
+    reader.readAsDataURL(file);
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedPhoto = localStorage.getItem('monganga_patient_photo');
+    if (savedPhoto) {
+      document.getElementById('patient-avatar-image').src = savedPhoto;
+      document.getElementById('patient-avatar').classList.add('has-image');
+    }
+  });
+</script>
+</body>
+</html>

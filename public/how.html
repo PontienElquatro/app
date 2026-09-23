@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comment ça marche — MONGANGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+<header class="pub-header">
+  <div class="pub-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pub-nav">
+      <a class="pub-nav-link" href="../index.html">Accueil</a>
+      <a class="pub-nav-link active" href="how.html">Comment ça marche</a>
+      <a class="pub-nav-link" href="doctors.html">Médecins</a>
+      <a class="pub-nav-link" href="pricing.html">Tarifs</a>
+      <a class="pub-nav-link" href="faq.html">FAQ</a>
+    </nav>
+    <div class="pub-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
+        <i data-lucide="moon" data-theme-icon></i>
+      </button>
+      <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+  </div>
+  <div class="drawer-content">
+    <a class="menu-link" href="../index.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="menu-link" href="how.html"><i data-lucide="book-open"></i> Comment ça marche</a>
+    <a class="menu-link" href="doctors.html"><i data-lucide="stethoscope"></i> Médecins</a>
+    <a class="menu-link" href="pricing.html"><i data-lucide="tag"></i> Tarifs</a>
+    <a class="menu-link" href="faq.html"><i data-lucide="help-circle"></i> FAQ</a>
+    <a class="menu-link" href="contact.html"><i data-lucide="mail"></i> Contact</a>
+    <a class="menu-link" href="candidature.html"><i data-lucide="user-plus"></i> Devenir médecin</a>
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:8px;">
+      <a class="btn btn-secondary btn-block" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-block" href="../auth/register.html">S'inscrire</a>
+    </div>
+  </div>
+</aside>
+
+<main>
+
+  <section class="container section">
+    <div class="fade-in">
+      <div class="breadcrumb mb-4">
+        <a href="../index.html">Accueil</a>
+        <i data-lucide="chevron-right"></i>
+        <span>Comment ça marche</span>
+      </div>
+      <h1 class="h1 mb-4">Comment ça marche</h1>
+      <p class="text-2" style="font-size: 16px; max-width: 680px;">
+        MONGANGA simplifie l'accès aux soins de santé à Kinshasa.
+        En 4 étapes, consultez un médecin vérifié depuis votre téléphone.
+      </p>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 72px;">
+    <div class="steps-detail" data-stagger>
+
+      <div class="step-detail">
+        <div class="step-badge">1</div>
+        <div class="step-content">
+          <div class="step-ico"><i data-lucide="user-plus"></i></div>
+          <h2 class="h3 mb-2">Créez votre compte</h2>
+          <p class="text-2 mb-4">
+            Inscription rapide par téléphone avec code OTP sécurisé. Un profil complet
+            en moins d'une minute : nom, commune, informations médicales de base.
+          </p>
+          <ul class="feature-list">
+            <li><i data-lucide="check-circle-2"></i> Inscription par téléphone</li>
+            <li><i data-lucide="check-circle-2"></i> Validation OTP sécurisée</li>
+            <li><i data-lucide="check-circle-2"></i> Profil médical personnalisé</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-detail">
+        <div class="step-badge">2</div>
+        <div class="step-content">
+          <div class="step-ico"><i data-lucide="search"></i></div>
+          <h2 class="h3 mb-2">Trouvez votre médecin</h2>
+          <p class="text-2 mb-4">
+            Filtrez par spécialité, commune ou disponibilité. Consultez les profils
+            détaillés, les avis et choisissez le praticien qui vous convient.
+          </p>
+          <ul class="feature-list">
+            <li><i data-lucide="check-circle-2"></i> Filtres par spécialité et commune</li>
+            <li><i data-lucide="check-circle-2"></i> Profils vérifiés par l'Ordre</li>
+            <li><i data-lucide="check-circle-2"></i> Choix du créneau en temps réel</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-detail">
+        <div class="step-badge">3</div>
+        <div class="step-content">
+          <div class="step-ico"><i data-lucide="credit-card"></i></div>
+          <h2 class="h3 mb-2">Payez en Mobile Money</h2>
+          <p class="text-2 mb-4">
+            Paiement transparent via M-Pesa, Orange Money, Airtel Money ou carte bancaire.
+            Confirmation instantanée, reçu téléchargeable.
+          </p>
+          <ul class="feature-list">
+            <li><i data-lucide="check-circle-2"></i> M-Pesa, Orange, Airtel Money</li>
+            <li><i data-lucide="check-circle-2"></i> Cartes bancaires acceptées</li>
+            <li><i data-lucide="check-circle-2"></i> Reçu automatique téléchargeable</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-detail">
+        <div class="step-badge">4</div>
+        <div class="step-content">
+          <div class="step-ico"><i data-lucide="video"></i></div>
+          <h2 class="h3 mb-2">Consultez à distance</h2>
+          <p class="text-2 mb-4">
+            Consultation vidéo HD, audio ou chat sécurisé. Envoyez photos et documents
+            au médecin, recevez votre ordonnance numérique immédiatement après.
+          </p>
+          <ul class="feature-list">
+            <li><i data-lucide="check-circle-2"></i> Vidéo HD, audio, chat</li>
+            <li><i data-lucide="check-circle-2"></i> Envoi de documents médicaux</li>
+            <li><i data-lucide="check-circle-2"></i> Ordonnance numérique sécurisée</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="h2 text-center mb-8">Nos différenciateurs</h2>
+      <div class="grid-2">
+
+        <div class="diff-card">
+          <div class="diff-icon"><i data-lucide="wifi-off"></i></div>
+          <h3 class="h3 mb-2">Bascule audio automatique</h3>
+          <p class="text-2">
+            Si votre connexion est instable, MONGANGA détecte automatiquement la qualité
+            du réseau et vous propose de passer en mode audio en un clic — sans couper
+            la consultation.
+          </p>
+          <div class="diff-mockup">
+            <div class="alert warning" style="margin:0;">
+              <i data-lucide="wifi-off"></i>
+              <span><strong>Connexion faible détectée.</strong> Passer en audio ?</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="diff-card">
+          <div class="diff-icon"><i data-lucide="file-badge"></i></div>
+          <h3 class="h3 mb-2">Ordonnance numérique</h3>
+          <p class="text-2">
+            Une carte numérique sécurisée au format ticket, immédiatement montrable
+            en pharmacie. Vérifiable par QR code, téléchargeable et archivée dans
+            votre historique médical.
+          </p>
+          <div class="diff-mockup">
+            <div class="ticket-preview">
+              <div class="ticket-header">
+                <span>ORDONNANCE</span>
+                <strong>MONGANGA</strong>
+              </div>
+              <div class="ticket-body">
+                <div><span>Patient</span><strong>Aline K.</strong></div>
+                <div><span>Date</span><strong>24/09/2026</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="cta-final">
+      <h2 class="h1 mb-2" style="color: inherit;">Prêt à commencer ?</h2>
+      <p style="opacity: 0.85; margin-bottom: 28px;">
+        Créez votre compte en 1 minute et prenez votre premier rendez-vous.
+      </p>
+      <div class="row" style="justify-content: center; flex-wrap: wrap; gap: 12px;">
+        <a class="btn btn-primary btn-lg" href="../auth/register.html">
+          <i data-lucide="user-plus"></i> Créer un compte
+        </a>
+        <a class="btn btn-secondary btn-lg" href="doctors.html">
+          <i data-lucide="stethoscope"></i> Voir les médecins
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+          <span class="logo-text">MONGANGA</span>
+        </div>
+        <p>Monganga na yo, na tshombo na yo. La santé à portée de main, à Kinshasa.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Produit</h5>
+        <a href="how.html">Comment ça marche</a>
+        <a href="doctors.html">Trouver un médecin</a>
+        <a href="pricing.html">Tarifs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Aide</h5>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="candidature.html">Devenir médecin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MONGANGA. Tous droits réservés.</span>
+      <span>🇨🇩 Fait à Kinshasa</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: var(--text-3);
+}
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb [data-lucide] { width: 14px; height: 14px; }
+
+.steps-detail { display: flex; flex-direction: column; gap: 32px; }
+.step-detail {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 28px;
+  align-items: start;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition: all var(--t);
+}
+.step-detail:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateX(4px); }
+.step-badge {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, var(--primary) 0%, #5B6FF0 100%);
+  color: #fff;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 800;
+  box-shadow: 0 4px 12px rgba(60, 80, 224, 0.3);
+}
+.step-content { flex: 1; }
+.step-ico {
+  width: 44px; height: 44px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.step-ico [data-lucide] { width: 22px; height: 22px; }
+
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.feature-list li { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--text-2); }
+.feature-list [data-lucide] { width: 16px; height: 16px; color: var(--success); flex-shrink: 0; }
+
+.diff-mockup { margin-top: 16px; padding: 16px; background: var(--surface-2); border-radius: var(--r-sm); }
+
+.ticket-preview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  max-width: 280px;
+}
+.ticket-header {
+  background: var(--text);
+  color: var(--bg);
+  padding: 12px;
+  text-align: center;
+}
+.ticket-header span { display: block; font-size: 9px; letter-spacing: 0.25em; opacity: 0.6; }
+.ticket-header strong { font-size: 14px; letter-spacing: 0.1em; }
+.ticket-body { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.ticket-body div { display: flex; justify-content: space-between; font-size: 11px; }
+.ticket-body span { color: var(--text-3); }
+
+@media (max-width: 640px) {
+  .step-detail { grid-template-columns: 1fr; padding: 24px; }
+  .step-badge { width: 52px; height: 52px; font-size: 22px; }
+}
+</style>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const isOpen = menu.style.right === '0px';
+    menu.style.right = isOpen ? '-300px' : '0px';
+    overlay.classList.toggle('active');
+  }
+</script>
+</body>
+</html>

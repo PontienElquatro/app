@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patients - Docteur | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Doctor</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation principale">
+        <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link" href="agenda.html"><i data-lucide="calendar-days"></i> Agenda</a>
+        <a class="doctor-nav-link" href="dispo.html"><i data-lucide="clock-3"></i> Disponibilités</a>
+        <a class="doctor-nav-link" href="demandes.html"><i data-lucide="inbox"></i> Demandes</a>
+        <a class="doctor-nav-link active" href="patients.html"><i data-lucide="users"></i> Patients</a>
+        <a class="doctor-nav-link" href="ordonnances.html"><i data-lucide="file-text"></i> Ordonnances</a>
+        <a class="doctor-nav-link" href="gains.html"><i data-lucide="wallet"></i> Gains</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">DM</div>
+          <div class="doctor-mini-meta">
+            <strong>Dr. Manda</strong>
+            <span>Cardiologie</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Patients</h1>
+          <p class="doctor-page-subtitle">Consultez vos dossiers et suivis actifs.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <input class="form-input" id="patient-search" type="search" placeholder="Rechercher un patient" aria-label="Rechercher un patient" style="width:220px; height:36px;">
+          <button class="btn btn-primary btn-sm" type="button" onclick="newPatient()"><i data-lucide="user-plus"></i> Nouveau patient</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Liste des patients</h2>
+              <div class="card-subtitle">248 profils actifs</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr data-patient-name="aline nkulu">
+                  <th>Patient</th>
+                  <th>Dernière visite</th>
+                  <th>Type</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar">AN</div>
+                      <div>
+                        <div class="list-name">Aline Nkulu</div>
+                        <div class="list-meta">aline.nk@gmail.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>18 Sept 2026</td>
+                  <td>Suivi</td>
+                  <td><span class="badge success">Actif</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="openPatientRecord('Aline Nkulu', 'Suivi actif', 'Pénicilline', 'Asthme')">Dossier</button></td>
+                </tr>
+                <tr data-patient-name="m mwamba">
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309;">MM</div>
+                      <div>
+                        <div class="list-name">M. Mwamba</div>
+                        <div class="list-meta">m.mwamba@outlook.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>17 Sept 2026</td>
+                  <td>Consultation</td>
+                  <td><span class="badge info">À revoir</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="openPatientRecord('M. Mwamba', 'Consultation à revoir', 'Aucune connue', 'Hypertension')">Dossier</button></td>
+                </tr>
+                <tr data-patient-name="mlle kanza">
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#047857;">MK</div>
+                      <div>
+                        <div class="list-name">Mlle. Kanza</div>
+                        <div class="list-meta">mkanza@gmail.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>15 Sept 2026</td>
+                  <td>Bilan</td>
+                  <td><span class="badge success">Actif</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="openPatientRecord('Mlle. Kanza', 'Bilan actif', 'Latex', 'Aucune connue')">Dossier</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+      document.getElementById('patient-search').addEventListener('input', event => {
+        const query = event.target.value.toLowerCase().trim();
+        document.querySelectorAll('[data-patient-name]').forEach(row => {
+          row.style.display = row.dataset.patientName.includes(query) ? '' : 'none';
+        });
+      });
+    });
+
+    function openPatientRecord(name, status, allergies, conditions) {
+      const modal = document.createElement('div');
+      modal.className = 'modal-overlay active';
+      modal.innerHTML = `<div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="record-title"><div class="modal-card-header"><div><h2 id="record-title">Dossier de ${name}</h2><p class="text-2">${status}</p></div><button class="btn btn-ghost btn-icon" onclick="this.closest('.modal-overlay').remove()" aria-label="Fermer"><i data-lucide="x"></i></button></div><div class="modal-card-body"><p><strong>Allergies :</strong> ${allergies}</p><p><strong>Pathologies :</strong> ${conditions}</p><p><strong>Dernière consultation :</strong> 18 septembre 2026</p><textarea class="form-input" placeholder="Note privée du médecin..." rows="4"></textarea></div><div class="modal-card-footer"><button class="btn btn-primary" onclick="Monganga.showToast('Note patient enregistrée localement','success'); this.closest('.modal-overlay').remove()">Enregistrer la note</button></div></div>`;
+      document.body.appendChild(modal);
+      Monganga.initLucide();
+    }
+
+    function newPatient() { Monganga.showToast('Ajout manuel disponible après une consultation ou une demande acceptée', 'info'); }
+  </script>
+</body>
+</html>

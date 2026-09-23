@@ -1,0 +1,6 @@
+/* ============================================================
+   MONGANGA — Compatibility stylesheet
+   Fichier de compatibilité pour les liens historiques pointant vers style.css
+   ============================================================ */
+
+@import url('./styles.css');

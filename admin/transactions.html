@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions Admin | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation admin">
+        <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link" href="validations.html"><i data-lucide="shield-check"></i> Validations</a>
+        <a class="doctor-nav-link active" href="transactions.html"><i data-lucide="wallet"></i> Transactions</a>
+        <a class="doctor-nav-link" href="users.html"><i data-lucide="users"></i> Utilisateurs</a>
+        <a class="doctor-nav-link" href="reports.html"><i data-lucide="bar-chart-3"></i> Rapports</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">AD</div>
+          <div class="doctor-mini-meta">
+            <strong>Admin</strong>
+            <span>Superviseur</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Transactions</h1>
+          <p class="doctor-page-subtitle">Historique des paiements et revenus de la plateforme.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <select class="form-input" id="transaction-filter" aria-label="Filtrer les transactions" style="width:auto; height:36px;"><option value="all">Toutes</option><option value="confirmed">Confirmées</option><option value="sending">Envoi</option><option value="pending">En attente</option></select>
+          <button class="btn btn-primary btn-sm" type="button" onclick="exportTransactions()"><i data-lucide="download"></i> Exporter</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="kpi-grid" data-stagger>
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="wallet"></i> Revenu total</div>
+            <div class="kpi-value">$38.6K</div>
+            <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +14.7%</span>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="receipt"></i> Paiements confirmés</div>
+            <div class="kpi-value">1,248</div>
+            <span class="kpi-trend success"><i data-lucide="check-circle-2"></i> 96%</span>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-label"><i data-lucide="clock-4"></i> En attente</div>
+            <div class="kpi-value">$2.1K</div>
+            <span class="kpi-trend warn"><i data-lucide="clock-4"></i> 18 paiements</span>
+          </article>
+        </section>
+
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Historique des transactions</h2>
+              <div class="card-subtitle">Derniers mouvements</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr data-transaction-status="confirmed">
+                  <th>Référence</th>
+                  <th>Utilisateur</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Montant</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-transaction-status="sending">
+                  <td>#TRX-10421</td>
+                  <td>Aline Nkulu</td>
+                  <td>Consultation</td>
+                  <td>24 Sept</td>
+                  <td>$120</td>
+                  <td><span class="badge success">Confirmé</span></td>
+                </tr>
+                <tr data-transaction-status="pending">
+                  <td>#TRX-10420</td>
+                  <td>Dr. Daniel K.</td>
+                  <td>Commission</td>
+                  <td>24 Sept</td>
+                  <td>$520</td>
+                  <td><span class="badge info">Envoi</span></td>
+                </tr>
+                <tr data-transaction-status="confirmed">
+                  <td>#TRX-10419</td>
+                  <td>Jean S.</td>
+                  <td>Consultation</td>
+                  <td>23 Sept</td>
+                  <td>$90</td>
+                  <td><span class="badge warning">En attente</span></td>
+                </tr>
+                <tr>
+                  <td>#TRX-10418</td>
+                  <td>Dr. Sarah M.</td>
+                  <td>Commission</td>
+                  <td>22 Sept</td>
+                  <td>$480</td>
+                  <td><span class="badge success">Confirmé</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+      document.getElementById('transaction-filter').addEventListener('change', event => document.querySelectorAll('[data-transaction-status]').forEach(row => row.style.display = event.target.value === 'all' || row.dataset.transactionStatus === event.target.value ? '' : 'none'));
+    });
+    function exportTransactions() { const csv = 'Référence,Utilisateur,Type,Date,Montant,Statut\nTRX-10421,Aline Nkulu,Consultation,24 Sept,120,Confirmé\nTRX-10420,Dr. Daniel K.,Commission,24 Sept,520,Envoi\nTRX-10419,Jean S.,Consultation,23 Sept,90,En attente\nTRX-10418,Dr. Sarah M.,Commission,22 Sept,480,Confirmé'; const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); link.download = 'monganga-transactions.csv'; link.click(); Monganga.showToast('Export des transactions téléchargé', 'success'); }
+  </script>
+</body>
+</html>

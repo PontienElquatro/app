@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — MONGANGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+<header class="pub-header">
+  <div class="pub-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pub-nav">
+      <a class="pub-nav-link" href="../index.html">Accueil</a>
+      <a class="pub-nav-link" href="how.html">Comment ça marche</a>
+      <a class="pub-nav-link" href="doctors.html">Médecins</a>
+      <a class="pub-nav-link" href="pricing.html">Tarifs</a>
+      <a class="pub-nav-link" href="faq.html">FAQ</a>
+    </nav>
+    <div class="pub-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
+        <i data-lucide="moon" data-theme-icon></i>
+      </button>
+      <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+  </div>
+  <div class="drawer-content">
+    <a class="menu-link" href="../index.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="menu-link" href="how.html"><i data-lucide="book-open"></i> Comment ça marche</a>
+    <a class="menu-link" href="doctors.html"><i data-lucide="stethoscope"></i> Médecins</a>
+    <a class="menu-link" href="pricing.html"><i data-lucide="tag"></i> Tarifs</a>
+    <a class="menu-link" href="faq.html"><i data-lucide="help-circle"></i> FAQ</a>
+    <a class="menu-link" href="contact.html"><i data-lucide="mail"></i> Contact</a>
+    <a class="menu-link" href="candidature.html"><i data-lucide="user-plus"></i> Devenir médecin</a>
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:8px;">
+      <a class="btn btn-secondary btn-block" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-block" href="../auth/register.html">S'inscrire</a>
+    </div>
+  </div>
+</aside>
+
+<main>
+
+  <section class="container section">
+    <div class="fade-in text-center">
+      <div class="breadcrumb" style="justify-content: center; margin-bottom: 16px;">
+        <a href="../index.html">Accueil</a>
+        <i data-lucide="chevron-right"></i>
+        <span>Contact</span>
+      </div>
+      <h1 class="h1 mb-4">Contactez-nous</h1>
+      <p class="text-2 mx-auto" style="font-size: 15px; max-width: 640px;">
+        Une question, une suggestion ou besoin d'assistance ?
+        Notre équipe vous répond sous 24h.
+      </p>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 72px;">
+    <div class="contact-grid">
+
+      <!-- Coordonnées -->
+      <div class="contact-info slide-in-left">
+
+        <div class="contact-item">
+          <div class="icon"><i data-lucide="mail"></i></div>
+          <div>
+            <h4>Email</h4>
+            <p>contact@monganga.cd</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon"><i data-lucide="phone"></i></div>
+          <div>
+            <h4>Téléphone</h4>
+            <p>+243 800 000 000</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon"><i data-lucide="map-pin"></i></div>
+          <div>
+            <h4>Adresse</h4>
+            <p>Gombe, Kinshasa — RDC</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon"><i data-lucide="clock"></i></div>
+          <div>
+            <h4>Horaires</h4>
+            <p>Lun-Sam : 8h — 20h</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon"><i data-lucide="message-circle"></i></div>
+          <div>
+            <h4>WhatsApp</h4>
+            <p>Support 24/7</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon"><i data-lucide="life-buoy"></i></div>
+          <div>
+            <h4>Support technique</h4>
+            <p>support@monganga.cd</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Formulaire -->
+      <div class="card card-block slide-in-right" style="padding: 32px;">
+        <h2 class="h3 mb-6">Envoyez-nous un message</h2>
+
+        <form onsubmit="event.preventDefault(); showToast('Message envoyé. Nous vous répondrons sous 24h.', 'success'); this.reset();">
+
+          <div class="form-group">
+            <label class="form-label">Nom complet</label>
+            <input class="form-input" placeholder="Votre nom" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <div class="input-wrap">
+              <i data-lucide="mail" class="icon-left"></i>
+              <input type="email" class="form-input" placeholder="votre@email.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Sujet</label>
+            <select class="form-input" required>
+              <option value="">Choisissez un sujet</option>
+              <option>Question sur les tarifs</option>
+              <option>Problème technique</option>
+              <option>Question sur les consultations</option>
+              <option>Devenir médecin partenaire</option>
+              <option>Signaler un incident</option>
+              <option>Autre</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-input" placeholder="Décrivez votre demande..." required></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" type="submit">
+            <i data-lucide="send"></i> Envoyer le message
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 72px;">
+    <h2 class="h2 text-center mb-8">Autres moyens de nous joindre</h2>
+
+    <div class="grid-3" data-stagger>
+
+      <a class="support-card" href="https://wa.me/" target="_blank">
+        <div class="support-icon"><i data-lucide="message-circle"></i></div>
+        <h4 class="h4 mb-2">WhatsApp</h4>
+        <p class="text-2" style="font-size: 13px;">Support rapide 24/7</p>
+        <span class="support-link">Ouvrir WhatsApp <i data-lucide="arrow-up-right"></i></span>
+      </a>
+
+      <a class="support-card" href="tel:+243800000000">
+        <div class="support-icon"><i data-lucide="phone"></i></div>
+        <h4 class="h4 mb-2">Appel téléphonique</h4>
+        <p class="text-2" style="font-size: 13px;">Lun-Sam, 8h à 20h</p>
+        <span class="support-link">Appeler maintenant <i data-lucide="arrow-up-right"></i></span>
+      </a>
+
+      <a class="support-card" href="faq.html">
+        <div class="support-icon"><i data-lucide="help-circle"></i></div>
+        <h4 class="h4 mb-2">Centre d'aide</h4>
+        <p class="text-2" style="font-size: 13px;">Réponses instantanées</p>
+        <span class="support-link">Voir la FAQ <i data-lucide="arrow-right"></i></span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="pub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+          <span class="logo-text">MONGANGA</span>
+        </div>
+        <p>Monganga na yo, na tshombo na yo. La santé à portée de main, à Kinshasa.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Produit</h5>
+        <a href="how.html">Comment ça marche</a>
+        <a href="doctors.html">Trouver un médecin</a>
+        <a href="pricing.html">Tarifs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Aide</h5>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="candidature.html">Devenir médecin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MONGANGA. Tous droits réservés.</span>
+      <span>🇨🇩 Fait à Kinshasa</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: var(--text-3);
+}
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb [data-lucide] { width: 14px; height: 14px; }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-info {
+  display: flex; flex-direction: column; gap: 20px;
+}
+.contact-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 16px;
+  border-radius: var(--r-md);
+  transition: all var(--t);
+  border: 1px solid transparent;
+}
+.contact-item:hover {
+  background: var(--surface);
+  border-color: var(--border);
+  transform: translateX(4px);
+}
+.contact-item .icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-item .icon [data-lucide] { width: 20px; height: 20px; }
+.contact-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.contact-item p { font-size: 13px; color: var(--text-2); }
+
+.support-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 24px;
+  transition: all var(--t);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.support-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.support-icon {
+  width: 48px; height: 48px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+  transition: all var(--t);
+}
+.support-card:hover .support-icon { background: var(--primary); color: #fff; }
+.support-icon [data-lucide] { width: 24px; height: 24px; }
+.support-link {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700;
+  color: var(--primary);
+  margin-top: 10px;
+}
+.support-link [data-lucide] { width: 14px; height: 14px; transition: transform var(--t); }
+.support-card:hover .support-link [data-lucide] { transform: translateX(4px); }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+</style>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const isOpen = menu.style.right === '0px';
+    menu.style.right = isOpen ? '-300px' : '0px';
+    overlay.classList.toggle('active');
+  }
+</script>
+</body>
+</html>

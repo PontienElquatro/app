@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utilisateurs Admin | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation admin">
+        <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link" href="validations.html"><i data-lucide="shield-check"></i> Validations</a>
+        <a class="doctor-nav-link" href="transactions.html"><i data-lucide="wallet"></i> Transactions</a>
+        <a class="doctor-nav-link active" href="users.html"><i data-lucide="users"></i> Utilisateurs</a>
+        <a class="doctor-nav-link" href="reports.html"><i data-lucide="bar-chart-3"></i> Rapports</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">AD</div>
+          <div class="doctor-mini-meta">
+            <strong>Admin</strong>
+            <span>Superviseur</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Utilisateurs</h1>
+          <p class="doctor-page-subtitle">Gestion des comptes patients, médecins et partenaires.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <input class="form-input" id="user-search" type="search" placeholder="Rechercher un utilisateur" aria-label="Rechercher un utilisateur" style="width:220px; height:36px;">
+          <button class="btn btn-primary btn-sm" type="button" onclick="Monganga.showToast('Les comptes sont créés depuis les parcours d’inscription','info')"><i data-lucide="user-plus"></i> Ajouter</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Comptes actifs</h2>
+              <div class="card-subtitle">12 400 comptes</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr data-user="aline nkulu patient actif">
+                  <th>Utilisateur</th>
+                  <th>Rôle</th>
+                  <th>Inscription</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar">AN</div>
+                      <div>
+                        <div class="list-name">Aline Nkulu</div>
+                        <div class="list-meta">aline.nk@gmail.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Patient</td>
+                  <td>12 Jan 2026</td>
+                  <td><span class="badge success">Actif</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails('Aline Nkulu','Patient','Actif')">Détails</button></td>
+                </tr>
+                <tr data-user="daniel k medecin attente">
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;">DK</div>
+                      <div>
+                        <div class="list-name">Dr. Daniel K.</div>
+                        <div class="list-meta">danielk@monganga.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Médecin</td>
+                  <td>18 Sept 2026</td>
+                  <td><span class="badge warning">En attente</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails('Dr. Daniel K.','Médecin','En attente')">Détails</button></td>
+                </tr>
+                <tr data-user="sarah m medecin actif">
+                  <td>
+                    <div class="timeline-main">
+                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309;">SM</div>
+                      <div>
+                        <div class="list-name">Dr. Sarah M.</div>
+                        <div class="list-meta">sarahm@monganga.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Médecin</td>
+                  <td>8 Août 2026</td>
+                  <td><span class="badge success">Actif</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails('Dr. Sarah M.','Médecin','Actif')">Détails</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+      document.getElementById('user-search').addEventListener('input', event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll('[data-user]').forEach(row => row.style.display = !query || row.dataset.user.includes(query) ? '' : 'none'); });
+    });
+    function showUserDetails(name, role, status) { Monganga.showToast(`${name} · ${role} · ${status}`, 'info'); }
+  </script>
+</body>
+</html>

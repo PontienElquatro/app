@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ordonnances - Docteur | MONGANGA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/doctor.css">
+</head>
+<body class="doctor-body">
+  <div class="doctor-shell">
+    <aside class="doctor-sidebar">
+      <div class="doctor-brand">
+        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Doctor</span>
+        </div>
+      </div>
+
+      <nav class="doctor-nav" aria-label="Navigation principale">
+        <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link" href="agenda.html"><i data-lucide="calendar-days"></i> Agenda</a>
+        <a class="doctor-nav-link" href="dispo.html"><i data-lucide="clock-3"></i> Disponibilités</a>
+        <a class="doctor-nav-link" href="demandes.html"><i data-lucide="inbox"></i> Demandes</a>
+        <a class="doctor-nav-link" href="patients.html"><i data-lucide="users"></i> Patients</a>
+        <a class="doctor-nav-link active" href="ordonnances.html"><i data-lucide="file-text"></i> Ordonnances</a>
+        <a class="doctor-nav-link" href="gains.html"><i data-lucide="wallet"></i> Gains</a>
+      </nav>
+
+      <div class="doctor-profile-box">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar">DM</div>
+          <div class="doctor-mini-meta">
+            <strong>Dr. Manda</strong>
+            <span>Cardiologie</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="doctor-main">
+      <header class="doctor-topbar">
+        <div>
+          <h1 class="doctor-page-title">Ordonnances</h1>
+          <p class="doctor-page-subtitle">Créez, modifiez et suivez les prescriptions.</p>
+        </div>
+
+        <div class="doctor-header-actions">
+          <button class="btn btn-secondary btn-sm" type="button" onclick="window.print()"><i data-lucide="download"></i> Exporter</button>
+          <button class="btn btn-primary btn-sm" type="button" onclick="focusPrescription()"><i data-lucide="plus"></i> Nouvelle ordonnance</button>
+        </div>
+      </header>
+
+      <div class="doctor-main-grid">
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Ordonnances récentes</h2>
+              <div class="card-subtitle">Dernières prescriptions</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Médicament</th>
+                  <th>Date</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Aline Nkulu</td>
+                  <td>Amoxicilline</td>
+                  <td>21 Sept</td>
+                  <td><span class="badge success">Validée</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="viewPrescription('Aline Nkulu','Amoxicilline','1 comprimé toutes les 12h pendant 5 jours')">Voir</button></td>
+                </tr>
+                <tr>
+                  <td>M. Mwamba</td>
+                  <td>Atorvastatine</td>
+                  <td>18 Sept</td>
+                  <td><span class="badge info">À vérifier</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="viewPrescription('M. Mwamba','Atorvastatine','1 comprimé le soir')">Voir</button></td>
+                </tr>
+                <tr>
+                  <td>Mlle. Kanza</td>
+                  <td>Vitamine D</td>
+                  <td>12 Sept</td>
+                  <td><span class="badge neutral">Archivées</span></td>
+                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="viewPrescription('Mlle. Kanza','Vitamine D','1 dose par semaine')">Voir</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Créer une ordonnance</h2>
+              <div class="card-subtitle">Modèle rapide</div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="patient">Patient</label>
+              <input id="patient" type="text" value="Aline Nkulu" />
+            </div>
+            <div class="form-field">
+              <label for="medoc">Médicament</label>
+              <input id="medoc" type="text" value="Amoxicilline" />
+            </div>
+            <div class="form-field" style="grid-column: 1 / -1;">
+              <label for="prescription">Prescription</label>
+              <textarea id="prescription">1 comprimé toutes les 12h pendant 5 jours.</textarea>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="button" onclick="createPrescription()"><i data-lucide="send"></i> Enregistrer l'ordonnance</button>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initLucide();
+    });
+    function focusPrescription() { document.getElementById('patient').focus(); document.getElementById('patient').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    function createPrescription() {
+      const patient = document.getElementById('patient').value.trim();
+      const medoc = document.getElementById('medoc').value.trim();
+      if (!patient || !medoc || !document.getElementById('prescription').value.trim()) return Monganga.showToast('Complétez tous les champs de l’ordonnance', 'error');
+      Monganga.showToast(`Ordonnance créée pour ${patient}`, 'success');
+      localStorage.setItem('monganga_last_prescription', JSON.stringify({ patient, medoc, text: document.getElementById('prescription').value }));
+    }
+    function viewPrescription(patient, medoc, text) { Monganga.showToast(`${patient} · ${medoc} · ${text}`, 'info'); }
+  </script>
+</body>
+</html>

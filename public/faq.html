@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — MONGANGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+<header class="pub-header">
+  <div class="pub-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pub-nav">
+      <a class="pub-nav-link" href="../index.html">Accueil</a>
+      <a class="pub-nav-link" href="how.html">Comment ça marche</a>
+      <a class="pub-nav-link" href="doctors.html">Médecins</a>
+      <a class="pub-nav-link" href="pricing.html">Tarifs</a>
+      <a class="pub-nav-link active" href="faq.html">FAQ</a>
+    </nav>
+    <div class="pub-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
+        <i data-lucide="moon" data-theme-icon></i>
+      </button>
+      <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+  </div>
+  <div class="drawer-content">
+    <a class="menu-link" href="../index.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="menu-link" href="how.html"><i data-lucide="book-open"></i> Comment ça marche</a>
+    <a class="menu-link" href="doctors.html"><i data-lucide="stethoscope"></i> Médecins</a>
+    <a class="menu-link" href="pricing.html"><i data-lucide="tag"></i> Tarifs</a>
+    <a class="menu-link" href="faq.html"><i data-lucide="help-circle"></i> FAQ</a>
+    <a class="menu-link" href="contact.html"><i data-lucide="mail"></i> Contact</a>
+    <a class="menu-link" href="candidature.html"><i data-lucide="user-plus"></i> Devenir médecin</a>
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:8px;">
+      <a class="btn btn-secondary btn-block" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-block" href="../auth/register.html">S'inscrire</a>
+    </div>
+  </div>
+</aside>
+
+<main>
+
+  <section class="container section">
+    <div class="fade-in text-center">
+      <div class="breadcrumb" style="justify-content: center; margin-bottom: 16px;">
+        <a href="../index.html">Accueil</a>
+        <i data-lucide="chevron-right"></i>
+        <span>FAQ</span>
+      </div>
+      <h1 class="h1 mb-4">Questions fréquentes</h1>
+      <p class="text-2 mx-auto" style="font-size: 15px; max-width: 640px;">
+        Retrouvez les réponses aux questions les plus posées par nos utilisateurs.
+      </p>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 48px;">
+    <div class="faq-categories" data-stagger>
+      <button class="chip active" data-filter="all">Toutes</button>
+      <button class="chip" data-filter="prise-rdv">Prise de RDV</button>
+      <button class="chip" data-filter="paiement">Paiement</button>
+      <button class="chip" data-filter="consultation">Consultation</button>
+      <button class="chip" data-filter="medecin">Devenir médecin</button>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 72px;">
+    <div class="faq-list fade-in">
+
+      <div class="faq-item" data-category="prise-rdv" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="calendar-check"></i></div>
+          <span>Comment prendre un rendez-vous ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Créez un compte gratuit, recherchez un médecin par spécialité ou commune,
+          choisissez un créneau disponible et payez en Mobile Money. Vous recevrez une
+          confirmation immédiate par notification et email.</p>
+          <p class="mt-2">Vous pourrez ensuite rejoindre la consultation depuis votre espace personnel
+          à l'heure prévue.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="paiement" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="credit-card"></i></div>
+          <span>Quels sont les moyens de paiement acceptés ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Nous acceptons plusieurs moyens de paiement adaptés au contexte local :</p>
+          <ul class="faq-list-simple">
+            <li><i data-lucide="check-circle-2"></i> M-Pesa</li>
+            <li><i data-lucide="check-circle-2"></i> Orange Money</li>
+            <li><i data-lucide="check-circle-2"></i> Airtel Money</li>
+            <li><i data-lucide="check-circle-2"></i> Cartes bancaires Visa et Mastercard</li>
+          </ul>
+          <p class="mt-2">Tous les paiements sont sécurisés et confirmés instantanément.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="wifi-off"></i></div>
+          <span>Que faire si ma connexion est faible pendant une consultation ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>MONGANGA détecte automatiquement la qualité du réseau et vous propose
+          de basculer en mode audio en un clic, sans couper la consultation.
+          Vous pouvez aussi ignorer la suggestion et continuer en vidéo.</p>
+          <p class="mt-2">Si la connexion revient à la normale, vous pouvez repasser en vidéo
+          à tout moment.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="file-text"></i></div>
+          <span>Comment obtenir mon ordonnance après la consultation ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>L'ordonnance est émise directement par le médecin à la fin de la consultation.
+          Elle apparaît immédiatement dans votre espace personnel sous forme de carte
+          numérique sécurisée.</p>
+          <p class="mt-2">Vous pouvez la montrer en pharmacie, la télécharger en PDF
+          ou l'archiver dans votre historique médical.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="prise-rdv" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="calendar-x"></i></div>
+          <span>Comment annuler ou reporter un rendez-vous ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Depuis votre espace personnel, dans "Mes rendez-vous", cliquez sur le rendez-vous
+          concerné puis choisissez "Annuler" ou "Reporter".</p>
+          <p class="mt-2">Annulation gratuite jusqu'à 24h avant le rendez-vous.
+          Passé ce délai, des conditions particulières peuvent s'appliquer.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="medecin" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="stethoscope"></i></div>
+          <span>Comment devenir médecin partenaire MONGANGA ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Rendez-vous sur la page "Devenir médecin" et remplissez le formulaire
+          de candidature en ligne. Vous devrez fournir :</p>
+          <ul class="faq-list-simple">
+            <li><i data-lucide="check-circle-2"></i> Pièce d'identité</li>
+            <li><i data-lucide="check-circle-2"></i> Diplôme de médecine</li>
+            <li><i data-lucide="check-circle-2"></i> Attestation d'inscription à l'Ordre</li>
+            <li><i data-lucide="check-circle-2"></i> CV professionnel</li>
+          </ul>
+          <p class="mt-2">Notre équipe examine votre dossier sous 48h et vous contactera
+          par email.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="shield-check"></i></div>
+          <span>Comment mes données médicales sont-elles protégées ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Vos données médicales sont chiffrées et stockées dans des serveurs sécurisés.
+          Seuls votre médecin traitant et vous-même pouvez y accéder.</p>
+          <p class="mt-2">Nous ne partageons jamais vos informations avec des tiers sans
+          votre consentement explicite.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <div class="faq-icon"><i data-lucide="smartphone"></i></div>
+          <span>Ai-je besoin d'une application mobile pour utiliser MONGANGA ?</span>
+          <i data-lucide="chevron-down" class="faq-chevron"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Non. MONGANGA est une plateforme web accessible depuis n'importe quel
+          navigateur moderne (Chrome, Safari, Firefox) sur ordinateur, tablette
+          ou smartphone.</p>
+          <p class="mt-2">Une application mobile native est en cours de développement.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 72px;">
+    <div class="cta-final">
+      <h2 class="h1 mb-2" style="color: inherit;">Vous n'avez pas trouvé votre réponse ?</h2>
+      <p style="opacity: 0.85; margin-bottom: 28px;">
+        Notre équipe est disponible pour vous aider.
+      </p>
+      <div class="row" style="justify-content: center; flex-wrap: wrap; gap: 12px;">
+        <a class="btn btn-primary btn-lg" href="contact.html">
+          <i data-lucide="mail"></i> Nous contacter
+        </a>
+        <a class="btn btn-secondary btn-lg" href="how.html">Voir comment ça marche</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+          <span class="logo-text">MONGANGA</span>
+        </div>
+        <p>Monganga na yo, na tshombo na yo. La santé à portée de main, à Kinshasa.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Produit</h5>
+        <a href="how.html">Comment ça marche</a>
+        <a href="doctors.html">Trouver un médecin</a>
+        <a href="pricing.html">Tarifs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Aide</h5>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="candidature.html">Devenir médecin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MONGANGA. Tous droits réservés.</span>
+      <span>🇨🇩 Fait à Kinshasa</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: var(--text-3);
+}
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb [data-lucide] { width: 14px; height: 14px; }
+
+.faq-categories {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  justify-content: center;
+}
+
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: all var(--t);
+  cursor: pointer;
+}
+.faq-item:hover { border-color: var(--primary-soft); }
+.faq-item.open { border-color: var(--primary); box-shadow: var(--shadow-md); }
+
+.faq-question {
+  padding: 18px 22px;
+  display: flex; align-items: center; gap: 14px;
+  font-size: 14px; font-weight: 600;
+  user-select: none;
+}
+.faq-icon {
+  width: 36px; height: 36px;
+  border-radius: var(--r-sm);
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--t);
+}
+.faq-icon [data-lucide] { width: 18px; height: 18px; }
+.faq-item.open .faq-icon { background: var(--primary); color: #fff; }
+
+.faq-question > span { flex: 1; }
+
+.faq-chevron {
+  transition: transform var(--t);
+  color: var(--text-3);
+  flex-shrink: 0;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--primary); }
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 0 22px;
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+.faq-item.open .faq-answer { max-height: 500px; padding: 0 22px 20px 72px; }
+
+.faq-list-simple {
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 6px;
+  margin: 8px 0;
+}
+.faq-list-simple li { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+.faq-list-simple [data-lucide] { width: 14px; height: 14px; color: var(--success); flex-shrink: 0; }
+
+.cta-final {
+  background: var(--text);
+  color: var(--bg);
+  padding: 64px 32px;
+  text-align: center;
+  border-radius: var(--r-lg);
+  position: relative;
+  overflow: hidden;
+}
+.cta-final .btn-secondary {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+  color: inherit;
+}
+
+@media (max-width: 640px) {
+  .faq-question { padding: 16px 18px; font-size: 13.5px; }
+  .faq-icon { width: 32px; height: 32px; }
+  .faq-item.open .faq-answer { padding: 0 18px 18px 18px; }
+}
+</style>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const isOpen = menu.style.right === '0px';
+    menu.style.right = isOpen ? '-300px' : '0px';
+    overlay.classList.toggle('active');
+  }
+
+  function toggleFaq(el) {
+    el.classList.toggle('open');
+  }
+
+  document.querySelectorAll('.chip[data-filter]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      const filter = chip.dataset.filter;
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const match = filter === 'all' || item.dataset.category === filter;
+        item.style.display = match ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

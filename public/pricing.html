@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarifs — MONGANGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+<header class="pub-header">
+  <div class="pub-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pub-nav">
+      <a class="pub-nav-link" href="../index.html">Accueil</a>
+      <a class="pub-nav-link" href="how.html">Comment ça marche</a>
+      <a class="pub-nav-link" href="doctors.html">Médecins</a>
+      <a class="pub-nav-link active" href="pricing.html">Tarifs</a>
+      <a class="pub-nav-link" href="faq.html">FAQ</a>
+    </nav>
+    <div class="pub-actions">
+      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
+        <i data-lucide="moon" data-theme-icon></i>
+      </button>
+      <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+  </div>
+  <div class="drawer-content">
+    <a class="menu-link" href="../index.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="menu-link" href="how.html"><i data-lucide="book-open"></i> Comment ça marche</a>
+    <a class="menu-link" href="doctors.html"><i data-lucide="stethoscope"></i> Médecins</a>
+    <a class="menu-link" href="pricing.html"><i data-lucide="tag"></i> Tarifs</a>
+    <a class="menu-link" href="faq.html"><i data-lucide="help-circle"></i> FAQ</a>
+    <a class="menu-link" href="contact.html"><i data-lucide="mail"></i> Contact</a>
+    <a class="menu-link" href="candidature.html"><i data-lucide="user-plus"></i> Devenir médecin</a>
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:8px;">
+      <a class="btn btn-secondary btn-block" href="../auth/login.html">Se connecter</a>
+      <a class="btn btn-primary btn-block" href="../auth/register.html">S'inscrire</a>
+    </div>
+  </div>
+</aside>
+
+<main>
+
+  <section class="container section">
+    <div class="fade-in text-center">
+      <div class="breadcrumb" style="justify-content: center; margin-bottom: 16px;">
+        <a href="../index.html">Accueil</a>
+        <i data-lucide="chevron-right"></i>
+        <span>Tarifs</span>
+      </div>
+      <h1 class="h1 mb-4">Tarifs des consultations</h1>
+      <p class="text-2 mx-auto" style="font-size: 15px; max-width: 640px;">
+        Les tarifs sont fixés par MONGANGA pour garantir la transparence
+        et l'équité. Aucun frais caché.
+      </p>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 24px;">
+    <div class="trust-bar" data-stagger>
+      <div class="trust-pill">
+        <i data-lucide="shield-check"></i>
+        <span>Paiement sécurisé</span>
+      </div>
+      <div class="trust-pill">
+        <i data-lucide="wallet"></i>
+        <span>Mobile Money + carte</span>
+      </div>
+      <div class="trust-pill">
+        <i data-lucide="tag"></i>
+        <span>Sans frais cachés</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 32px;">
+    <div class="pricing-grid" data-stagger>
+
+      <div class="pricing-card">
+        <div class="pricing-badge-soft">Standard</div>
+        <div class="plan-name">Consultation Standard</div>
+        <div class="price">
+          <span class="price-value">20 $</span>
+          <span class="price-unit">/ séance</span>
+        </div>
+        <div class="price-sub">Vidéo, audio ou chat — 30 min</div>
+
+        <ul class="pricing-features">
+          <li><i data-lucide="check-circle-2"></i> Consultation avec médecin généraliste vérifié</li>
+          <li><i data-lucide="check-circle-2"></i> Ordonnance numérique sécurisée</li>
+          <li><i data-lucide="check-circle-2"></i> Suivi de dossier médical</li>
+          <li><i data-lucide="check-circle-2"></i> Bascule audio automatique</li>
+          <li><i data-lucide="check-circle-2"></i> Reçu téléchargeable</li>
+        </ul>
+
+        <a class="btn btn-primary btn-block btn-lg" href="../auth/register.html">
+          Prendre RDV <i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Recommandé</div>
+        <div class="plan-name">Consultation Spécialiste</div>
+        <div class="price">
+          <span class="price-value">30 $</span>
+          <span class="price-unit">/ séance</span>
+        </div>
+        <div class="price-sub">Vidéo HD — 45 min</div>
+
+        <ul class="pricing-features">
+          <li><i data-lucide="check-circle-2"></i> Consultation avec spécialiste vérifié</li>
+          <li><i data-lucide="check-circle-2"></i> Envoi de documents (radios, analyses)</li>
+          <li><i data-lucide="check-circle-2"></i> Ordonnance numérique sécurisée</li>
+          <li><i data-lucide="check-circle-2"></i> Suivi prioritaire</li>
+          <li><i data-lucide="check-circle-2"></i> Assistance technique dédiée</li>
+        </ul>
+
+        <a class="btn btn-primary btn-block btn-lg" href="../auth/register.html">
+          Prendre RDV <i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 32px;">
+    <div class="alert info" style="max-width: 640px; margin: 0 auto;">
+      <i data-lucide="info"></i>
+      <span>
+        Les tarifs incluent les frais de service.
+        Le paiement s'effectue en Mobile Money (M-Pesa, Orange Money, Airtel Money)
+        ou par carte bancaire.
+      </span>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="h2 text-center mb-8">Moyens de paiement acceptés</h2>
+
+    <div class="payment-methods-grid" data-stagger>
+      <div class="payment-card">
+        <div class="payment-icon"><i data-lucide="smartphone"></i></div>
+        <h4 class="h4 mb-2">M-Pesa</h4>
+        <p class="text-2" style="font-size: 12.5px;">Paiement instantané via votre compte M-Pesa</p>
+      </div>
+      <div class="payment-card">
+        <div class="payment-icon"><i data-lucide="smartphone"></i></div>
+        <h4 class="h4 mb-2">Orange Money</h4>
+        <p class="text-2" style="font-size: 12.5px;">Payez directement depuis votre téléphone</p>
+      </div>
+      <div class="payment-card">
+        <div class="payment-icon"><i data-lucide="smartphone"></i></div>
+        <h4 class="h4 mb-2">Airtel Money</h4>
+        <p class="text-2" style="font-size: 12.5px;">Solutions Mobile Money disponibles partout</p>
+      </div>
+      <div class="payment-card">
+        <div class="payment-icon"><i data-lucide="credit-card"></i></div>
+        <h4 class="h4 mb-2">Carte bancaire</h4>
+        <p class="text-2" style="font-size: 12.5px;">Visa, Mastercard acceptées en toute sécurité</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 72px;">
+    <div class="cta-final">
+      <h2 class="h1 mb-2" style="color: inherit;">Une question sur les tarifs ?</h2>
+      <p style="opacity: 0.85; margin-bottom: 28px;">
+        Notre équipe est à votre disposition pour répondre à vos questions.
+      </p>
+      <div class="row" style="justify-content: center; flex-wrap: wrap; gap: 12px;">
+        <a class="btn btn-primary btn-lg" href="contact.html">
+          <i data-lucide="mail"></i> Nous contacter
+        </a>
+        <a class="btn btn-secondary btn-lg" href="faq.html">Voir la FAQ</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+          <span class="logo-text">MONGANGA</span>
+        </div>
+        <p>Monganga na yo, na tshombo na yo. La santé à portée de main, à Kinshasa.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Produit</h5>
+        <a href="how.html">Comment ça marche</a>
+        <a href="doctors.html">Trouver un médecin</a>
+        <a href="pricing.html">Tarifs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Aide</h5>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="candidature.html">Devenir médecin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Légal</h5>
+        <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MONGANGA. Tous droits réservés.</span>
+      <span>🇨🇩 Fait à Kinshasa</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: var(--text-3);
+}
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb [data-lucide] { width: 14px; height: 14px; }
+
+.trust-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+.trust-pill {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  font-size: 12.5px; font-weight: 700; color: var(--text-2);
+}
+.trust-pill [data-lucide] {
+  width: 16px; height: 16px; color: var(--primary);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 32px 28px;
+  text-align: center;
+  transition: all var(--t);
+  position: relative;
+  display: flex; flex-direction: column;
+}
+.pricing-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+.pricing-card.featured {
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px rgba(60, 80, 224, 0.15);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pricing-badge-soft {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.plan-name {
+  font-size: 14px; font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.pricing-card:not(.featured) .plan-name { color: var(--text-2); }
+
+.price { display: flex; align-items: baseline; justify-content: center; gap: 6px; margin-bottom: 6px; }
+.price-value { font-size: 42px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.price-unit { font-size: 14px; font-weight: 500; color: var(--text-2); }
+
+.price-sub { font-size: 13px; color: var(--text-2); margin-bottom: 24px; }
+
+.pricing-features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 28px;
+  flex: 1;
+}
+.pricing-features li {
+  padding: 8px 0;
+  font-size: 13px;
+  display: flex; gap: 8px; align-items: flex-start;
+  color: var(--text-2);
+}
+.pricing-features [data-lucide] {
+  width: 16px; height: 16px;
+  color: var(--success);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.payment-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 22px;
+  text-align: center;
+  transition: all var(--t);
+}
+.payment-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.payment-icon {
+  width: 48px; height: 48px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+.payment-icon [data-lucide] { width: 24px; height: 24px; }
+
+.cta-final {
+  background: var(--text);
+  color: var(--bg);
+  padding: 64px 32px;
+  text-align: center;
+  border-radius: var(--r-lg);
+  position: relative;
+  overflow: hidden;
+}
+.cta-final .btn-secondary {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+  color: inherit;
+}
+
+@media (max-width: 640px) {
+  .price-value { font-size: 36px; }
+  .pricing-card { padding: 28px 22px; }
+}
+</style>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const isOpen = menu.style.right === '0px';
+    menu.style.right = isOpen ? '-300px' : '0px';
+    overlay.classList.toggle('active');
+  }
+</script>
+</body>
+</html>
