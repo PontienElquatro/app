@@ -149,9 +149,10 @@
           </div>
         </div>
         <div class="rdv-actions">
-          <button class="btn btn-secondary btn-sm" onclick="showToast('Détails du RDV','info')">
+          <button class="btn btn-secondary btn-sm" onclick="showAppointmentDetails(this)" aria-label="Voir les détails du rendez-vous">
             <i data-lucide="eye"></i> Détails
           </button>
+          <button class="btn btn-secondary btn-sm" onclick="manageAppointment(this)" aria-label="Gérer le rendez-vous"><i data-lucide="settings-2"></i> Gérer</button>
           <a class="btn btn-primary btn-sm" href="consult.html">
             <i data-lucide="video"></i> Rejoindre
           </a>
@@ -248,6 +249,27 @@
     }
   }
   document.addEventListener('DOMContentLoaded', () => switchTab(document.querySelector('.tab.active')));
+  function showAppointmentDetails(button) {
+    const card = button.closest('.rdv-card');
+    Monganga.showToast(`${card.querySelector('.rdv-doctor-name').textContent} · ${card.querySelector('.rdv-specialty').textContent}`, 'info');
+  }
+  function manageAppointment(button) {
+    const card = button.closest('.rdv-card');
+    const action = window.prompt('Tapez "reporter" ou "annuler" pour ce rendez-vous.');
+    if (!action) return;
+    if (action.toLowerCase().startsWith('report')) {
+      Monganga.showToast('Choisissez un nouveau créneau depuis la recherche médecin', 'info');
+    } else if (action.toLowerCase().startsWith('annul')) {
+      card.dataset.rdvStatus = 'cancelled';
+      card.querySelector('.badge').className = 'badge danger';
+      card.querySelector('.badge').textContent = 'Annulé';
+      button.closest('.rdv-actions').querySelector('a')?.remove();
+      switchTab(document.querySelector('.tab[data-status="upcoming"]'));
+      Monganga.showToast('Rendez-vous annulé localement', 'success');
+    } else {
+      Monganga.showToast('Action non reconnue', 'error');
+    }
+  }
 </script>
 </body>
 </html>

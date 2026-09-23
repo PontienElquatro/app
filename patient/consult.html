@@ -63,6 +63,16 @@
     font-size: 32px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   }
+  .consult-end-modal { position: fixed; inset: 0; z-index: 1600; display: grid; place-items: center; padding: 20px; background: rgba(0,0,0,.7); backdrop-filter: blur(5px); }
+  .consult-end-card { position: relative; width: min(420px, 100%); padding: 30px; border-radius: 18px; background: #14191a; border: 1px solid rgba(255,255,255,.12); text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+  .consult-end-card h2 { margin: 10px 0 8px; font-size: 20px; }
+  .consult-end-card p { color: rgba(255,255,255,.65); font-size: 13px; }
+  .consult-end-close { position: absolute; top: 10px; right: 10px; color: #fff; }
+  .consult-end-icon { width: 54px; height: 54px; margin: 0 auto; display: grid; place-items: center; border-radius: 50%; background: rgba(16,185,129,.15); color: #34d399; }
+  .rating-stars { display: flex; justify-content: center; gap: 5px; margin: 18px 0; }
+  .rating-stars button { border: 0; background: transparent; color: #475569; font-size: 30px; cursor: pointer; }
+  .rating-stars button.selected { color: #fbbf24; }
+  .consult-end-card textarea { width: 100%; box-sizing: border-box; resize: vertical; margin-bottom: 14px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; font: inherit; }
 
   .video-side {
     background: #14191a;
@@ -341,9 +351,22 @@
 
   // End consultation
   function endConsultation() {
-    if (!confirm('Voulez-vous vraiment terminer la consultation ?')) return;
-    Monganga.showToast('Consultation terminée. Redirection...', 'success');
-    setTimeout(() => window.location.href = 'prescription.html', 1000);
+    const modal = document.createElement('div');
+    modal.className = 'consult-end-modal';
+    modal.innerHTML = `<div class="consult-end-card" role="dialog" aria-modal="true" aria-labelledby="consult-end-title"><button class="btn btn-ghost btn-icon consult-end-close" onclick="this.closest('.consult-end-modal').remove()" aria-label="Fermer"><i data-lucide="x"></i></button><div class="consult-end-icon"><i data-lucide="check-circle-2"></i></div><h2 id="consult-end-title">Terminer la consultation</h2><p>Comment évaluez-vous votre consultation avec Dr Ilunga ?</p><div class="rating-stars" role="radiogroup" aria-label="Note de la consultation"><button type="button" data-rating="1" aria-label="1 étoile">★</button><button type="button" data-rating="2" aria-label="2 étoiles">★</button><button type="button" data-rating="3" aria-label="3 étoiles">★</button><button type="button" data-rating="4" aria-label="4 étoiles">★</button><button type="button" data-rating="5" aria-label="5 étoiles">★</button></div><textarea id="consult-feedback" placeholder="Un commentaire facultatif..." rows="3"></textarea><button class="btn btn-primary btn-block" onclick="submitConsultationReview(this)">Terminer et enregistrer</button></div>`;
+    document.body.appendChild(modal);
+    modal.querySelectorAll('[data-rating]').forEach(star => star.addEventListener('click', () => { const rating = Number(star.dataset.rating); modal.dataset.rating = rating; modal.querySelectorAll('[data-rating]').forEach(item => item.classList.toggle('selected', Number(item.dataset.rating) <= rating)); }));
+    Monganga.initLucide();
+  }
+
+  function submitConsultationReview(button) {
+    const modal = button.closest('.consult-end-modal');
+    const rating = Number(modal.dataset.rating || 0);
+    if (!rating) return Monganga.showToast('Choisissez une note avant de terminer', 'error');
+    localStorage.setItem('monganga_last_review', JSON.stringify({ doctor: 'Dr Ilunga', rating, comment: modal.querySelector('#consult-feedback').value, date: new Date().toISOString() }));
+    modal.remove();
+    Monganga.showToast('Consultation terminée et avis enregistré', 'success');
+    setTimeout(() => window.location.href = 'prescription.html', 800);
   }
 
   // Audio switch

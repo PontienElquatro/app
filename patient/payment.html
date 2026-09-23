@@ -278,14 +278,16 @@
         <div style="display: flex; gap: 20px; padding: 12px 14px; background: var(--surface-2); border-radius: var(--r-sm); flex-wrap: wrap;">
           <div style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-2);">
             <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
-            <strong style="color: var(--text);">Jeudi 24 sept. 2026</strong>
+            <strong style="color: var(--text);" id="payment-date">Jeudi 24 sept. 2026</strong>
           </div>
           <div style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-2);">
             <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
-            <strong style="color: var(--text);">10h00 — 10h30</strong>
+            <strong style="color: var(--text);" id="payment-time">10h00 — 10h30</strong>
           </div>
         </div>
       </div>
+
+      <div id="payment-status-banner" class="alert info mb-6" style="display:none;" role="status"></div>
 
       <!-- Détail du prix -->
       <div class="card card-block mb-6 slide-up" style="padding: 20px;">
@@ -449,6 +451,15 @@
     }, 800);
   }
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const slot = localStorage.getItem('monganga_selected_slot');
+    if (slot) {
+      const parts = slot.split(' à ');
+      document.getElementById('payment-date').textContent = parts[0];
+      document.getElementById('payment-time').textContent = `${parts[1] || ''} — durée 30 min`;
+    }
+  });
+
   // ============================================================
   // Modal USSD (Mobile Money)
   // ============================================================
@@ -487,6 +498,9 @@
 
         <button class="btn btn-primary btn-lg btn-block" onclick="paymentSuccess('${method}')">
           <i data-lucide="check"></i> J'ai validé le paiement
+        </button>
+        <button class="btn btn-ghost btn-block" style="margin-top: 8px;" onclick="paymentFailure('${method}')">
+          Simuler un paiement échoué
         </button>
         <button class="btn btn-ghost btn-block" style="margin-top: 8px;" onclick="closeModal()">
           Annuler
@@ -577,6 +591,7 @@
   // Modal succès
   // ============================================================
   function paymentSuccess(method) {
+    localStorage.setItem('monganga_payment_status', JSON.stringify({ status: 'confirmed', method, date: new Date().toISOString() }));
     closeModal();
     setTimeout(() => {
       const modal = document.createElement('div');
@@ -628,6 +643,41 @@
       }, 20);
     }, 300);
   }
+
+  function paymentFailure(method) {
+    closeModal();
+    localStorage.setItem('monganga_payment_status', JSON.stringify({ status: 'failed', method, date: new Date().toISOString() }));
+    renderPaymentStatus();
+    Monganga.showToast('Paiement échoué. Vous pouvez réessayer.', 'error');
+  }
+
+  function renderPaymentStatus() {
+    const banner = document.getElementById('payment-status-banner');
+    if (!banner) return;
+    const saved = JSON.parse(localStorage.getItem('monganga_payment_status') || 'null');
+    if (!saved) return;
+    if (saved.status === 'confirmed') {
+      banner.className = 'alert success mb-6';
+      banner.innerHTML = `<i data-lucide="check-circle-2"></i><span>Paiement confirmé avec ${saved.method}. Votre rendez-vous est réservé.</span>`;
+    } else if (saved.status === 'failed') {
+      banner.className = 'alert danger mb-6';
+      banner.innerHTML = `<i data-lucide="circle-alert"></i><span>Paiement échoué avec ${saved.method}. <button class="btn btn-sm btn-secondary" onclick="retryPayment()">Réessayer</button></span>`;
+    } else {
+      banner.className = 'alert warning mb-6';
+      banner.innerHTML = '<i data-lucide="clock-3"></i><span>Paiement en attente de confirmation.</span>';
+    }
+    banner.style.display = 'flex';
+    Monganga.initLucide();
+  }
+
+  function retryPayment() {
+    localStorage.removeItem('monganga_payment_status');
+    document.getElementById('payment-status-banner').style.display = 'none';
+    document.getElementById('payBtn').focus();
+    Monganga.showToast('Choisissez un moyen de paiement pour réessayer', 'info');
+  }
+
+  document.addEventListener('DOMContentLoaded', renderPaymentStatus);
 </script>
 </body>
 </html>

@@ -71,7 +71,11 @@
         <option value="today">Disponible aujourd'hui</option>
         <option value="tomorrow">Disponible demain</option>
       </select>
-      <button class="chip active" style="flex-shrink: 0;">Trier : Mieux notés</button>
+      <select id="sort-doctors" class="form-input" aria-label="Trier les médecins" style="min-width:160px; max-width:180px;">
+        <option value="rating">Mieux notés</option>
+        <option value="distance">Plus proches</option>
+        <option value="name">Nom A-Z</option>
+      </select>
     </div>
 
     <!-- Résultats -->
@@ -84,7 +88,7 @@
 
     <div class="doctors-grid" data-stagger>
 
-      <a class="doctor-card" data-name="dr ilunga" data-specialty="Médecine générale" data-location="Gombe" data-availability="today" href="doctor.html">
+      <a class="doctor-card" data-name="dr ilunga" data-rating="4.8" data-distance="2.3" data-specialty="Médecine générale" data-location="Gombe" data-availability="today" href="doctor.html">
         <div class="doctor-card-header">
           <div class="doctor-avatar">DI</div>
           <div style="flex: 1;">
@@ -105,7 +109,7 @@
         </div>
       </a>
 
-      <a class="doctor-card" data-name="dr kabila" data-specialty="Pédiatrie" data-location="Lingwala" data-availability="today" href="doctor.html">
+      <a class="doctor-card" data-name="dr kabila" data-rating="4.6" data-distance="4.1" data-specialty="Pédiatrie" data-location="Lingwala" data-availability="today" href="doctor.html">
         <div class="doctor-card-header">
           <div class="doctor-avatar">DK</div>
           <div style="flex: 1;">
@@ -126,7 +130,7 @@
         </div>
       </a>
 
-      <a class="doctor-card" data-name="dr mbuyi" data-specialty="Dermatologie" data-location="Kalamu" data-availability="today" href="doctor.html">
+      <a class="doctor-card" data-name="dr mbuyi" data-rating="4.7" data-distance="5.2" data-specialty="Dermatologie" data-location="Kalamu" data-availability="today" href="doctor.html">
         <div class="doctor-card-header">
           <div class="doctor-avatar">DM</div>
           <div style="flex: 1;">
@@ -147,7 +151,7 @@
         </div>
       </a>
 
-      <a class="doctor-card" data-name="dr lukusa" data-specialty="Gynécologie" data-location="Gombe" data-availability="today" href="doctor.html">
+      <a class="doctor-card" data-name="dr lukusa" data-rating="4.9" data-distance="1.8" data-specialty="Gynécologie" data-location="Gombe" data-availability="today" href="doctor.html">
         <div class="doctor-card-header">
           <div class="doctor-avatar">DL</div>
           <div style="flex: 1;">
@@ -168,7 +172,7 @@
         </div>
       </a>
 
-      <a class="doctor-card" data-name="dr tshimanga" data-specialty="Cardiologie" data-location="Limete" data-availability="tomorrow" href="doctor.html">
+      <a class="doctor-card" data-name="dr tshimanga" data-rating="4.8" data-distance="6.4" data-specialty="Cardiologie" data-location="Limete" data-availability="tomorrow" href="doctor.html">
         <div class="doctor-card-header">
           <div class="doctor-avatar">DT</div>
           <div style="flex: 1;">
@@ -189,7 +193,7 @@
         </div>
       </a>
 
-      <a class="doctor-card" data-name="dr ntumba" data-specialty="Ophtalmologie" data-location="Ngaliema" data-availability="tomorrow" href="doctor.html">
+      <a class="doctor-card" data-name="dr ntumba" data-rating="4.5" data-distance="7.1" data-specialty="Ophtalmologie" data-location="Ngaliema" data-availability="tomorrow" href="doctor.html">
         <div class="doctor-card-header">
           <div class="doctor-avatar">DN</div>
           <div style="flex: 1;">
@@ -248,7 +252,15 @@
   }
   document.addEventListener('DOMContentLoaded', () => {
     ['doctor-search', 'specialty-filter', 'commune-filter', 'availability-filter'].forEach(id => document.getElementById(id).addEventListener('input', filterDoctors));
+    document.getElementById('sort-doctors').addEventListener('change', sortDoctors);
   });
+  function sortDoctors(event) {
+    const grid = document.querySelector('.doctors-grid');
+    const cards = [...grid.querySelectorAll('.doctor-card[data-name]')];
+    const mode = event.target.value;
+    cards.sort((a, b) => mode === 'name' ? a.dataset.name.localeCompare(b.dataset.name) : mode === 'distance' ? Number(a.dataset.distance) - Number(b.dataset.distance) : Number(b.dataset.rating) - Number(a.dataset.rating));
+    cards.forEach(card => grid.appendChild(card));
+  }
 </script>
 </body>
 </html>

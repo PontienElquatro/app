@@ -118,6 +118,11 @@
 
   .grid-cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
+  .profile-panel { position: fixed; inset: 0; z-index: 1600; display: grid; place-items: center; padding: 20px; background: rgba(15,23,42,.55); backdrop-filter: blur(4px); }
+  .profile-panel-card { position: relative; width: min(440px, 100%); display: grid; gap: 14px; padding: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-xl); }
+  .profile-panel-card h3 { margin: 0; }
+  .profile-panel-close { position: absolute; top: 12px; right: 12px; }
+
   @media (max-width: 900px) {
     .profile-layout { grid-template-columns: 1fr; }
     .profile-sidebar { position: static; }
@@ -193,15 +198,15 @@
             <i data-lucide="user"></i> Informations
             <i data-lucide="chevron-right" class="arrow"></i>
           </a>
-          <a class="profile-menu-item" onclick="showToast('Section Sécurité','info')">
+          <a class="profile-menu-item" onclick="openProfilePanel('security')">
             <i data-lucide="shield-check"></i> Sécurité
             <i data-lucide="chevron-right" class="arrow"></i>
           </a>
-          <a class="profile-menu-item" onclick="showToast('Section Notifications','info')">
+          <a class="profile-menu-item" onclick="openProfilePanel('notifications')">
             <i data-lucide="bell"></i> Notifications
             <i data-lucide="chevron-right" class="arrow"></i>
           </a>
-          <a class="profile-menu-item" onclick="showToast('Section Confidentialité','info')">
+          <a class="profile-menu-item" onclick="openProfilePanel('privacy')">
             <i data-lucide="lock"></i> Confidentialité
             <i data-lucide="chevron-right" class="arrow"></i>
           </a>
@@ -349,6 +354,18 @@
     Monganga.setButtonLoading(button, true, 'Enregistrement...');
     setTimeout(() => Monganga.setButtonLoading(button, false), 700);
     Monganga.showToast('Profil enregistré avec succès', 'success');
+  }
+  function openProfilePanel(type) {
+    const content = {
+      security: '<h3>Sécurité du compte</h3><p class="text-2">Modifiez régulièrement votre mot de passe et vérifiez vos sessions actives.</p><input class="form-input" type="password" placeholder="Nouveau mot de passe"><button class="btn btn-primary btn-block" onclick="Monganga.showToast(\'Mot de passe mis à jour localement\', \'success\'); this.closest(\'.profile-panel\').remove()">Enregistrer</button>',
+      notifications: '<h3>Préférences de notifications</h3><label class="form-checkbox"><input type="checkbox" checked> <span>Rappels de rendez-vous</span></label><label class="form-checkbox"><input type="checkbox" checked> <span>Nouvelles ordonnances</span></label><label class="form-checkbox"><input type="checkbox" checked> <span>Actualités MONGANGA</span></label><button class="btn btn-primary btn-block" onclick="Monganga.showToast(\'Préférences enregistrées\', \'success\'); this.closest(\'.profile-panel\').remove()">Enregistrer</button>',
+      privacy: '<h3>Confidentialité</h3><p class="text-2">Vos données médicales sont partagées uniquement avec les professionnels autorisés dans le cadre de vos consultations.</p><button class="btn btn-secondary btn-block" onclick="Monganga.showToast(\'Demande de téléchargement préparée\', \'info\')">Télécharger mes données</button>'
+    };
+    const panel = document.createElement('div');
+    panel.className = 'profile-panel';
+    panel.innerHTML = `<div class="profile-panel-card" role="dialog" aria-modal="true"><button class="btn btn-ghost btn-icon profile-panel-close" onclick="this.closest('.profile-panel').remove()" aria-label="Fermer"><i data-lucide="x"></i></button>${content[type]}</div>`;
+    document.body.appendChild(panel);
+    Monganga.initLucide();
   }
   function previewPatientPhoto(input) {
     const file = input.files[0];

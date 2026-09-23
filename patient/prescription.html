@@ -235,6 +235,14 @@
       </button>
     </div>
 
+    <section class="card prescription-history" aria-labelledby="prescription-history-title">
+      <div class="card-header-row"><div><h2 id="prescription-history-title" class="card-title">Historique des ordonnances</h2><div class="card-subtitle">Vos prescriptions récentes</div></div><select class="form-input" aria-label="Filtrer les ordonnances" onchange="filterPrescriptionHistory(this.value)" style="width:auto; height:34px;"><option value="all">Toutes</option><option value="active">Actives</option><option value="archived">Archivées</option></select></div>
+      <div id="prescription-history-list" class="list-stack">
+        <div class="list-row" data-prescription-status="active"><div><strong>Dr Ilunga · 24 septembre 2026</strong><div class="text-3" style="font-size:12px;">Paracétamol, Amoxicilline</div></div><span class="badge success">Active</span></div>
+        <div class="list-row" data-prescription-status="archived"><div><strong>Dr Mbayo · 12 août 2026</strong><div class="text-3" style="font-size:12px;">Traitement dermatologique</div></div><span class="badge neutral">Archivée</span></div>
+      </div>
+    </section>
+
     <!-- Info -->
     <div class="alert info" style="max-width: 480px; margin: 24px auto 0;">
       <i data-lucide="info"></i>
@@ -272,6 +280,7 @@
       Monganga.showToast('Lien de partage copié', 'success');
     }
   }
+  function filterPrescriptionHistory(status) { document.querySelectorAll('[data-prescription-status]').forEach(item => item.style.display = status === 'all' || item.dataset.prescriptionStatus === status ? '' : 'none'); }
 
   function showQR() {
     // Modal avec QR code simulé
