@@ -23,5 +23,5 @@ const server = http.createServer((req, res) => {
   });
 });
 server.on('error', error => { console.error(error.code === 'EADDRINUSE' ? `Le port ${port} est déjà utilisé. Changez la variable PORT ou arrêtez l'autre serveur.` : error.message); process.exitCode = 1; });
-server.listen(port, '127.0.0.1', () => console.log(`MONGANGA : http://localhost:${port}\nRecherche patient : http://localhost:${port}/patient/search.html\nCtrl+C pour arrêter.`));
+server.listen(port, '127.0.0.1', () => console.log(`MONGANGA : http://localhost:${port}\nAcceuil : http://localhost:${port}/index.html\nCtrl+C pour arrêter.`));
 module.exports = server;
