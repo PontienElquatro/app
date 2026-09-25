@@ -1,392 +1,64 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Téléconsultation — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/animations.css">
-<style>
-  body { background: #0A0A0B; color: #FAFAFA; margin: 0; overflow: hidden; }
-  .video-app { min-height: 100vh; display: flex; flex-direction: column; }
-
-  .video-header {
-    padding: 14px 20px;
-    display: flex; justify-content: space-between; align-items: center;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    flex-shrink: 0;
-  }
-  .live-indicator { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
-  .live-dot-red {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #EF4444;
-    animation: liveDot 2s infinite;
-  }
-  @keyframes liveDot {
-    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-  }
-  .timer { font-weight: 700; display: flex; align-items: center; gap: 6px; font-size: 13px; }
-
-  .video-body { flex: 1; display: grid; grid-template-columns: 1fr 380px; min-height: 0; }
-  .video-main {
-    position: relative;
-    background: radial-gradient(circle at center, #1a1f20 0%, #0a0f10 100%);
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.3);
-  }
-  .video-main .avatar-doctor {
-    width: 140px; height: 140px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #3C50E0 0%, #5B6FF0 100%);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 52px; font-weight: 800;
-    color: #fff;
-    box-shadow: 0 20px 60px rgba(60, 80, 224, 0.4);
-  }
-  .video-self {
-    position: absolute; bottom: 24px; right: 24px;
-    width: 180px; height: 135px;
-    background: #27272A;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    border: 2px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.5);
-    font-weight: 700;
-    font-size: 32px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  }
-  .consult-end-modal { position: fixed; inset: 0; z-index: 1600; display: grid; place-items: center; padding: 20px; background: rgba(0,0,0,.7); backdrop-filter: blur(5px); }
-  .consult-end-card { position: relative; width: min(420px, 100%); padding: 30px; border-radius: 18px; background: #14191a; border: 1px solid rgba(255,255,255,.12); text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
-  .consult-end-card h2 { margin: 10px 0 8px; font-size: 20px; }
-  .consult-end-card p { color: rgba(255,255,255,.65); font-size: 13px; }
-  .consult-end-close { position: absolute; top: 10px; right: 10px; color: #fff; }
-  .consult-end-icon { width: 54px; height: 54px; margin: 0 auto; display: grid; place-items: center; border-radius: 50%; background: rgba(16,185,129,.15); color: #34d399; }
-  .rating-stars { display: flex; justify-content: center; gap: 5px; margin: 18px 0; }
-  .rating-stars button { border: 0; background: transparent; color: #475569; font-size: 30px; cursor: pointer; }
-  .rating-stars button.selected { color: #fbbf24; }
-  .consult-end-card textarea { width: 100%; box-sizing: border-box; resize: vertical; margin-bottom: 14px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; font: inherit; }
-
-  .video-side {
-    background: #14191a;
-    display: flex; flex-direction: column;
-    border-left: 1px solid rgba(255,255,255,0.06);
-  }
-  .side-tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .side-tab {
-    flex: 1; padding: 14px 10px;
-    font-size: 12px; font-weight: 700;
-    color: rgba(255,255,255,0.5);
-    border-bottom: 2px solid transparent;
-    background: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    font-family: inherit;
-    transition: all 0.2s;
-  }
-  .side-tab:hover { color: rgba(255,255,255,0.9); }
-  .side-tab.active { color: #fff; border-bottom-color: #3C50E0; }
-  .side-tab [data-lucide] { width: 14px; height: 14px; }
-
-  .chat-content { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
-  .chat-msg { display: flex; flex-direction: column; gap: 4px; }
-  .chat-author { font-size: 10.5px; font-weight: 800; color: #60A5FA; text-transform: uppercase; letter-spacing: 0.06em; }
-  .chat-author.self { color: #34D399; }
-  .chat-text { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.9); }
-
-  .chat-input-area { display: flex; gap: 8px; padding: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
-  .chat-input-area input {
-    flex: 1;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: #fff;
-    padding: 10px 14px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-family: inherit;
-  }
-  .chat-input-area input:focus { outline: none; border-color: #3C50E0; }
-  .chat-input-area input::placeholder { color: rgba(255,255,255,0.35); }
-  .chat-input-area button {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    background: #3C50E0; color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    border: none;
-  }
-
-  .video-controls {
-    padding: 18px 20px;
-    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    display: flex; justify-content: center; gap: 12px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    flex-shrink: 0;
-  }
-  .ctrl-btn {
-    width: 54px; height: 54px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: all 0.2s;
-  }
-  .ctrl-btn [data-lucide] { width: 22px; height: 22px; }
-  .ctrl-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
-  .ctrl-btn.active { background: rgba(60, 80, 224, 0.3); border-color: #3C50E0; }
-  .ctrl-btn.end { background: #EF4444; border-color: #EF4444; }
-  .ctrl-btn.end:hover { background: #DC2626; }
-
-  /* Bascule audio banner */
-  .audio-banner {
-    position: fixed; top: 0; left: 0; right: 0;
-    background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-    color: #92400E;
-    padding: 16px 24px;
-    display: flex; align-items: center; gap: 16px;
-    z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    animation: slideDownBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes slideDownBanner {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  .audio-banner [data-lucide] { width: 24px; height: 24px; }
-  .audio-banner-msg { flex: 1; font-size: 13.5px; font-weight: 500; }
-  .audio-banner-msg strong { display: block; font-size: 14.5px; font-weight: 800; margin-bottom: 2px; }
-
-  @media (max-width: 900px) {
-    .video-body { grid-template-columns: 1fr; grid-template-rows: 1fr 300px; }
-    .video-side { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
-    .video-self { width: 120px; height: 90px; font-size: 22px; }
-    .video-main .avatar-doctor { width: 100px; height: 100px; font-size: 36px; }
-    .ctrl-btn { width: 48px; height: 48px; }
-  }
-</style>
-</head>
-<body>
-
-<div class="video-app">
-
-  <div class="video-header">
-    <div class="live-indicator">
-      <span class="live-dot-red"></span>
-      En direct — Consultation en cours
-    </div>
-    <div class="timer">
-      <i data-lucide="clock"></i> <span id="timer">12:34</span>
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Consultation sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Consultation — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/patient.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="consultation" data-role="patient" data-auth-state="pending"><a class="skip-link" href="#main-content">Aller au contenu</a><header class="pat-header">
+  <div class="pat-header-inner">
+    <a class="logo" href="../index.html">
+      <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+      <span class="logo-text">MONGANGA</span>
+    </a>
+    <nav class="pat-nav">
+      <a class="pat-nav-link" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+      <a class="pat-nav-link" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+      <a class="pat-nav-link" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
+      <a class="pat-nav-link" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
+      <a class="pat-nav-link" href="profile.html"><i data-lucide="user"></i> Profil</a>
+    </nav>
+    <div class="pat-header-actions">
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Ouvrir les notifications" data-notifications="">
+        <i data-lucide="bell"></i>
+        
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Déconnexion" data-logout="">
+        <i data-lucide="log-out"></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" onclick="toggleMenu()" aria-label="Menu" style="display:none;" id="patMenuBtn">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
   </div>
-
-  <div class="video-body">
-
-    <div class="video-main">
-      <div class="avatar-doctor">DI</div>
-      <div class="video-self">AK</div>
+</header><div class="pat-menu-overlay" id="patMenuOverlay" onclick="toggleMenu()"></div><aside class="pat-menu" id="patMenu">
+  <div class="pat-menu-header">
+    <span style="font-weight:800;">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMenu()"><i data-lucide="x"></i></button>
+  </div>
+  <div class="pat-menu-content">
+    <a class="pat-menu-item" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="pat-menu-item" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+    <a class="pat-menu-item" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
+    <a class="pat-menu-item" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
+    <a class="pat-menu-item" href="profile.html"><i data-lucide="user"></i> Profil</a>
+    <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
+      <a class="pat-menu-item" data-logout="" role="button" tabindex="0"><i data-lucide="log-out"></i> Déconnexion</a>
     </div>
-
-    <aside class="video-side">
-      <div class="side-tabs">
-        <button class="side-tab active">
-          <i data-lucide="message-square"></i> Chat
-        </button>
-        <button class="side-tab">
-          <i data-lucide="paperclip"></i> Documents
-        </button>
-        <button class="side-tab">
-          <i data-lucide="clipboard-list"></i> Dossier
-        </button>
-      </div>
-
-      <div class="chat-content" id="chatContent">
-        <div class="chat-msg">
-          <div class="chat-author">Dr Ilunga</div>
-          <div class="chat-text">Bonjour Aline, comment vous sentez-vous aujourd'hui ?</div>
-        </div>
-        <div class="chat-msg">
-          <div class="chat-author self">Vous</div>
-          <div class="chat-text">Bonjour docteur. J'ai toujours mal à la gorge, c'est douloureux.</div>
-        </div>
-        <div class="chat-msg">
-          <div class="chat-author">Dr Ilunga</div>
-          <div class="chat-text">D'accord. Depuis combien de temps exactement ?</div>
-        </div>
-        <div class="chat-msg">
-          <div class="chat-author self">Vous</div>
-          <div class="chat-text">3 jours environ. Et j'ai de la fièvre depuis hier soir.</div>
-        </div>
-        <div class="chat-msg">
-          <div class="chat-author">Dr Ilunga</div>
-          <div class="chat-text">Je vais vous prescrire un traitement adapté. Buvez beaucoup d'eau et reposez-vous.</div>
-        </div>
-      </div>
-
-      <div class="chat-input-area">
-        <input type="text" placeholder="Écrire un message..." id="chatInput" onkeypress="if(event.key==='Enter')sendMessage()">
-        <button onclick="sendMessage()">
-          <i data-lucide="send"></i>
-        </button>
-      </div>
-    </aside>
-
   </div>
-
-  <div class="video-controls">
-    <button class="ctrl-btn" id="micBtn" onclick="toggleControl('mic', this)" title="Micro">
-      <i data-lucide="mic"></i>
-    </button>
-    <button class="ctrl-btn" id="camBtn" onclick="toggleControl('cam', this)" title="Caméra">
-      <i data-lucide="video"></i>
-    </button>
-    <button class="ctrl-btn" onclick="showToast('Chat ouvert','info')" title="Chat">
-      <i data-lucide="message-square"></i>
-    </button>
-    <button class="ctrl-btn" onclick="document.getElementById('consult-file').click()" title="Envoyer un fichier" aria-label="Envoyer un fichier">
-      <i data-lucide="paperclip"></i>
-    </button>
-    <button class="ctrl-btn" onclick="toggleFullscreen()" title="Plein écran" aria-label="Activer le plein écran">
-      <i data-lucide="maximize"></i>
-    </button>
-    <button class="ctrl-btn end" onclick="endConsultation()" title="Terminer">
-      <i data-lucide="phone-off"></i>
-    </button>
-  </div>
-
-</div>
-
-<input id="consult-file" type="file" accept="image/*,.pdf,.doc,.docx" hidden onchange="attachConsultFile(this)">
-
-<!-- Bannière bascule audio (détection connexion faible) -->
-<div class="audio-banner" id="audioBanner" style="display: none;">
-  <i data-lucide="wifi-off"></i>
-  <div class="audio-banner-msg">
-    <strong>Connexion faible détectée</strong>
-    Passer en mode audio pour continuer sans coupure ?
-  </div>
-  <button class="btn btn-primary btn-sm" onclick="acceptAudioSwitch()">
-    Passer en audio
-  </button>
-  <button class="btn btn-ghost btn-sm" onclick="ignoreAudioSwitch()">
-    Ignorer
-  </button>
-</div>
-
-<script src="../assets/js/api.js"></script>
-<script src="../assets/js/app.js"></script>
-<script>
-  // Timer
-  let seconds = 12 * 60 + 34;
-  setInterval(() => {
-    seconds++;
-    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
-    const s = String(seconds % 60).padStart(2, '0');
-    document.getElementById('timer').textContent = `${m}:${s}`;
-  }, 1000);
-
-  // Chat
-  function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const text = input.value.trim();
-    if (!text) return;
-
-    const chat = document.getElementById('chatContent');
-    const msg = document.createElement('div');
-    msg.className = 'chat-msg';
-    msg.innerHTML = `<div class="chat-author self">Vous</div><div class="chat-text">${text}</div>`;
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
-    input.value = '';
-
-    // Auto-reply
-    setTimeout(() => {
-      const reply = document.createElement('div');
-      reply.className = 'chat-msg';
-      reply.innerHTML = `<div class="chat-author">Dr Ilunga</div><div class="chat-text">Bien noté. Je prends ça en compte.</div>`;
-      chat.appendChild(reply);
-      chat.scrollTop = chat.scrollHeight;
-    }, 1500);
-  }
-
-  function attachConsultFile(input) {
-    const file = input.files[0];
-    if (!file) return;
-    if (file.size > 10 * 1024 * 1024) {
-      input.value = '';
-      Monganga.showToast('Le fichier doit faire 10 Mo maximum', 'error');
-      return;
-    }
-    Monganga.showToast(`${file.name} prêt à être envoyé`, 'success');
-    input.value = '';
-  }
-
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
-    else document.exitFullscreen?.();
-  }
-
-  // Toggle controles
-  function toggleControl(type, btn) {
-    btn.classList.toggle('active');
-    const isActive = btn.classList.contains('active');
-    if (type === 'mic') {
-      btn.innerHTML = `<i data-lucide="${isActive ? 'mic-off' : 'mic'}"></i>`;
-      Monganga.showToast(isActive ? 'Micro désactivé' : 'Micro activé', 'info');
-    } else if (type === 'cam') {
-      btn.innerHTML = `<i data-lucide="${isActive ? 'video-off' : 'video'}"></i>`;
-      Monganga.showToast(isActive ? 'Caméra désactivée' : 'Caméra activée', 'info');
-    }
-    Monganga.initLucide();
-  }
-
-  // End consultation
-  function endConsultation() {
-    const modal = document.createElement('div');
-    modal.className = 'consult-end-modal';
-    modal.innerHTML = `<div class="consult-end-card" role="dialog" aria-modal="true" aria-labelledby="consult-end-title"><button class="btn btn-ghost btn-icon consult-end-close" onclick="this.closest('.consult-end-modal').remove()" aria-label="Fermer"><i data-lucide="x"></i></button><div class="consult-end-icon"><i data-lucide="check-circle-2"></i></div><h2 id="consult-end-title">Terminer la consultation</h2><p>Comment évaluez-vous votre consultation avec Dr Ilunga ?</p><div class="rating-stars" role="radiogroup" aria-label="Note de la consultation"><button type="button" data-rating="1" aria-label="1 étoile">★</button><button type="button" data-rating="2" aria-label="2 étoiles">★</button><button type="button" data-rating="3" aria-label="3 étoiles">★</button><button type="button" data-rating="4" aria-label="4 étoiles">★</button><button type="button" data-rating="5" aria-label="5 étoiles">★</button></div><textarea id="consult-feedback" placeholder="Un commentaire facultatif..." rows="3"></textarea><button class="btn btn-primary btn-block" onclick="submitConsultationReview(this)">Terminer et enregistrer</button></div>`;
-    document.body.appendChild(modal);
-    modal.querySelectorAll('[data-rating]').forEach(star => star.addEventListener('click', () => { const rating = Number(star.dataset.rating); modal.dataset.rating = rating; modal.querySelectorAll('[data-rating]').forEach(item => item.classList.toggle('selected', Number(item.dataset.rating) <= rating)); }));
-    Monganga.initLucide();
-  }
-
-  function submitConsultationReview(button) {
-    const modal = button.closest('.consult-end-modal');
-    const rating = Number(modal.dataset.rating || 0);
-    if (!rating) return Monganga.showToast('Choisissez une note avant de terminer', 'error');
-    localStorage.setItem('monganga_last_review', JSON.stringify({ doctor: 'Dr Ilunga', rating, comment: modal.querySelector('#consult-feedback').value, date: new Date().toISOString() }));
-    modal.remove();
-    Monganga.showToast('Consultation terminée et avis enregistré', 'success');
-    setTimeout(() => window.location.href = 'prescription.html', 800);
-  }
-
-  // Audio switch
-  function acceptAudioSwitch() {
-    document.getElementById('audioBanner').style.display = 'none';
-    Monganga.showToast('Mode audio activé', 'success');
-  }
-
-  function ignoreAudioSwitch() {
-    document.getElementById('audioBanner').style.display = 'none';
-  }
-
-  // Simulate weak connection after 8 seconds
-  setTimeout(() => {
-    document.getElementById('audioBanner').style.display = 'flex';
-    Monganga.initLucide();
-  }, 8000);
-
-  // Auto scroll chat
-  document.getElementById('chatContent').scrollTop = document.getElementById('chatContent').scrollHeight;
-</script>
-</body>
-</html>
+</aside><main id="main-content" class="pat-main" tabindex="-1"><div class="pat-content"><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></div></main><nav class="pat-mobile-nav">
+  <a class="pat-mobile-item" href="dashboard.html"><i data-lucide="home"></i><span>Accueil</span></a>
+  <a class="pat-mobile-item" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
+  <a class="pat-mobile-item" href="history.html"><i data-lucide="calendar"></i><span>Mes RDV</span></a>
+  <a class="pat-mobile-item" href="prescription.html"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
+  <a class="pat-mobile-item" href="profile.html"><i data-lucide="user"></i><span>Profil</span></a>
+</nav></body></html>

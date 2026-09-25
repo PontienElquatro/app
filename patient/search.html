@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Rechercher un médecin sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
 <title>Rechercher un médecin — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/animations.css">
-<link rel="stylesheet" href="../assets/css/patient.css">
-</head>
-<body>
-
-<header class="pat-header">
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/patient.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="directory" data-role="patient" data-auth-state="pending"><a class="skip-link" href="#main-content">Aller au contenu</a><header class="pat-header">
   <div class="pat-header-inner">
     <a class="logo" href="../index.html">
       <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
@@ -22,245 +19,46 @@
     </a>
     <nav class="pat-nav">
       <a class="pat-nav-link" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
-      <a class="pat-nav-link active" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+      <a class="pat-nav-link active" href="search.html" aria-current="page"><i data-lucide="search"></i> Rechercher</a>
       <a class="pat-nav-link" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
       <a class="pat-nav-link" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
       <a class="pat-nav-link" href="profile.html"><i data-lucide="user"></i> Profil</a>
     </nav>
     <div class="pat-header-actions">
-      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()"><i data-lucide="moon" data-theme-icon></i></button>
-      <button class="btn btn-ghost btn-icon" onclick="Monganga.openNotifications()" aria-label="Ouvrir les notifications"><i data-lucide="bell"></i><span class="dot-badge"></span></button>
-      <button class="btn btn-ghost btn-icon" onclick="logout()"><i data-lucide="log-out"></i></button>
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Ouvrir les notifications" data-notifications="">
+        <i data-lucide="bell"></i>
+        
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Déconnexion" data-logout="">
+        <i data-lucide="log-out"></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" onclick="toggleMenu()" aria-label="Menu" style="display:none;" id="patMenuBtn">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
   </div>
-</header>
-
-<main class="pat-main">
-  <div class="pat-content">
-
-    <div class="fade-in" style="margin-bottom: 24px;">
-      <h1 class="pat-page-title">Trouver un médecin</h1>
-      <p class="pat-page-sub">48 médecins disponibles à Kinshasa</p>
-    </div>
-
-    <!-- Search bar -->
-    <div style="position: relative; margin-bottom: 20px;">
-      <div class="input-wrap">
-        <i data-lucide="search" class="icon-left"></i>
-        <input id="doctor-search" type="search" class="form-input" placeholder="Rechercher par nom, spécialité..." style="height: 50px; padding-left: 46px; font-size: 14.5px;" aria-label="Rechercher un médecin">
-      </div>
-    </div>
-
-    <!-- Filters -->
-    <div class="filter-chips" style="display: flex; gap: 10px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;">
-      <select id="specialty-filter" class="form-input" style="min-width: 160px; max-width: 180px;" aria-label="Filtrer par spécialité">
-        <option value="all">Toutes spécialités</option>
-        <option value="Médecine générale">Médecine générale</option>
-        <option value="Pédiatrie">Pédiatrie</option>
-        <option value="Gynécologie">Gynécologie</option>
-        <option value="Dermatologie">Dermatologie</option>
-      </select>
-      <select id="commune-filter" class="form-input" style="min-width: 140px; max-width: 160px;" aria-label="Filtrer par commune">
-        <option value="all">Toutes communes</option>
-        <option value="Gombe">Gombe</option>
-        <option value="Lingwala">Lingwala</option>
-        <option value="Kalamu">Kalamu</option>
-      </select>
-      <select id="availability-filter" class="form-input" style="min-width: 160px; max-width: 180px;" aria-label="Filtrer par disponibilité">
-        <option value="all">Toutes disponibilités</option>
-        <option value="today">Disponible aujourd'hui</option>
-        <option value="tomorrow">Disponible demain</option>
-      </select>
-      <select id="sort-doctors" class="form-input" aria-label="Trier les médecins" style="min-width:160px; max-width:180px;">
-        <option value="rating">Mieux notés</option>
-        <option value="distance">Plus proches</option>
-        <option value="name">Nom A-Z</option>
-      </select>
-    </div>
-
-    <!-- Résultats -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-      <span id="doctor-result-count" style="font-size: 13px; color: var(--text-2); font-weight: 600;">6 résultats</span>
-      <span style="font-size: 13px; color: var(--primary); font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-        <i data-lucide="sliders-horizontal" style="width: 14px; height: 14px;"></i> Filtres avancés
-      </span>
-    </div>
-
-    <div class="doctors-grid" data-stagger>
-
-      <a class="doctor-card" data-name="dr ilunga" data-rating="4.8" data-distance="2.3" data-specialty="Médecine générale" data-location="Gombe" data-availability="today" href="doctor.html">
-        <div class="doctor-card-header">
-          <div class="doctor-avatar">DI</div>
-          <div style="flex: 1;">
-            <div class="doctor-name">Dr Ilunga</div>
-            <div class="doctor-specialty">Médecine générale</div>
-          </div>
-        </div>
-        <div class="doctor-meta">
-          <span><i data-lucide="map-pin"></i> Gombe • 2,3 km</span>
-          <span><i data-lucide="star"></i> 4.8 (32)</span>
-        </div>
-        <div class="doctor-card-footer">
-          <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-          <div class="doctor-status">
-            <span class="live-dot"></span>
-            <span class="text-2">Aujourd'hui</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="doctor-card" data-name="dr kabila" data-rating="4.6" data-distance="4.1" data-specialty="Pédiatrie" data-location="Lingwala" data-availability="today" href="doctor.html">
-        <div class="doctor-card-header">
-          <div class="doctor-avatar">DK</div>
-          <div style="flex: 1;">
-            <div class="doctor-name">Dr Kabila</div>
-            <div class="doctor-specialty">Pédiatrie</div>
-          </div>
-        </div>
-        <div class="doctor-meta">
-          <span><i data-lucide="map-pin"></i> Lingwala • 4,1 km</span>
-          <span><i data-lucide="star"></i> 4.6 (28)</span>
-        </div>
-        <div class="doctor-card-footer">
-          <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-          <div class="doctor-status">
-            <span class="live-dot"></span>
-            <span class="text-2">Aujourd'hui</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="doctor-card" data-name="dr mbuyi" data-rating="4.7" data-distance="5.2" data-specialty="Dermatologie" data-location="Kalamu" data-availability="today" href="doctor.html">
-        <div class="doctor-card-header">
-          <div class="doctor-avatar">DM</div>
-          <div style="flex: 1;">
-            <div class="doctor-name">Dr Mbuyi</div>
-            <div class="doctor-specialty">Dermatologie</div>
-          </div>
-        </div>
-        <div class="doctor-meta">
-          <span><i data-lucide="map-pin"></i> Kalamu • 5,2 km</span>
-          <span><i data-lucide="star"></i> 4.7 (41)</span>
-        </div>
-        <div class="doctor-card-footer">
-          <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-          <div class="doctor-status">
-            <span class="live-dot"></span>
-            <span class="text-2">Aujourd'hui</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="doctor-card" data-name="dr lukusa" data-rating="4.9" data-distance="1.8" data-specialty="Gynécologie" data-location="Gombe" data-availability="today" href="doctor.html">
-        <div class="doctor-card-header">
-          <div class="doctor-avatar">DL</div>
-          <div style="flex: 1;">
-            <div class="doctor-name">Dr Lukusa</div>
-            <div class="doctor-specialty">Gynécologie</div>
-          </div>
-        </div>
-        <div class="doctor-meta">
-          <span><i data-lucide="map-pin"></i> Gombe • 1,8 km</span>
-          <span><i data-lucide="star"></i> 4.9 (56)</span>
-        </div>
-        <div class="doctor-card-footer">
-          <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-          <div class="doctor-status">
-            <span class="live-dot"></span>
-            <span class="text-2">Aujourd'hui</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="doctor-card" data-name="dr tshimanga" data-rating="4.8" data-distance="6.4" data-specialty="Cardiologie" data-location="Limete" data-availability="tomorrow" href="doctor.html">
-        <div class="doctor-card-header">
-          <div class="doctor-avatar">DT</div>
-          <div style="flex: 1;">
-            <div class="doctor-name">Dr Tshimanga</div>
-            <div class="doctor-specialty">Cardiologie</div>
-          </div>
-        </div>
-        <div class="doctor-meta">
-          <span><i data-lucide="map-pin"></i> Limete • 6,4 km</span>
-          <span><i data-lucide="star"></i> 4.8 (37)</span>
-        </div>
-        <div class="doctor-card-footer">
-          <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-          <div class="doctor-status">
-            <span class="live-dot" style="background: var(--warning);"></span>
-            <span class="text-2">Demain</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="doctor-card" data-name="dr ntumba" data-rating="4.5" data-distance="7.1" data-specialty="Ophtalmologie" data-location="Ngaliema" data-availability="tomorrow" href="doctor.html">
-        <div class="doctor-card-header">
-          <div class="doctor-avatar">DN</div>
-          <div style="flex: 1;">
-            <div class="doctor-name">Dr Ntumba</div>
-            <div class="doctor-specialty">Ophtalmologie</div>
-          </div>
-        </div>
-        <div class="doctor-meta">
-          <span><i data-lucide="map-pin"></i> Ngaliema • 7,1 km</span>
-          <span><i data-lucide="star"></i> 4.5 (22)</span>
-        </div>
-        <div class="doctor-card-footer">
-          <div class="badge success"><i data-lucide="shield-check"></i> Vérifié</div>
-          <div class="doctor-status">
-            <span class="live-dot" style="background: var(--warning);"></span>
-            <span class="text-2">Demain</span>
-          </div>
-        </div>
-      </a>
-
-    </div>
-
+</header><div class="pat-menu-overlay" id="patMenuOverlay" onclick="toggleMenu()"></div><aside class="pat-menu" id="patMenu">
+  <div class="pat-menu-header">
+    <span style="font-weight:800;">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMenu()"><i data-lucide="x"></i></button>
   </div>
-</main>
-
-<nav class="pat-mobile-nav">
+  <div class="pat-menu-content">
+    <a class="pat-menu-item" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="pat-menu-item active" href="search.html" aria-current="page"><i data-lucide="search"></i> Rechercher</a>
+    <a class="pat-menu-item" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
+    <a class="pat-menu-item" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
+    <a class="pat-menu-item" href="profile.html"><i data-lucide="user"></i> Profil</a>
+    <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
+      <a class="pat-menu-item" data-logout="" role="button" tabindex="0"><i data-lucide="log-out"></i> Déconnexion</a>
+    </div>
+  </div>
+</aside><main id="main-content" class="pat-main" tabindex="-1"><div class="pat-content"><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></div></main><nav class="pat-mobile-nav">
   <a class="pat-mobile-item" href="dashboard.html"><i data-lucide="home"></i><span>Accueil</span></a>
-  <a class="pat-mobile-item active" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
+  <a class="pat-mobile-item active" href="search.html" aria-current="page"><i data-lucide="search"></i><span>Rechercher</span></a>
   <a class="pat-mobile-item" href="history.html"><i data-lucide="calendar"></i><span>Mes RDV</span></a>
   <a class="pat-mobile-item" href="prescription.html"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
   <a class="pat-mobile-item" href="profile.html"><i data-lucide="user"></i><span>Profil</span></a>
-</nav>
-
-<script src="../assets/js/api.js"></script>
-<script src="../assets/js/app.js"></script>
-<script>
-  function logout() {
-    Monganga.showToast('Vous êtes déconnecté', 'info');
-    setTimeout(() => window.location.href = '../index.html', 600);
-  }
-  function filterDoctors() {
-    const query = document.getElementById('doctor-search').value.toLowerCase().trim();
-    const specialty = document.getElementById('specialty-filter').value;
-    const location = document.getElementById('commune-filter').value;
-    const availability = document.getElementById('availability-filter').value;
-    let count = 0;
-    document.querySelectorAll('.doctor-card[data-name]').forEach(card => {
-      const match = (!query || `${card.dataset.name} ${card.dataset.specialty}`.includes(query))
-        && (specialty === 'all' || card.dataset.specialty === specialty)
-        && (location === 'all' || card.dataset.location === location)
-        && (availability === 'all' || card.dataset.availability === availability);
-      card.style.display = match ? '' : 'none';
-      if (match) count++;
-    });
-    document.getElementById('doctor-result-count').textContent = `${count} résultat${count > 1 ? 's' : ''}`;
-  }
-  document.addEventListener('DOMContentLoaded', () => {
-    ['doctor-search', 'specialty-filter', 'commune-filter', 'availability-filter'].forEach(id => document.getElementById(id).addEventListener('input', filterDoctors));
-    document.getElementById('sort-doctors').addEventListener('change', sortDoctors);
-  });
-  function sortDoctors(event) {
-    const grid = document.querySelector('.doctors-grid');
-    const cards = [...grid.querySelectorAll('.doctor-card[data-name]')];
-    const mode = event.target.value;
-    cards.sort((a, b) => mode === 'name' ? a.dataset.name.localeCompare(b.dataset.name) : mode === 'distance' ? Number(a.dataset.distance) - Number(b.dataset.distance) : Number(b.dataset.rating) - Number(a.dataset.rating));
-    cards.forEach(card => grid.appendChild(card));
-  }
-</script>
-</body>
-</html>
+</nav></body></html>

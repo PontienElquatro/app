@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
+<html lang="fr" data-theme="light"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Politique de confidentialité — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/animations.css">
-</head>
-<body>
+<meta name="app-base" content="../"><meta name="description" content="Monganga : consultez un médecin à distance à Kinshasa."><link rel="icon" href="../assets/logo/monganga-icone.jpg"><link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/ui.css"><script src="../assets/js/theme.js"></script><script src="../assets/vendor/lucide-0.468.0.min.js" defer=""></script><script src="../assets/js/config.js" defer=""></script><script src="../assets/js/api.js" defer=""></script><script src="../assets/js/catalog.js" defer=""></script><script src="../assets/js/data.js" defer=""></script><script src="../assets/js/app.js" defer=""></script><script src="../assets/js/public-pages.js" defer=""></script></head>
+<body><a class="skip-link" href="#main-content">Aller au contenu</a>
 
 <header class="pub-header">
   <div class="pub-header-inner">
@@ -27,23 +26,23 @@
       <a class="pub-nav-link" href="faq.html">FAQ</a>
     </nav>
     <div class="pub-actions">
-      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
-        <i data-lucide="moon" data-theme-icon></i>
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
       </button>
       <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
       <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
         <i data-lucide="menu"></i>
       </button>
     </div>
   </div>
-</header>
+</header><div id="mode-indicator" class="mode-indicator" hidden=""></div>
 
 <div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
-<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;" hidden="">
   <div class="drawer-header">
     <span class="drawer-title">Menu</span>
-    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()" aria-label="Fermer le menu"><i data-lucide="x"></i></button>
   </div>
   <div class="drawer-content">
     <a class="menu-link" href="../index.html"><i data-lucide="home"></i> Accueil</a>
@@ -60,7 +59,7 @@
   </div>
 </aside>
 
-<main class="container section" style="padding-bottom:72px;">
+<main class="container section" style="padding-bottom:72px;" id="main-content" tabindex="-1">
   <div class="breadcrumb mb-3">
     <a href="../index.html">Accueil</a>
     <i data-lucide="chevron-right"></i>
@@ -141,6 +140,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/app.js"></script>
-</body>
-</html>
+
+
+
+</body></html>

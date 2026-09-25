@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
+<html lang="fr" data-theme="light"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comment ça marche — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/animations.css">
-</head>
+<meta name="app-base" content="../"><link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg"><link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/restored.css"><script src="../assets/js/theme.js"></script><script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script><script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/restored-public.js"></script><script defer="" src="../assets/js/restored-shell.js"></script></head>
 <body>
 
 <header class="pub-header">
@@ -28,7 +27,7 @@
     </nav>
     <div class="pub-actions">
       <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
-        <i data-lucide="moon" data-theme-icon></i>
+        <i data-lucide="moon" data-theme-icon=""></i>
       </button>
       <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
       <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
@@ -60,7 +59,7 @@
   </div>
 </aside>
 
-<main>
+<main id="main-content">
 
   <section class="container section">
     <div class="fade-in">
@@ -78,7 +77,7 @@
   </section>
 
   <section class="container" style="padding-bottom: 72px;">
-    <div class="steps-detail" data-stagger>
+    <div class="steps-detail" data-stagger="">
 
       <div class="step-detail">
         <div class="step-badge">1</div>
@@ -325,15 +324,7 @@
 }
 </style>
 
-<script src="../assets/js/app.js"></script>
-<script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const isOpen = menu.style.right === '0px';
-    menu.style.right = isOpen ? '-300px' : '0px';
-    overlay.classList.toggle('active');
-  }
-</script>
-</body>
-</html>
+
+
+
+</body></html>

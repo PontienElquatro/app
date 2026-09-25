@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Disponibilités - Docteur | MONGANGA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css">
-  <link rel="stylesheet" href="../assets/css/animations.css">
-  <link rel="stylesheet" href="../assets/css/doctor.css">
-</head>
-<body class="doctor-body">
-  <div class="doctor-shell">
-    <aside class="doctor-sidebar">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Mes disponibilités sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Mes disponibilités — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/doctor.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="availability" data-role="doctor" data-auth-state="pending" class="doctor-body restored-space"><a class="skip-link" href="#main-content">Aller au contenu</a><div class="doctor-shell"><aside class="doctor-sidebar" id="workspace-sidebar">
       <div class="doctor-brand">
-        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-mark"><i data-lucide="activity"></i></div>
         <div class="doctor-brand-text">
           <strong>MONGANGA</strong>
           <span>Doctor</span>
@@ -26,160 +23,20 @@
       <nav class="doctor-nav" aria-label="Navigation principale">
         <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
         <a class="doctor-nav-link" href="agenda.html"><i data-lucide="calendar-days"></i> Agenda</a>
-        <a class="doctor-nav-link active" href="dispo.html"><i data-lucide="clock-3"></i> Disponibilités</a>
+        <a class="doctor-nav-link active" href="dispo.html" aria-current="page"><i data-lucide="clock-3"></i> Disponibilités</a>
         <a class="doctor-nav-link" href="demandes.html"><i data-lucide="inbox"></i> Demandes</a>
         <a class="doctor-nav-link" href="patients.html"><i data-lucide="users"></i> Patients</a>
         <a class="doctor-nav-link" href="ordonnances.html"><i data-lucide="file-text"></i> Ordonnances</a>
         <a class="doctor-nav-link" href="gains.html"><i data-lucide="wallet"></i> Gains</a>
       </nav>
 
-      <div class="doctor-profile-box">
+      <a class="doctor-profile-box" href="profile.html" aria-label="Ouvrir mon profil">
         <div class="doctor-mini-user">
-          <div class="doctor-mini-avatar">DM</div>
+          <div class="doctor-mini-avatar" data-avatar-storage="monganga_doctor_photo" data-avatar-alt="Portrait du médecin">DM</div>
           <div class="doctor-mini-meta">
             <strong>Dr. Manda</strong>
             <span>Cardiologie</span>
           </div>
         </div>
-      </div>
-    </aside>
-
-    <main class="doctor-main">
-      <header class="doctor-topbar">
-        <div>
-          <h1 class="doctor-page-title">Disponibilités</h1>
-          <p class="doctor-page-subtitle">Définissez vos créneaux ouverts et occupés.</p>
-        </div>
-
-        <div class="doctor-header-actions">
-          <button class="btn btn-secondary btn-sm" type="button" onclick="duplicateSchedule()"><i data-lucide="copy-plus"></i> Dupliquer</button>
-          <button class="btn btn-primary btn-sm" type="button" onclick="addSlot()"><i data-lucide="plus"></i> Ajouter un créneau</button>
-        </div>
-      </header>
-
-      <div class="doctor-main-grid">
-        <section class="card">
-          <div class="card-header-row">
-            <div>
-              <h2 class="card-title">Planning hebdomadaire</h2>
-              <div class="card-subtitle">Semaine 39</div>
-            </div>
-            <div class="filters">
-              <button class="btn btn-secondary btn-sm" type="button" onclick="saveSchedule()"><i data-lucide="save"></i> Enregistrer</button>
-            </div>
-          </div>
-
-          <div class="slot-grid" id="slot-grid">
-            <div class="slot active" onclick="toggleSlot(this)">Lun 08:30</div>
-            <div class="slot active" onclick="toggleSlot(this)">Lun 10:00</div>
-            <div class="slot booked">Lun 11:00</div>
-            <div class="slot" onclick="toggleSlot(this)">Lun 14:00</div>
-            <div class="slot" onclick="toggleSlot(this)">Lun 15:30</div>
-            <div class="slot active" onclick="toggleSlot(this)">Mar 09:00</div>
-            <div class="slot active" onclick="toggleSlot(this)">Mar 11:00</div>
-            <div class="slot booked">Mar 15:00</div>
-            <div class="slot" onclick="toggleSlot(this)">Mer 08:30</div>
-            <div class="slot active" onclick="toggleSlot(this)">Mer 13:00</div>
-            <div class="slot" onclick="toggleSlot(this)">Jeu 10:00</div>
-            <div class="slot booked">Jeu 16:00</div>
-            <div class="slot active" onclick="toggleSlot(this)">Ven 09:00</div>
-            <div class="slot" onclick="toggleSlot(this)">Ven 11:30</div>
-            <div class="slot" onclick="toggleSlot(this)">Ven 14:30</div>
-          </div>
-        </section>
-
-        <section class="section-row">
-          <div class="card">
-            <div class="card-header-row">
-              <div>
-                <h2 class="card-title">Paramètres</h2>
-                <div class="card-subtitle">Durée des consultations</div>
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="duree">Durée standard</label>
-                <input id="duree" type="text" value="30 minutes" />
-              </div>
-              <div class="form-field">
-                <label for="pause">Pause</label>
-                <input id="pause" type="text" value="12:30 - 13:30" />
-              </div>
-              <div class="form-field">
-                <label for="mode">Mode de consultation</label>
-                <select id="mode">
-                  <option>Présentiel + Téléconsultation</option>
-                  <option>Présentiel uniquement</option>
-                  <option>Téléconsultation uniquement</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="buffer">Tampon avant RDV</label>
-                <input id="buffer" type="text" value="10 minutes" />
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header-row">
-              <div>
-                <h2 class="card-title">Statut</h2>
-                <div class="card-subtitle">Disponibilité globale</div>
-              </div>
-            </div>
-
-            <div class="perf-grid">
-              <div class="perf-card">
-                <div style="font-size:12px; color:var(--text-2); margin-bottom:8px;">Disponibles</div>
-                <div style="font-size:28px; font-weight:800;">18</div>
-              </div>
-              <div class="perf-card">
-                <div style="font-size:12px; color:var(--text-2); margin-bottom:8px;">Réservés</div>
-                <div style="font-size:28px; font-weight:800;">9</div>
-              </div>
-              <div class="perf-card">
-                <div style="font-size:12px; color:var(--text-2); margin-bottom:8px;">Taux du temps</div>
-                <div style="font-size:28px; font-weight:800;">72%</div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script src="../assets/js/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initLucide();
-      const savedSchedule = JSON.parse(localStorage.getItem('monganga_doctor_schedule') || '[]');
-      savedSchedule.forEach(saved => {
-        const slot = [...document.querySelectorAll('#slot-grid .slot')].find(item => item.textContent === saved.label);
-        if (slot && !saved.booked) slot.classList.toggle('active', saved.active);
-      });
-    });
-    function toggleSlot(slot) {
-      if (slot.classList.contains('booked')) return Monganga.showToast('Ce créneau est déjà réservé', 'info');
-      slot.classList.toggle('active');
-      saveSchedule(false);
-      Monganga.showToast(`${slot.textContent} ${slot.classList.contains('active') ? 'ouvert' : 'fermé'}`, 'success');
-    }
-    function addSlot() {
-      const slot = document.createElement('div');
-      slot.className = 'slot active';
-      slot.textContent = 'Nouveau créneau';
-      slot.onclick = () => toggleSlot(slot);
-      document.getElementById('slot-grid').appendChild(slot);
-      saveSchedule(false);
-      Monganga.showToast('Créneau ajouté au planning', 'success');
-    }
-    function duplicateSchedule() { Monganga.showToast('Planning de la semaine dupliqué', 'success'); }
-    function saveSchedule(showFeedback = true) {
-      const slots = [...document.querySelectorAll('#slot-grid .slot')].map(slot => ({ label: slot.textContent, active: slot.classList.contains('active'), booked: slot.classList.contains('booked') }));
-      localStorage.setItem('monganga_doctor_schedule', JSON.stringify(slots));
-      if (showFeedback) Monganga.showToast('Planning enregistré localement', 'success');
-    }
-  </script>
-</body>
-</html>
+      </a>
+    <div class="sidebar-controls"><button class="btn btn-ghost btn-icon" type="button" data-theme-button="" aria-label="Changer de thème"><i data-lucide="moon"></i></button><button class="btn btn-ghost btn-icon" type="button" data-logout="" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button><button class="btn btn-ghost btn-icon workspace-menu-btn" type="button" data-sidebar-toggle="" aria-label="Fermer le menu"><i data-lucide="x"></i></button></div></aside><main id="main-content" class="doctor-main" tabindex="-1"><button class="btn btn-secondary btn-sm workspace-menu-btn" type="button" data-sidebar-toggle="" aria-controls="workspace-sidebar" aria-expanded="false"><i data-lucide="menu"></i> Menu</button><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></main></div><div class="workspace-sidebar-overlay" data-sidebar-toggle="" aria-hidden="true"></div></body></html>

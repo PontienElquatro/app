@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="fr" data-theme="light"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tableau de bord - Docteur | MONGANGA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  
+  
+  
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/animations.css">
   <link rel="stylesheet" href="../assets/css/doctor.css">
-</head>
-<body class="doctor-body">
+<meta name="app-base" content="../"><link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg"><link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/restored.css"><script src="../assets/js/theme.js"></script><script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script><script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/restored-dashboards.js"></script><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body class="doctor-body" data-role="doctor" data-auth-state="pending" data-page="doctorDashboard" data-static-layout="true"><a class="skip-link" href="#main-content">Aller au contenu</a>
   <div class="doctor-shell">
-    <aside class="doctor-sidebar">
+    <aside class="doctor-sidebar" id="workspace-sidebar">
       <div class="doctor-brand">
         <div class="doctor-brand-mark"><i data-lucide="activity"></i></div>
         <div class="doctor-brand-text">
@@ -24,7 +23,7 @@
       </div>
 
       <nav class="doctor-nav" aria-label="Navigation principale">
-        <a class="doctor-nav-link active" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
+        <a class="doctor-nav-link active" href="dashboard.html" aria-current="page"><i data-lucide="layout-grid"></i> Tableau de bord</a>
         <a class="doctor-nav-link" href="agenda.html"><i data-lucide="calendar-days"></i> Agenda</a>
         <a class="doctor-nav-link" href="dispo.html"><i data-lucide="clock-3"></i> Disponibilités</a>
         <a class="doctor-nav-link" href="demandes.html"><i data-lucide="inbox"></i> Demandes</a>
@@ -42,46 +41,46 @@
           </div>
         </div>
       </a>
-    </aside>
+    <div class="sidebar-controls"><button class="btn btn-ghost btn-icon" type="button" data-theme-button="" aria-label="Changer de thème"><i data-lucide="moon"></i></button><button class="btn btn-ghost btn-icon" type="button" data-logout="" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button><button class="btn btn-ghost btn-icon workspace-menu-btn" type="button" data-sidebar-toggle="" aria-label="Fermer le menu"><i data-lucide="x"></i></button></div></aside>
 
-    <main class="doctor-main">
+    <main class="doctor-main" id="main-content" tabindex="-1"><button class="btn btn-secondary btn-sm workspace-menu-btn" type="button" data-sidebar-toggle="" aria-controls="workspace-sidebar" aria-expanded="false"><i data-lucide="menu"></i> Menu</button><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div>
       <header class="doctor-topbar">
         <div>
-          <h1 class="doctor-page-title">Bonjour, Dr. Manda</h1>
+          <h1 class="doctor-page-title" id="dashboard-greeting">Bonjour, Dr. Manda</h1>
           <p class="doctor-page-subtitle">Voici le résumé de votre journée et de votre activité.</p>
         </div>
 
         <div class="doctor-header-actions">
           <button class="btn btn-secondary btn-sm" type="button" onclick="location.href='agenda.html'"><i data-lucide="calendar-plus"></i> Nouveau RDV</button>
           <button class="btn btn-primary btn-sm" type="button" onclick="location.href='ordonnances.html'"><i data-lucide="plus"></i> Ajouter</button>
-          <button class="btn btn-ghost btn-icon" type="button" aria-label="Ouvrir les notifications" onclick="Monganga.openNotifications()"><i data-lucide="bell"></i></button>
+          <button class="btn btn-ghost btn-icon" type="button" aria-label="Ouvrir les notifications" data-notifications=""><i data-lucide="bell"></i></button>
         </div>
       </header>
 
-      <div class="doctor-main-grid">
-        <section class="kpi-grid" data-stagger>
+      <div id="page-status" role="status" class="layout-status">Chargement de votre espace…</div><div class="doctor-main-grid" data-dashboard-content="">
+        <section class="kpi-grid" data-stagger="">
           <article class="kpi-card">
             <div class="kpi-label"><i data-lucide="calendar-check-2"></i> Consultations aujourd'hui</div>
-            <div class="kpi-value">12</div>
-            <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +3 vs. hier</span>
+            <div class="kpi-value" id="metric-0">—</div>
+            <span class="kpi-trend up" id="metric-note-0"></span>
           </article>
 
           <article class="kpi-card">
             <div class="kpi-label"><i data-lucide="users"></i> Patients suivis</div>
-            <div class="kpi-value">248</div>
-            <span class="kpi-trend neutral"><i data-lucide="activity"></i> 14 nouveaux</span>
+            <div class="kpi-value" id="metric-1">—</div>
+            <span class="kpi-trend neutral" id="metric-note-1"></span>
           </article>
 
           <article class="kpi-card">
             <div class="kpi-label"><i data-lucide="clipboard-check"></i> Demandes en attente</div>
-            <div class="kpi-value">07</div>
-            <span class="kpi-trend warn"><i data-lucide="clock-4"></i> 2 urgents</span>
+            <div class="kpi-value" id="metric-2">—</div>
+            <span class="kpi-trend warn" id="metric-note-2"></span>
           </article>
 
           <article class="kpi-card">
             <div class="kpi-label"><i data-lucide="wallet"></i> Gains du mois</div>
-            <div class="kpi-value">$4.2K</div>
-            <span class="kpi-trend up"><i data-lucide="trending-up"></i> +12.4%</span>
+            <div class="kpi-value" id="metric-3">—</div>
+            <span class="kpi-trend up" id="metric-note-3"></span>
           </article>
         </section>
 
@@ -90,54 +89,12 @@
             <div class="card-header-row">
               <div>
                 <h2 class="card-title">Agenda du jour</h2>
-                <div class="card-subtitle">Mardi 24 septembre 2026</div>
+                <div class="card-subtitle" id="agenda-date">Mardi 24 septembre 2026</div>
               </div>
               <a class="btn btn-secondary btn-sm" href="agenda.html">Voir tout</a>
             </div>
 
-            <div class="timeline-list">
-                <div class="timeline-item">
-                <div class="timeline-main">
-                  <span class="timeline-time">08:30</span>
-                  <span class="timeline-dot"></span>
-                  <div>
-                    <div class="timeline-name">Aline Nkulu</div>
-                    <div class="timeline-meta">Consultation de suivi • 30 min</div>
-                  </div>
-                </div>
-                <div class="timeline-actions">
-                  <span class="badge info">Confirmé</span>
-                  <a class="btn btn-secondary btn-sm" href="patients.html"><i data-lucide="folder-open"></i> Dossier</a>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="timeline-main">
-                  <span class="timeline-time">10:00</span>
-                  <span class="timeline-dot" style="background:#10b981;"></span>
-                  <div>
-                    <div class="timeline-name">M. Mwamba</div>
-                    <div class="timeline-meta">Téléconsultation • 20 min</div>
-                  </div>
-                </div>
-                <a class="btn btn-primary btn-sm" href="consult.html?patient=mwamba"><i data-lucide="video"></i> Rejoindre</a>
-              </div>
-
-              <div class="timeline-item">
-                <div class="timeline-main">
-                  <span class="timeline-time">12:30</span>
-                  <span class="timeline-dot" style="background:#f59e0b;"></span>
-                  <div>
-                    <div class="timeline-name">Mlle. Kanza</div>
-                    <div class="timeline-meta">Bilan cardiaque • 45 min</div>
-                  </div>
-                </div>
-                <div class="timeline-actions">
-                  <span class="badge warning">À venir</span>
-                  <a class="btn btn-secondary btn-sm" href="agenda.html"><i data-lucide="calendar"></i> Préparer</a>
-                </div>
-              </div>
-            </div>
+            <div class="timeline-list" id="dashboard-agenda"></div>
           </div>
 
           <div class="card">
@@ -149,40 +106,7 @@
               <a class="btn btn-secondary btn-sm" href="demandes.html">Voir</a>
             </div>
 
-            <div class="list-stack">
-              <div class="list-row">
-                <div class="list-main">
-                  <div class="doctor-avatar">LL</div>
-                  <div>
-                    <div class="list-name">Léonie L.</div>
-                    <div class="list-meta">Consultation générale</div>
-                  </div>
-                </div>
-                <a class="badge neutral" href="demandes.html">3h</a>
-              </div>
-
-              <div class="list-row">
-                <div class="list-main">
-                  <div class="doctor-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309;">JS</div>
-                  <div>
-                    <div class="list-name">Jean S.</div>
-                    <div class="list-meta">Suivi post-op.</div>
-                  </div>
-                </div>
-                <a class="badge warning" href="demandes.html">Urgent</a>
-              </div>
-
-              <div class="list-row">
-                <div class="list-main">
-                  <div class="doctor-avatar" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#047857;">TN</div>
-                  <div>
-                    <div class="list-name">Tonia N.</div>
-                    <div class="list-meta">Téléconsultation</div>
-                  </div>
-                </div>
-                <span class="badge success">Validé</span>
-              </div>
-            </div>
+            <div class="list-stack" id="dashboard-requests"></div>
           </div>
         </section>
 
@@ -193,7 +117,7 @@
               <div class="card-subtitle">Évolution des consultations</div>
             </div>
             <div class="filters">
-              <select class="form-input" aria-label="Période des performances" onchange="changePerformancePeriod(this.value)" style="width:auto; height:34px;">
+              <select class="form-input" aria-label="Période des performances" style="width:auto; height:34px;" id="performance-period">
                 <option value="month">Ce mois</option>
                 <option value="week">Cette semaine</option>
                 <option value="year">Cette année</option>
@@ -201,28 +125,7 @@
             </div>
           </div>
 
-          <div class="bar-chart" aria-label="Graphique des consultations">
-            <div class="bar-col">
-              <div class="bar-stack" style="height: 50%;"></div>
-              <span class="bar-label">S1</span>
-            </div>
-            <div class="bar-col">
-              <div class="bar-stack" style="height: 68%;"></div>
-              <span class="bar-label">S2</span>
-            </div>
-            <div class="bar-col">
-              <div class="bar-stack" style="height: 78%;"></div>
-              <span class="bar-label">S3</span>
-            </div>
-            <div class="bar-col">
-              <div class="bar-stack" style="height: 90%;"></div>
-              <span class="bar-label">S4</span>
-            </div>
-            <div class="bar-col">
-              <div class="bar-stack" style="height: 76%;"></div>
-              <span class="bar-label">S5</span>
-            </div>
-          </div>
+          <div class="bar-chart" aria-label="Graphique des consultations" id="dashboard-chart"></div>
         </section>
 
         <section class="dashboard-lower-grid">
@@ -234,7 +137,7 @@
               </div>
             </div>
             <div class="quick-actions-grid">
-              <a class="btn btn-secondary quick-action" href="consult.html?patient=mwamba"><i data-lucide="video"></i><span>Démarrer un appel</span></a>
+              <a class="btn btn-secondary quick-action" href="agenda.html"><i data-lucide="video"></i><span>Démarrer un appel</span></a>
               <a class="btn btn-secondary quick-action" href="ordonnances.html"><i data-lucide="file-plus-2"></i><span>Créer une ordonnance</span></a>
               <a class="btn btn-secondary quick-action" href="patients.html"><i data-lucide="folder-search"></i><span>Ouvrir un dossier</span></a>
               <a class="btn btn-secondary quick-action" href="dispo.html"><i data-lucide="clock-3"></i><span>Gérer mes horaires</span></a>
@@ -249,27 +152,16 @@
               </div>
               <a class="btn btn-secondary btn-sm" href="patients.html">Tous</a>
             </div>
-            <div class="list-stack">
-              <a class="list-row dashboard-patient-row" href="patients.html"><div class="list-main"><div class="doctor-avatar">AN</div><div><div class="list-name">Aline Nkulu</div><div class="list-meta">Suivi · il y a 2 jours</div></div></div><i data-lucide="chevron-right"></i></a>
-              <a class="list-row dashboard-patient-row" href="patients.html"><div class="list-main"><div class="doctor-avatar">MM</div><div><div class="list-name">M. Mwamba</div><div class="list-meta">Téléconsultation · hier</div></div></div><i data-lucide="chevron-right"></i></a>
-              <a class="list-row dashboard-patient-row" href="patients.html"><div class="list-main"><div class="doctor-avatar">MK</div><div><div class="list-name">Mlle. Kanza</div><div class="list-meta">Bilan · il y a 4 jours</div></div></div><i data-lucide="chevron-right"></i></a>
-            </div>
+            <div class="list-stack" id="dashboard-patients"></div>
           </div>
         </section>
       </div>
     </main>
   </div>
 
-  <script src="../assets/js/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initLucide();
-    });
+  
+  
+  
 
-    function changePerformancePeriod(period) {
-      const labels = { week: 'Cette semaine', month: 'Ce mois', year: 'Cette année' };
-      Monganga.showToast(`Statistiques affichées : ${labels[period]}`, 'info');
-    }
-  </script>
-</body>
-</html>
+
+<div class="workspace-sidebar-overlay" data-sidebar-toggle="" aria-hidden="true"></div></body></html>

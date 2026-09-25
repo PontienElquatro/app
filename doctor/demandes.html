@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demandes - Docteur | MONGANGA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css">
-  <link rel="stylesheet" href="../assets/css/animations.css">
-  <link rel="stylesheet" href="../assets/css/doctor.css">
-</head>
-<body class="doctor-body">
-  <div class="doctor-shell">
-    <aside class="doctor-sidebar">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Demandes de rendez-vous sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Demandes de rendez-vous — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/doctor.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="requests" data-role="doctor" data-auth-state="pending" class="doctor-body restored-space"><a class="skip-link" href="#main-content">Aller au contenu</a><div class="doctor-shell"><aside class="doctor-sidebar" id="workspace-sidebar">
       <div class="doctor-brand">
-        <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
+        <div class="doctor-brand-mark"><i data-lucide="activity"></i></div>
         <div class="doctor-brand-text">
           <strong>MONGANGA</strong>
           <span>Doctor</span>
@@ -27,195 +24,19 @@
         <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
         <a class="doctor-nav-link" href="agenda.html"><i data-lucide="calendar-days"></i> Agenda</a>
         <a class="doctor-nav-link" href="dispo.html"><i data-lucide="clock-3"></i> Disponibilités</a>
-        <a class="doctor-nav-link active" href="demandes.html"><i data-lucide="inbox"></i> Demandes</a>
+        <a class="doctor-nav-link active" href="demandes.html" aria-current="page"><i data-lucide="inbox"></i> Demandes</a>
         <a class="doctor-nav-link" href="patients.html"><i data-lucide="users"></i> Patients</a>
         <a class="doctor-nav-link" href="ordonnances.html"><i data-lucide="file-text"></i> Ordonnances</a>
         <a class="doctor-nav-link" href="gains.html"><i data-lucide="wallet"></i> Gains</a>
       </nav>
 
-      <div class="doctor-profile-box">
+      <a class="doctor-profile-box" href="profile.html" aria-label="Ouvrir mon profil">
         <div class="doctor-mini-user">
-          <div class="doctor-mini-avatar">DM</div>
+          <div class="doctor-mini-avatar" data-avatar-storage="monganga_doctor_photo" data-avatar-alt="Portrait du médecin">DM</div>
           <div class="doctor-mini-meta">
             <strong>Dr. Manda</strong>
             <span>Cardiologie</span>
           </div>
         </div>
-      </div>
-    </aside>
-
-    <main class="doctor-main">
-      <header class="doctor-topbar">
-        <div>
-          <h1 class="doctor-page-title">Demandes</h1>
-          <p class="doctor-page-subtitle">Suivez les demandes de consultation et de rendez-vous.</p>
-        </div>
-
-        <div class="doctor-header-actions">
-          <select class="form-input" id="request-filter" aria-label="Filtrer les demandes" style="width:auto; min-width:150px; height:36px;">
-            <option value="all">Toutes les demandes</option>
-            <option value="pending">En attente</option>
-            <option value="urgent">Urgentes</option>
-            <option value="accepted">Validées</option>
-          </select>
-          <button class="btn btn-primary btn-sm" type="button" onclick="createRequest()"><i data-lucide="plus"></i> Créer</button>
-        </div>
-      </header>
-
-      <div class="doctor-main-grid">
-        <section class="card">
-          <div class="card-header-row">
-            <div>
-              <h2 class="card-title">Demandes en attente</h2>
-              <div class="card-subtitle" id="pending-count">2 demandes à traiter</div>
-            </div>
-          </div>
-
-          <div class="list-stack">
-            <div class="request-card" data-request-status="pending" data-patient="Léonie L." data-reason="Consultation générale">
-              <div class="request-card-main">
-                <div class="doctor-avatar">LL</div>
-                <div>
-                  <div class="list-name">Léonie L.</div>
-                  <div class="list-meta">Consultation générale • 3h</div>
-                </div>
-              </div>
-              <div class="btns">
-                <span class="badge warning">En attente</span>
-                <button class="btn btn-secondary btn-sm" type="button" onclick="viewRequest(this)">Voir</button>
-                <button class="btn btn-primary btn-sm" type="button" onclick="acceptRequest(this)">Accepter</button>
-                <button class="btn btn-ghost btn-sm" type="button" onclick="rejectRequest(this)">Refuser</button>
-              </div>
-            </div>
-
-            <div class="request-card" data-request-status="urgent" data-patient="Jean S." data-reason="Suivi post-op">
-              <div class="request-card-main">
-                <div class="doctor-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309;">JS</div>
-                <div>
-                  <div class="list-name">Jean S.</div>
-                  <div class="list-meta">Suivi post-op • 2h</div>
-                </div>
-              </div>
-              <div class="btns">
-                <span class="badge danger">Urgent</span>
-                <button class="btn btn-secondary btn-sm" type="button" onclick="viewRequest(this)">Voir</button>
-                <button class="btn btn-primary btn-sm" type="button" onclick="acceptRequest(this)">Accepter</button>
-                <button class="btn btn-ghost btn-sm" type="button" onclick="rejectRequest(this)">Refuser</button>
-              </div>
-            </div>
-
-            <div class="request-card" data-request-status="accepted" data-patient="Tonia N." data-reason="Téléconsultation">
-              <div class="request-card-main">
-                <div class="doctor-avatar" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#047857;">TN</div>
-                <div>
-                  <div class="list-name">Tonia N.</div>
-                  <div class="list-meta">Téléconsultation • Aujourd'hui</div>
-                </div>
-              </div>
-              <div class="btns">
-                <span class="badge success">Validée</span>
-                <button class="btn btn-secondary btn-sm" type="button" onclick="viewRequest(this)">Voir</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card">
-          <div class="card-header-row">
-            <div>
-              <h2 class="card-title">Historique</h2>
-              <div class="card-subtitle">Demandes traitées</div>
-            </div>
-          </div>
-
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Patient</th>
-                  <th>Type</th>
-                  <th>Date</th>
-                  <th>Statut</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Claire M.</td>
-                  <td>Suivi</td>
-                  <td>20 Sept</td>
-                  <td><span class="badge success">Acceptée</span></td>
-                </tr>
-                <tr>
-                  <td>R. Mbuyi</td>
-                  <td>Contrôle</td>
-                  <td>18 Sept</td>
-                  <td><span class="badge neutral">Clôturée</span></td>
-                </tr>
-                <tr>
-                  <td>Iris T.</td>
-                  <td>Consultation</td>
-                  <td>16 Sept</td>
-                  <td><span class="badge info">Rappel</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script src="../assets/js/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initLucide();
-      document.getElementById('request-filter').addEventListener('change', filterRequests);
-    });
-
-    function filterRequests(event) {
-      const filter = event.target.value;
-      document.querySelectorAll('.request-card').forEach(card => {
-        card.style.display = filter === 'all' || card.dataset.requestStatus === filter ? '' : 'none';
-      });
-    }
-
-    function viewRequest(button) {
-      const request = button.closest('.request-card');
-      Monganga.showToast(`${request.dataset.patient} : ${request.dataset.reason}`, 'info');
-    }
-
-    function acceptRequest(button) {
-      const request = button.closest('.request-card');
-      request.dataset.requestStatus = 'accepted';
-      const badge = request.querySelector('.badge');
-      badge.className = 'badge success';
-      badge.textContent = 'Validée';
-      button.remove();
-      request.querySelector('[onclick="rejectRequest(this)"]')?.remove();
-      updatePendingCount();
-      Monganga.showToast(`Demande de ${request.dataset.patient} acceptée`, 'success');
-    }
-
-    function rejectRequest(button) {
-      const request = button.closest('.request-card');
-      const reason = window.prompt(`Motif du refus pour ${request.dataset.patient} :`);
-      if (!reason) return;
-      request.dataset.requestStatus = 'rejected';
-      request.querySelector('.badge').className = 'badge danger';
-      request.querySelector('.badge').textContent = 'Refusée';
-      request.querySelectorAll('button').forEach(item => item.remove());
-      updatePendingCount();
-      Monganga.showToast(`Demande refusée : ${reason}`, 'info');
-    }
-
-    function updatePendingCount() {
-      const pending = [...document.querySelectorAll('.request-card')].filter(card => ['pending', 'urgent'].includes(card.dataset.requestStatus)).length;
-      document.getElementById('pending-count').textContent = `${pending} demande${pending > 1 ? 's' : ''} à traiter`;
-    }
-
-    function createRequest() {
-      Monganga.showToast('Les demandes sont créées depuis le parcours patient', 'info');
-    }
-  </script>
-</body>
-</html>
+      </a>
+    <div class="sidebar-controls"><button class="btn btn-ghost btn-icon" type="button" data-theme-button="" aria-label="Changer de thème"><i data-lucide="moon"></i></button><button class="btn btn-ghost btn-icon" type="button" data-logout="" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button><button class="btn btn-ghost btn-icon workspace-menu-btn" type="button" data-sidebar-toggle="" aria-label="Fermer le menu"><i data-lucide="x"></i></button></div></aside><main id="main-content" class="doctor-main" tabindex="-1"><button class="btn btn-secondary btn-sm workspace-menu-btn" type="button" data-sidebar-toggle="" aria-controls="workspace-sidebar" aria-expanded="false"><i data-lucide="menu"></i> Menu</button><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></main></div><div class="workspace-sidebar-overlay" data-sidebar-toggle="" aria-hidden="true"></div></body></html>

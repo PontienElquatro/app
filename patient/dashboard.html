@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
+<html lang="fr" data-theme="light"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mon espace — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/animations.css">
 <link rel="stylesheet" href="../assets/css/patient.css">
-</head>
-<body>
+<meta name="app-base" content="../"><link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg"><link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/restored.css"><script src="../assets/js/theme.js"></script><script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script><script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/restored-dashboards.js"></script><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-role="patient" data-auth-state="pending" data-page="patientDashboard" data-static-layout="true"><a class="skip-link" href="#main-content">Aller au contenu</a>
 
 <header class="pat-header">
   <div class="pat-header-inner">
@@ -21,21 +20,21 @@
       <span class="logo-text">MONGANGA</span>
     </a>
     <nav class="pat-nav">
-      <a class="pat-nav-link active" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+      <a class="pat-nav-link active" href="dashboard.html" aria-current="page"><i data-lucide="home"></i> Accueil</a>
       <a class="pat-nav-link" href="search.html"><i data-lucide="search"></i> Rechercher</a>
       <a class="pat-nav-link" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
       <a class="pat-nav-link" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
       <a class="pat-nav-link" href="profile.html"><i data-lucide="user"></i> Profil</a>
     </nav>
     <div class="pat-header-actions">
-      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
-        <i data-lucide="moon" data-theme-icon></i>
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
       </button>
-      <button class="btn btn-ghost btn-icon" onclick="Monganga.openNotifications()" aria-label="Ouvrir les notifications">
+      <button class="btn btn-ghost btn-icon" aria-label="Ouvrir les notifications" data-notifications="">
         <i data-lucide="bell"></i>
-        <span class="dot-badge"></span>
+        
       </button>
-      <button class="btn btn-ghost btn-icon" onclick="logout()" aria-label="Déconnexion">
+      <button class="btn btn-ghost btn-icon" aria-label="Déconnexion" data-logout="">
         <i data-lucide="log-out"></i>
       </button>
       <button class="btn btn-ghost btn-icon" onclick="toggleMenu()" aria-label="Menu" style="display:none;" id="patMenuBtn">
@@ -52,46 +51,46 @@
     <button class="btn btn-ghost btn-icon" onclick="toggleMenu()"><i data-lucide="x"></i></button>
   </div>
   <div class="pat-menu-content">
-    <a class="pat-menu-item active" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="pat-menu-item active" href="dashboard.html" aria-current="page"><i data-lucide="home"></i> Accueil</a>
     <a class="pat-menu-item" href="search.html"><i data-lucide="search"></i> Rechercher</a>
     <a class="pat-menu-item" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
     <a class="pat-menu-item" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
     <a class="pat-menu-item" href="profile.html"><i data-lucide="user"></i> Profil</a>
     <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
-      <a class="pat-menu-item" onclick="logout()"><i data-lucide="log-out"></i> Déconnexion</a>
+      <a class="pat-menu-item" data-logout="" role="button" tabindex="0"><i data-lucide="log-out"></i> Déconnexion</a>
     </div>
   </div>
 </aside>
 
-<main class="pat-main">
-  <div class="pat-content">
+<main class="pat-main" id="main-content" tabindex="-1">
+  <div id="page-status" role="status" class="layout-status">Chargement de votre espace…</div><div class="pat-content" data-dashboard-content=""><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div>
 
     <div class="fade-in" style="margin-bottom: 32px;">
-      <h1 class="pat-page-title">Bonjour Aline 👋</h1>
+      <h1 class="pat-page-title" id="dashboard-greeting">Bonjour Aline 👋</h1>
       <p class="pat-page-sub">Que puis-je faire pour vous aujourd'hui ?</p>
     </div>
 
     <!-- KPIs -->
-    <div class="kpi-grid" data-stagger style="margin-bottom: 32px;">
+    <div class="kpi-grid" data-stagger="" style="margin-bottom: 32px;">
       <div class="kpi-card">
         <div class="kpi-label"><i data-lucide="calendar-check"></i> Prochains RDV</div>
-        <div class="kpi-value">1</div>
-        <span class="kpi-trend up"><i data-lucide="clock"></i> Jeudi 10h00</span>
+        <div class="kpi-value" id="metric-0">—</div>
+        <span class="kpi-trend up" id="metric-note-0"></span>
       </div>
       <div class="kpi-card">
         <div class="kpi-label"><i data-lucide="file-text"></i> Ordonnances</div>
-        <div class="kpi-value">3</div>
-        <span class="kpi-trend up"><i data-lucide="check"></i> Actives</span>
+        <div class="kpi-value" id="metric-1">—</div>
+        <span class="kpi-trend up" id="metric-note-1"></span>
       </div>
       <div class="kpi-card">
         <div class="kpi-label"><i data-lucide="history"></i> Consultations</div>
-        <div class="kpi-value">12</div>
-        <span class="kpi-trend up">Depuis 2026</span>
+        <div class="kpi-value" id="metric-2">—</div>
+        <span class="kpi-trend up" id="metric-note-2"></span>
       </div>
       <div class="kpi-card">
         <div class="kpi-label"><i data-lucide="credit-card"></i> Dépenses ce mois</div>
-        <div class="kpi-value">60 $</div>
-        <span class="kpi-trend up">3 consultations</span>
+        <div class="kpi-value" id="metric-3">—</div>
+        <span class="kpi-trend up" id="metric-note-3"></span>
       </div>
     </div>
 
@@ -102,16 +101,16 @@
             <div class="card-title">Prochain rendez-vous</div>
               <div class="card-subtitle" id="next-rdv-label">Jeudi 24 septembre 2026 — 10h00</div>
         </div>
-        <span class="badge success"><i data-lucide="check-circle-2"></i> Confirmé</span>
+        <span class="badge success" id="next-rdv-status"><i data-lucide="check-circle-2"></i> Confirmé</span>
       </div>
 
       <div style="display: flex; gap: 14px; align-items: center; padding: 16px; background: var(--surface-2); border-radius: var(--r-md); flex-wrap: wrap;">
-        <div class="table-avatar" data-avatar-storage="monganga_doctor_photo" data-avatar-alt="Portrait du médecin" style="width: 48px; height: 48px; font-size: 15px;">DI</div>
+        <div class="table-avatar" id="next-rdv-avatar" style="width: 48px; height: 48px; font-size: 15px;">DI</div>
         <div style="flex: 1; min-width: 180px;">
-          <div style="font-weight: 700; font-size: 15px;">Dr Ilunga</div>
-          <div style="font-size: 12.5px; color: var(--text-2);">Consultation générale • Vidéo</div>
+          <div style="font-weight: 700; font-size: 15px;" id="next-rdv-doctor">Dr Ilunga</div>
+          <div style="font-size: 12.5px; color: var(--text-2);" id="next-rdv-specialty">Consultation générale • Vidéo</div>
         </div>
-        <a class="btn btn-primary" href="consult.html">
+        <a class="btn btn-primary" href="consult.html" id="next-rdv-link">
           <i data-lucide="video"></i> Rejoindre
         </a>
       </div>
@@ -139,37 +138,18 @@
 </main>
 
 <nav class="pat-mobile-nav">
-  <a class="pat-mobile-item active" href="dashboard.html"><i data-lucide="home"></i><span>Accueil</span></a>
+  <a class="pat-mobile-item active" href="dashboard.html" aria-current="page"><i data-lucide="home"></i><span>Accueil</span></a>
   <a class="pat-mobile-item" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
   <a class="pat-mobile-item" href="history.html"><i data-lucide="calendar"></i><span>Mes RDV</span></a>
   <a class="pat-mobile-item" href="prescription.html"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
   <a class="pat-mobile-item" href="profile.html"><i data-lucide="user"></i><span>Profil</span></a>
 </nav>
 
-<script src="../assets/js/api.js"></script>
-<script src="../assets/js/app.js"></script>
-<script>
-  function toggleMenu() {
-    document.getElementById('patMenu').classList.toggle('active');
-    document.getElementById('patMenuOverlay').classList.toggle('active');
-  }
-  function logout() {
-    Monganga.showToast('Vous êtes déconnecté', 'info');
-    setTimeout(() => window.location.href = '../index.html', 600);
-  }
-  // Show mobile menu button on small screens
-  if (window.innerWidth <= 900) {
-    document.getElementById('patMenuBtn').style.display = 'flex';
-  }
-  window.addEventListener('resize', () => {
-    document.getElementById('patMenuBtn').style.display = window.innerWidth <= 900 ? 'flex' : 'none';
-  });
-  document.addEventListener('DOMContentLoaded', () => {
-    const slot = localStorage.getItem('monganga_selected_slot');
-    if (slot) document.getElementById('next-rdv-label').textContent = `Créneau sélectionné : ${slot}`;
-    const prescription = localStorage.getItem('monganga_last_prescription');
-    if (prescription) document.querySelector('.kpi-card:nth-child(2) .kpi-trend').textContent = 'Dernière mise à jour récente';
-  });
-</script>
-</body>
-</html>
+
+
+
+
+
+
+
+</body></html>

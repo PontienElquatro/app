@@ -1,0 +1,26 @@
+{
+  "name": "monganga-frontend",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Monganga — frontend patient, médecin et administration, démo et contrat API",
+  "scripts": {
+    "start": "node scripts/serve.cjs",
+    "test": "node --test tests/frontend.test.cjs",
+    "test:browser": "node tests/browser.cjs",
+    "contract": "node scripts/build-contract.cjs",
+    "test:api": "node tests/browser-api.cjs",
+    "test:restoration": "node tests/restoration-browser.cjs"
+  },
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "devDependencies": {
+    "css-tree": "3.2.1",
+    "jsdom": "30.1.1",
+    "playwright": "1.63.0"
+  },
+  "dependencies": {
+    "@fontsource/plus-jakarta-sans": "5.3.0",
+    "lucide": "0.468.0"
+  }
+}

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
+<html lang="fr" data-theme="light"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tarifs — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/animations.css">
-</head>
-<body>
+<meta name="app-base" content="../"><meta name="description" content="Monganga : consultez un médecin à distance à Kinshasa."><link rel="icon" href="../assets/logo/monganga-icone.jpg"><link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/ui.css"><script src="../assets/js/theme.js"></script><script src="../assets/vendor/lucide-0.468.0.min.js" defer=""></script><script src="../assets/js/config.js" defer=""></script><script src="../assets/js/api.js" defer=""></script><script src="../assets/js/catalog.js" defer=""></script><script src="../assets/js/data.js" defer=""></script><script src="../assets/js/app.js" defer=""></script><script src="../assets/js/public-pages.js" defer=""></script></head>
+<body><a class="skip-link" href="#main-content">Aller au contenu</a>
 
 <header class="pub-header">
   <div class="pub-header-inner">
@@ -23,27 +22,27 @@
       <a class="pub-nav-link" href="../index.html">Accueil</a>
       <a class="pub-nav-link" href="how.html">Comment ça marche</a>
       <a class="pub-nav-link" href="doctors.html">Médecins</a>
-      <a class="pub-nav-link active" href="pricing.html">Tarifs</a>
+      <a class="pub-nav-link active" href="pricing.html" aria-current="page">Tarifs</a>
       <a class="pub-nav-link" href="faq.html">FAQ</a>
     </nav>
     <div class="pub-actions">
-      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
-        <i data-lucide="moon" data-theme-icon></i>
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
       </button>
       <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
       <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
         <i data-lucide="menu"></i>
       </button>
     </div>
   </div>
-</header>
+</header><div id="mode-indicator" class="mode-indicator" hidden=""></div>
 
 <div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
-<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;" hidden="">
   <div class="drawer-header">
     <span class="drawer-title">Menu</span>
-    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()" aria-label="Fermer le menu"><i data-lucide="x"></i></button>
   </div>
   <div class="drawer-content">
     <a class="menu-link" href="../index.html"><i data-lucide="home"></i> Accueil</a>
@@ -60,7 +59,7 @@
   </div>
 </aside>
 
-<main>
+<main id="main-content" tabindex="-1">
 
   <section class="container section">
     <div class="fade-in text-center">
@@ -78,7 +77,7 @@
   </section>
 
   <section class="container" style="padding-bottom: 24px;">
-    <div class="trust-bar" data-stagger>
+    <div class="trust-bar" data-stagger="">
       <div class="trust-pill">
         <i data-lucide="shield-check"></i>
         <span>Paiement sécurisé</span>
@@ -95,7 +94,7 @@
   </section>
 
   <section class="container" style="padding-bottom: 32px;">
-    <div class="pricing-grid" data-stagger>
+    <div class="pricing-grid" data-stagger="">
 
       <div class="pricing-card">
         <div class="pricing-badge-soft">Standard</div>
@@ -158,7 +157,7 @@
   <section class="container section">
     <h2 class="h2 text-center mb-8">Moyens de paiement acceptés</h2>
 
-    <div class="payment-methods-grid" data-stagger>
+    <div class="payment-methods-grid" data-stagger="">
       <div class="payment-card">
         <div class="payment-icon"><i data-lucide="smartphone"></i></div>
         <h4 class="h4 mb-2">M-Pesa</h4>
@@ -393,15 +392,7 @@
 }
 </style>
 
-<script src="../assets/js/app.js"></script>
-<script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const isOpen = menu.style.right === '0px';
-    menu.style.right = isOpen ? '-300px' : '0px';
-    overlay.classList.toggle('active');
-  }
-</script>
-</body>
-</html>
+
+
+
+</body></html>

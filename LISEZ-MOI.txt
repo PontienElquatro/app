@@ -1,59 +1,88 @@
-MONGANGA — PROJET HTML / CSS / JAVASCRIPT
+MONGANGA — FRONTEND / MISES EN PAGE RESTAURÉES
+Patient · Médecin · Administration
 
-OUVRIR LE PROJET
-Décompressez complètement l'archive, puis ouvrez index.html dans votre navigateur.
-Aucune compilation ni installation npm n'est nécessaire.
-Gardez le dossier assets à côté du fichier index.html.
-Une connexion Internet est requise pour les polices, les icônes, les graphiques
-et l'avatar chargés par le prototype depuis des services externes.
+LANCER LE PROJET
+Décompressez l'archive, ouvrez un terminal dans app-main, puis :
 
-FICHIERS
-- index.html : structure des 30 écrans et contenu de l'interface.
-- assets/css/styles.css : design system, styles principaux, thèmes et responsive.
-- assets/js/app.js : navigation, thèmes, interactions et graphiques.
-- assets/js/api.js : adaptateur API prêt pour le backend, session et fallback démo.
+    npm start
 
-Le projet reprend le prototype HTML fourni. Ses styles contextuels en attributs
-style sont conservés pour respecter son apparence et la priorité CSS d'origine.
-Le JavaScript est nécessaire pour passer d'une page à l'autre et ouvrir les menus,
-les modales, les dossiers, les réponses FAQ et les autres états interactifs.
+Ouvrez http://localhost:8080
+Node.js suffit pour ce serveur local. Les polices, icônes et images sont
+incluses ; le mode démo ne dépend d'aucun CDN. Aucun build n'est nécessaire.
+N'ouvrez pas les pages par un double-clic : utilisez HTTP/HTTPS.
 
-ACCÉDER AUX ESPACES DE DÉMONSTRATION
-Depuis l'accueil, cliquez sur « Connexion ». Utilisez l'un de ces identifiants :
-- Patient : patient@monganga.cd
-- Médecin : doctor@monganga.cd
-- Administration : admin@monganga.cd
-Renseignez un mot de passe fictif non vide. Le prototype ne le vérifie pas.
-Ces identifiants ne sont pas des comptes réels : le JavaScript sélectionne
-simplement un espace d'après le texte saisi dans le champ de connexion.
+TESTER LES TROIS ESPACES
+Sur la page Connexion, cliquez sur Patient, Médecin ou Admin, puis sur
+Se connecter. Ces boutons remplissent des identifiants de démonstration :
+- Aline Kabila : patient principal.
+- Second patient : saisir patient2@monganga.cd et Demo1234 pour vérifier
+  la séparation des données.
+- Médecin : Dr Ilunga. Les autres comptes de test utilisent
+  dr.<identifiant>@monganga.cd et Demo1234 (identifiants du catalogue).
+- Administration : utilisateurs, candidatures et transactions.
 
-ÉCRANS INCLUS
-Public, 8 écrans : accueil, fonctionnement, médecins, profil médecin, tarifs,
-FAQ, contact, candidature médecin.
-Authentification, 2 écrans : connexion et inscription, avec choix patient/médecin.
-Patient, 8 écrans : accueil, recherche médecin, médecin/rendez-vous, paiement,
-téléconsultation, ordonnance, historique, profil.
-Médecin, 7 écrans : tableau de bord, agenda, disponibilités, demandes,
-patients, ordonnances, gains.
-Administration, 5 écrans : tableau de bord, validations, transactions,
-utilisateurs, rapports.
+Aucun mot de passe réel n'est nécessaire en mode démo. Le bouton « Changer
+de compte » permet de suivre le même rendez-vous depuis plusieurs rôles.
+Conservez le même onglet pour partager ces données de démonstration.
+Les modifications survivent au rechargement dans cet onglet. La fermeture
+ou la réinitialisation de la démo peut les supprimer.
+Utilisez uniquement des noms, informations médicales et documents fictifs.
 
-ÉTAT DU PROJET
-Il s'agit d'un prototype frontend avec des données de démonstration.
-L'authentification, le paiement, la téléconsultation, les envois de fichiers,
-les téléchargements et les messages ne sont pas reliés à un backend réel.
-Les limites de mise en page et les interactions simulées du fichier fourni
-sont conservées ; ce livrable ne constitue pas une refonte du design.
+PARCOURS CONSEILLÉ
+1. Patient : rechercher Dr Ilunga, choisir un créneau et tester un paiement.
+2. Simuler un échec, réessayer puis simuler la réussite.
+3. Ouvrir Mes RDV : déplacer ou annuler un rendez-vous.
+4. Changer pour Dr Ilunga : consulter l'agenda, ouvrir la consultation,
+   envoyer un message et terminer la consultation.
+5. Émettre une ordonnance, puis revenir au compte patient pour la consulter.
+6. Administration : examiner les candidatures, modifier les statuts et
+   traiter un remboursement de démonstration.
 
-PRÉPARATION BACKEND
-Le frontend expose `MongangaApi` dans assets/js/api.js. Définissez
-`window.MONGANGA_API_URL` avant son chargement pour activer les requêtes backend.
-Sans URL configurée, les écrans restent en mode démo. La session courante est
-stockée sous `monganga-session` et pourra être remplacée par le token réel après
-connexion.
+L'inscription patient possède une vérification OTP simulée : code 123456.
+La candidature médecin conserve les noms des fichiers dans la démo, mais
+n'envoie aucun fichier. Le test caméra/micro utilise le navigateur local.
+La démo ne contacte aucun médecin distant et ne débite aucun paiement.
 
-VÉRIFICATIONS
-La séparation HTML/CSS/JS conserve exactement le contenu du prototype source.
-Les chemins locaux, les 30 écrans, les gestionnaires d'événements et la syntaxe
-JavaScript ont été vérifiés. Le rendu visuel n'a pas été exécuté dans le
-navigateur de la session de préparation.
+CONNECTER LE BACKEND
+Lire BACKEND_INTEGRATION.md, puis docs/openapi.json.
+Configurer assets/js/config.js avec mode: 'api' et l'URL du backend.
+Toutes les actions passent par le service partagé assets/js/data.js.
+Sans serveur réel, le mode API affiche des erreurs et ne revient pas à la démo.
+MaishaPay, OTP/SMS/email, vidéo, stockage privé et PDF/QR signés restent à
+implémenter par le développeur backend avec les raccords fournis.
+
+TESTS REPRODUCTIBLES
+Utiliser une version de Node compatible avec package.json. Les essais de
+cette livraison ont été exécutés avec Node 24.19 et Chromium 153.
+
+    npm ci
+    npm test
+
+43 tests métier, session, API, DOM, fichiers liés et styles.
+
+    npx playwright install chromium
+    npm run test:browser
+    npm run test:api
+
+Le premier test navigateur couvre les parcours, les menus et les pages à
+360, 768, 1024 et 1440 pixels. Le second vérifie le mode API avec des réponses
+HTTP contrôlées, sans backend réel. Lancer les suites l'une après l'autre ;
+chacune démarre puis arrête son propre serveur local sur le port 8080.
+Arrêtez d'abord un éventuel « npm start » ou choisissez un autre PORT.
+
+DOCUMENTATION
+- MODIFICATIONS_FRONTEND.md : changements et limites de cette livraison.
+- BACKEND_INTEGRATION.md : consignes de raccordement et responsabilités.
+- docs/openapi.json : 48 chemins HTTP proposés avec objets attendus.
+- docs/RECETTE.md : résultats et limites des vérifications.
+- docs/captures/ : aperçus de l'accueil et de la recherche.
+
+Le serveur npm start est réservé au développement. Pour une mise en ligne,
+servir seulement les HTML et assets nécessaires, en HTTPS, et finaliser les
+services réels ainsi que les textes publics avec les responsables du projet.
+
+CORRECTION VISUELLE
+Les dashboards, la FAQ, how.html et les cartes d’authentification reprennent
+les mises en page d’origine. Les captures sont dans docs/captures-restauration.
+Les anciens générateurs qui remplaçaient les pages ont été retirés.
+Recette ciblée : npm run test:restoration

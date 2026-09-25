@@ -1,0 +1,10 @@
+{
+  "faq": {
+    "mainTextSHA256": "db15165f72d7b8065c27027f8ec4adf13615b0cf7df9f8135c8b1c5c6d2dead2",
+    "styleSHA256": "482ad4f46f5e84f442719ccb0ed821c00e31926aa896050604e941c2f005e2d5"
+  },
+  "how": {
+    "mainTextSHA256": "35e2db7af63f55025ce8d0c614206399eb33c8c8d3aea87aa2295026bd3ea329",
+    "styleSHA256": "9fc79280e9b74a16c627490108305ef91b923e900ca42b17397c6e5bba420450"
+  }
+}

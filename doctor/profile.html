@@ -1,37 +1,25 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon profil - Docteur | MONGANGA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css">
-  <link rel="stylesheet" href="../assets/css/animations.css">
-  <link rel="stylesheet" href="../assets/css/doctor.css">
-  <style>
-    .doctor-profile-layout { max-width: 900px; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 24px; }
-    .doctor-profile-card, .doctor-form-card { background: var(--doctor-surface); border: 1px solid var(--doctor-border); border-radius: 16px; padding: 24px; }
-    .doctor-profile-card { text-align: center; height: fit-content; }
-    .doctor-avatar-large { width: 120px; height: 120px; margin: 0 auto 16px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; background: linear-gradient(135deg, #60a5fa, #3b82f6); color: #fff; font-size: 34px; font-weight: 800; }
-    .doctor-avatar-large img { width: 100%; height: 100%; object-fit: cover; display: none; }
-    .doctor-avatar-large.has-image img { display: block; }
-    .doctor-avatar-large.has-image .avatar-initials { display: none; }
-    .profile-upload-label { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: var(--primary); font-size: 12px; font-weight: 700; }
-    .doctor-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .doctor-form-grid .full { grid-column: 1 / -1; }
-    @media (max-width: 760px) { .doctor-profile-layout { grid-template-columns: 1fr; } .doctor-form-grid { grid-template-columns: 1fr; } .doctor-form-grid .full { grid-column: auto; } }
-  </style>
-</head>
-<body class="doctor-body">
-  <div class="doctor-shell">
-    <aside class="doctor-sidebar">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Mon profil professionnel sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Mon profil professionnel — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/doctor.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="profile" data-role="doctor" data-auth-state="pending" class="doctor-body restored-space"><a class="skip-link" href="#main-content">Aller au contenu</a><div class="doctor-shell"><aside class="doctor-sidebar" id="workspace-sidebar">
       <div class="doctor-brand">
         <div class="doctor-brand-mark"><i data-lucide="activity"></i></div>
-        <div class="doctor-brand-text"><strong>MONGANGA</strong><span>Doctor</span></div>
+        <div class="doctor-brand-text">
+          <strong>MONGANGA</strong>
+          <span>Doctor</span>
+        </div>
       </div>
+
       <nav class="doctor-nav" aria-label="Navigation principale">
         <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
         <a class="doctor-nav-link" href="agenda.html"><i data-lucide="calendar-days"></i> Agenda</a>
@@ -40,89 +28,15 @@
         <a class="doctor-nav-link" href="patients.html"><i data-lucide="users"></i> Patients</a>
         <a class="doctor-nav-link" href="ordonnances.html"><i data-lucide="file-text"></i> Ordonnances</a>
         <a class="doctor-nav-link" href="gains.html"><i data-lucide="wallet"></i> Gains</a>
-        <a class="doctor-nav-link active" href="profile.html"><i data-lucide="user-round"></i> Mon profil</a>
       </nav>
-    </aside>
 
-    <main class="doctor-main">
-      <header class="doctor-topbar">
-        <div>
-          <h1 class="doctor-page-title">Mon profil</h1>
-          <p class="doctor-page-subtitle">Gérez votre photo et les informations visibles par vos patients.</p>
+      <a class="doctor-profile-box" href="profile.html" aria-label="Ouvrir mon profil">
+        <div class="doctor-mini-user">
+          <div class="doctor-mini-avatar" data-avatar-storage="monganga_doctor_photo" data-avatar-alt="Portrait du médecin">DM</div>
+          <div class="doctor-mini-meta">
+            <strong>Dr. Manda</strong>
+            <span>Cardiologie</span>
+          </div>
         </div>
-      </header>
-
-      <div class="doctor-profile-layout">
-        <section class="doctor-profile-card">
-          <div class="doctor-avatar-large" id="doctor-avatar">
-            <span class="avatar-initials">DM</span>
-            <img id="doctor-avatar-image" alt="Portrait du Dr. Manda">
-          </div>
-          <label class="profile-upload-label" for="doctor-photo-input">
-            <i data-lucide="camera"></i> Modifier le portrait
-          </label>
-          <input id="doctor-photo-input" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="previewDoctorPhoto(this)">
-          <p class="doctor-muted" style="font-size: 11px; margin-top: 10px;">JPG, PNG ou WebP - 5 Mo maximum</p>
-          <div class="doctor-profile-box" style="position: static; margin-top: 24px; text-align: left;">
-            <div class="doctor-mini-user"><div class="doctor-mini-avatar">DM</div><div class="doctor-mini-meta"><strong>Dr. Manda</strong><span>Cardiologie</span></div></div>
-          </div>
-        </section>
-
-        <section class="doctor-form-card">
-          <div class="card-header-row" style="margin-bottom: 24px;">
-            <div><h2 class="card-title">Informations professionnelles</h2><div class="card-subtitle">Ces informations apparaissent sur votre profil public.</div></div>
-          </div>
-          <form onsubmit="saveDoctorProfile(event)">
-            <div class="doctor-form-grid">
-              <div class="form-group"><label class="form-label">Prénom</label><input class="form-input" value="Manda" required></div>
-              <div class="form-group"><label class="form-label">Nom</label><input class="form-input" value="Kabeya" required></div>
-              <div class="form-group"><label class="form-label">Email professionnel</label><input class="form-input" type="email" value="dr.manda@monganga.cd" required></div>
-              <div class="form-group"><label class="form-label">Téléphone</label><input class="form-input" type="tel" value="+243 8XX XXX XXX" required></div>
-              <div class="form-group"><label class="form-label">Spécialité</label><select class="form-input"><option selected>Cardiologie</option><option>Médecine générale</option><option>Pédiatrie</option><option>Gynécologie</option><option>Dermatologie</option></select></div>
-              <div class="form-group"><label class="form-label">Commune</label><select class="form-input"><option selected>Gombe</option><option>Lingwala</option><option>Limete</option><option>Ngaliema</option></select></div>
-              <div class="form-group full"><label class="form-label">Biographie</label><textarea class="form-input" rows="5">Cardiologue avec plus de 10 ans d'expérience, spécialisé dans le suivi cardiovasculaire.</textarea></div>
-            </div>
-            <div style="display:flex; justify-content:flex-end; margin-top: 24px;"><button class="btn btn-primary" type="submit"><i data-lucide="save"></i> Enregistrer</button></div>
-          </form>
-        </section>
-      </div>
-    </main>
-  </div>
-  <script src="../assets/js/app.js"></script>
-  <script>
-    function previewDoctorPhoto(input) {
-      const file = input.files[0];
-      if (!file) return;
-      if (!file.type.startsWith('image/') || file.size > 5 * 1024 * 1024) {
-        input.value = '';
-        Monganga.showToast('Choisissez une image de 5 Mo maximum', 'error');
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = event => {
-        document.getElementById('doctor-avatar-image').src = event.target.result;
-        document.getElementById('doctor-avatar').classList.add('has-image');
-        localStorage.setItem('monganga_doctor_photo', event.target.result);
-        Monganga.showToast('Portrait mis à jour', 'success');
-      };
-      reader.readAsDataURL(file);
-    }
-    function saveDoctorProfile(event) {
-      event.preventDefault();
-      const button = event.target.querySelector('button[type="submit"]');
-      Monganga.setButtonLoading(button, true, 'Enregistrement...');
-      setTimeout(() => {
-        Monganga.setButtonLoading(button, false);
-        Monganga.showToast('Profil médecin enregistré', 'success');
-      }, 700);
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedPhoto = localStorage.getItem('monganga_doctor_photo');
-      if (savedPhoto) {
-        document.getElementById('doctor-avatar-image').src = savedPhoto;
-        document.getElementById('doctor-avatar').classList.add('has-image');
-      }
-    });
-  </script>
-</body>
-</html>
+      </a>
+    <div class="sidebar-controls"><button class="btn btn-ghost btn-icon" type="button" data-theme-button="" aria-label="Changer de thème"><i data-lucide="moon"></i></button><button class="btn btn-ghost btn-icon" type="button" data-logout="" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button><button class="btn btn-ghost btn-icon workspace-menu-btn" type="button" data-sidebar-toggle="" aria-label="Fermer le menu"><i data-lucide="x"></i></button></div></aside><main id="main-content" class="doctor-main" tabindex="-1"><button class="btn btn-secondary btn-sm workspace-menu-btn" type="button" data-sidebar-toggle="" aria-controls="workspace-sidebar" aria-expanded="false"><i data-lucide="menu"></i> Menu</button><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></main></div><div class="workspace-sidebar-overlay" data-sidebar-toggle="" aria-hidden="true"></div></body></html>

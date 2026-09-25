@@ -1,112 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr Ilunga — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/animations.css">
-<link rel="stylesheet" href="../assets/css/patient.css">
-<style>
-  .doctor-layout { display: grid; grid-template-columns: 360px 1fr; gap: 28px; }
-  .doctor-profile-side {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    padding: 28px;
-    height: fit-content;
-    position: sticky; top: 88px;
-  }
-  .avatar-xl {
-    width: 100px; height: 100px;
-    border-radius: var(--r-lg);
-    background: linear-gradient(135deg, var(--primary-light), var(--primary-soft));
-    color: var(--primary);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 34px;
-    margin: 0 auto 16px;
-    box-shadow: 0 4px 12px rgba(60, 80, 224, 0.15);
-  }
-  .section-block {
-    padding-top: 20px;
-    margin-top: 20px;
-    border-top: 1px solid var(--border);
-  }
-  .section-block h4 {
-    font-size: 11px; font-weight: 800;
-    color: var(--text-3);
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 12px;
-  }
-  .section-block p { font-size: 13px; line-height: 1.65; }
-  .check-item {
-    display: flex; gap: 8px;
-    padding: 6px 0;
-    font-size: 13px;
-    align-items: center;
-  }
-  .check-item [data-lucide] { width: 15px; height: 15px; color: var(--success); }
-
-  .slots-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    padding: 28px;
-  }
-  .slot-day { margin-bottom: 24px; }
-  .slot-day-header {
-    display: flex; align-items: center; gap: 8px;
-    margin-bottom: 12px;
-  }
-  .slot-day-header [data-lucide] { width: 16px; height: 16px; color: var(--primary); }
-  .slot-day-header h4 { font-size: 13.5px; font-weight: 700; }
-  .slots-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .slot {
-    padding: 12px 20px;
-    border-radius: var(--r-full);
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    font-size: 13.5px; font-weight: 700;
-    cursor: pointer;
-    transition: all var(--t);
-    min-width: 82px;
-    text-align: center;
-    font-family: inherit;
-    color: inherit;
-    position: relative;
-  }
-  .slot:hover:not(.disabled) {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(60, 80, 224, 0.15);
-  }
-  .slot.selected {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-    box-shadow: 0 4px 12px rgba(60, 80, 224, 0.3);
-    transform: scale(1.03);
-  }
-  .slot.disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-    text-decoration: line-through;
-  }
-
-  @media (max-width: 900px) {
-    .doctor-layout { grid-template-columns: 1fr; }
-    .doctor-profile-side { position: static; }
-  }
-</style>
-</head>
-<body>
-
-<header class="pat-header">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Profil du médecin sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Profil du médecin — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/patient.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="doctorDetail" data-role="patient" data-auth-state="pending"><a class="skip-link" href="#main-content">Aller au contenu</a><header class="pat-header">
   <div class="pat-header-inner">
     <a class="logo" href="../index.html">
       <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
@@ -114,165 +19,46 @@
     </a>
     <nav class="pat-nav">
       <a class="pat-nav-link" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
-      <a class="pat-nav-link active" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+      <a class="pat-nav-link" href="search.html"><i data-lucide="search"></i> Rechercher</a>
       <a class="pat-nav-link" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
       <a class="pat-nav-link" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
       <a class="pat-nav-link" href="profile.html"><i data-lucide="user"></i> Profil</a>
     </nav>
     <div class="pat-header-actions">
-      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()"><i data-lucide="moon" data-theme-icon></i></button>
-      <button class="btn btn-ghost btn-icon" onclick="Monganga.openNotifications()" aria-label="Ouvrir les notifications"><i data-lucide="bell"></i><span class="dot-badge"></span></button>
-      <button class="btn btn-ghost btn-icon" onclick="logout()"><i data-lucide="log-out"></i></button>
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Ouvrir les notifications" data-notifications="">
+        <i data-lucide="bell"></i>
+        
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Déconnexion" data-logout="">
+        <i data-lucide="log-out"></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" onclick="toggleMenu()" aria-label="Menu" style="display:none;" id="patMenuBtn">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
   </div>
-</header>
-
-<main class="pat-main">
-  <div class="pat-content">
-
-    <div style="padding-bottom: 16px;">
-      <a class="btn btn-ghost btn-sm" href="search.html" style="padding-left: 0;">
-        <i data-lucide="arrow-left"></i> Retour à la recherche
-      </a>
-    </div>
-
-    <div class="doctor-layout">
-
-      <aside class="doctor-profile-side slide-in-left">
-        <div class="avatar-xl">DI</div>
-        <h1 class="h2 text-center mb-2">Dr Ilunga</h1>
-        <p class="text-center text-2 mb-2" style="font-size: 13px;">Médecine générale</p>
-        <p class="text-center text-3 mb-4" style="font-size: 12px;">
-          <i data-lucide="map-pin" style="width:12px; height:12px; display:inline;"></i> Gombe
-        </p>
-
-        <div class="text-center mb-4">
-          <span class="badge success"><i data-lucide="shield-check"></i> Vérifié par l'Ordre</span>
-        </div>
-
-        <div class="section-block">
-          <h4>À propos</h4>
-          <p class="text-2">
-            Médecin généraliste avec 10 ans d'expérience. Je propose des consultations
-            à distance en vidéo, audio ou chat.
-          </p>
-        </div>
-
-        <div class="section-block">
-          <h4>Diplômes & vérifications</h4>
-          <div class="check-item"><i data-lucide="check-circle-2"></i> Diplôme — UNIKIN</div>
-          <div class="check-item"><i data-lucide="check-circle-2"></i> Ordre n° 12345</div>
-          <div class="check-item"><i data-lucide="check-circle-2"></i> Identité vérifiée</div>
-        </div>
-
-        <div class="section-block">
-          <h4>Langues parlées</h4>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <span class="badge neutral">Français</span>
-            <span class="badge neutral">Lingala</span>
-            <span class="badge neutral">Swahili</span>
-          </div>
-        </div>
-
-        <div class="section-block">
-          <h4>Tarif MONGANGA</h4>
-          <div style="display: flex; align-items: baseline; gap: 6px;">
-            <span style="font-size: 28px; font-weight: 800; color: var(--primary);">20 $</span>
-            <span style="font-size: 13px; color: var(--text-3);">/ consultation</span>
-          </div>
-        </div>
-      </aside>
-
-      <div class="slots-panel slide-in-right">
-        <h3 class="h3 mb-2">Choisissez un créneau</h3>
-        <p class="text-2 mb-6" style="font-size: 13px;">
-          Sélectionnez l'heure qui vous convient pour cette consultation.
-        </p>
-
-        <div class="slot-day">
-          <div class="slot-day-header">
-            <i data-lucide="calendar"></i>
-            <h4>Jeudi 24 septembre</h4>
-            <span class="badge success" style="margin-left: auto;">3 dispo</span>
-          </div>
-          <div class="slots-row">
-            <button class="slot disabled">08h00</button>
-            <button class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 10h00')">10h00</button>
-            <button class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 11h00')">11h00</button>
-            <button class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 14h00')">14h00</button>
-            <button class="slot" onclick="selectSlot(this, 'Jeudi 24 sept. à 15h00')">15h00</button>
-            <button class="slot disabled">16h00</button>
-          </div>
-        </div>
-
-        <div class="slot-day">
-          <div class="slot-day-header">
-            <i data-lucide="calendar"></i>
-            <h4>Vendredi 25 septembre</h4>
-            <span class="badge success" style="margin-left: auto;">4 dispo</span>
-          </div>
-          <div class="slots-row">
-            <button class="slot" onclick="selectSlot(this, 'Vendredi 25 sept. à 09h00')">09h00</button>
-            <button class="slot" onclick="selectSlot(this, 'Vendredi 25 sept. à 10h00')">10h00</button>
-            <button class="slot" onclick="selectSlot(this, 'Vendredi 25 sept. à 14h00')">14h00</button>
-            <button class="slot" onclick="selectSlot(this, 'Vendredi 25 sept. à 16h00')">16h00</button>
-          </div>
-        </div>
-
-        <!-- Récap -->
-        <div id="recap" style="display: none; margin-top: 28px; padding: 20px; background: var(--primary-light); border: 1px solid var(--primary); border-radius: var(--r-md);">
-          <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
-            <i data-lucide="calendar-check" style="width: 32px; height: 32px; color: var(--primary);"></i>
-            <div style="flex: 1; min-width: 180px;">
-              <div style="font-size: 12px; color: var(--text-2); font-weight: 600;">Créneau sélectionné</div>
-              <div style="font-size: 15px; font-weight: 800; color: var(--text);" id="recap-text">—</div>
-            </div>
-            <div style="text-align: right;">
-              <div style="font-size: 12px; color: var(--text-2);">Total</div>
-              <div style="font-size: 20px; font-weight: 800; color: var(--primary);">20 $</div>
-            </div>
-          </div>
-          <a class="btn btn-primary btn-block btn-lg" style="margin-top: 16px;" href="payment.html">
-            <i data-lucide="arrow-right"></i> Continuer vers le paiement
-          </a>
-        </div>
-
-        <div class="alert info mt-6">
-          <i data-lucide="info"></i>
-          <span>Demande à faire au moins 24h avant. Réponse du médecin sous 4h.</span>
-        </div>
-
-      </div>
-
-    </div>
-
+</header><div class="pat-menu-overlay" id="patMenuOverlay" onclick="toggleMenu()"></div><aside class="pat-menu" id="patMenu">
+  <div class="pat-menu-header">
+    <span style="font-weight:800;">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMenu()"><i data-lucide="x"></i></button>
   </div>
-</main>
-
-<nav class="pat-mobile-nav">
+  <div class="pat-menu-content">
+    <a class="pat-menu-item" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="pat-menu-item" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+    <a class="pat-menu-item" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
+    <a class="pat-menu-item" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
+    <a class="pat-menu-item" href="profile.html"><i data-lucide="user"></i> Profil</a>
+    <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
+      <a class="pat-menu-item" data-logout="" role="button" tabindex="0"><i data-lucide="log-out"></i> Déconnexion</a>
+    </div>
+  </div>
+</aside><main id="main-content" class="pat-main" tabindex="-1"><div class="pat-content"><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></div></main><nav class="pat-mobile-nav">
   <a class="pat-mobile-item" href="dashboard.html"><i data-lucide="home"></i><span>Accueil</span></a>
-  <a class="pat-mobile-item active" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
+  <a class="pat-mobile-item" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
   <a class="pat-mobile-item" href="history.html"><i data-lucide="calendar"></i><span>Mes RDV</span></a>
   <a class="pat-mobile-item" href="prescription.html"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
   <a class="pat-mobile-item" href="profile.html"><i data-lucide="user"></i><span>Profil</span></a>
-</nav>
-
-<script src="../assets/js/api.js"></script>
-<script src="../assets/js/app.js"></script>
-<script>
-  function logout() {
-    Monganga.showToast('Vous êtes déconnecté', 'info');
-    setTimeout(() => window.location.href = '../index.html', 600);
-  }
-
-  function selectSlot(el, label) {
-    document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
-    el.classList.add('selected');
-    document.getElementById('recap').style.display = 'block';
-    document.getElementById('recap-text').textContent = label;
-    // Save selected slot to localStorage for payment page
-    localStorage.setItem('monganga_selected_slot', label);
-  }
-</script>
-</body>
-</html>
+</nav></body></html>

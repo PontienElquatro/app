@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
+<html lang="fr" data-theme="light"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/animations.css">
-</head>
+<meta name="app-base" content="../"><link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg"><link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/restored.css"><script src="../assets/js/theme.js"></script><script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script><script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/restored-public.js"></script><script defer="" src="../assets/js/restored-shell.js"></script></head>
 <body>
 
 <header class="pub-header">
@@ -28,7 +27,7 @@
     </nav>
     <div class="pub-actions">
       <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
-        <i data-lucide="moon" data-theme-icon></i>
+        <i data-lucide="moon" data-theme-icon=""></i>
       </button>
       <a class="btn btn-ghost btn-sm" href="../auth/login.html">Se connecter</a>
       <a class="btn btn-primary btn-sm" href="../auth/register.html">S'inscrire</a>
@@ -60,7 +59,7 @@
   </div>
 </aside>
 
-<main>
+<main id="main-content">
 
   <section class="container section">
     <div class="fade-in text-center">
@@ -77,25 +76,25 @@
   </section>
 
   <section class="container" style="padding-bottom: 48px;">
-    <div class="faq-categories" data-stagger>
-      <button class="chip active" data-filter="all">Toutes</button>
-      <button class="chip" data-filter="prise-rdv">Prise de RDV</button>
-      <button class="chip" data-filter="paiement">Paiement</button>
-      <button class="chip" data-filter="consultation">Consultation</button>
-      <button class="chip" data-filter="medecin">Devenir médecin</button>
+    <div class="faq-categories" data-stagger="">
+      <button class="chip active" data-filter="all" aria-pressed="true">Toutes</button>
+      <button class="chip" data-filter="prise-rdv" aria-pressed="false">Prise de RDV</button>
+      <button class="chip" data-filter="paiement" aria-pressed="false">Paiement</button>
+      <button class="chip" data-filter="consultation" aria-pressed="false">Consultation</button>
+      <button class="chip" data-filter="medecin" aria-pressed="false">Devenir médecin</button>
     </div>
   </section>
 
   <section class="container" style="padding-bottom: 72px;">
     <div class="faq-list fade-in">
 
-      <div class="faq-item" data-category="prise-rdv" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="prise-rdv">
+        <button type="button" class="faq-question" id="faq-question-0" aria-expanded="false" aria-controls="faq-answer-0">
           <div class="faq-icon"><i data-lucide="calendar-check"></i></div>
           <span>Comment prendre un rendez-vous ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-0" aria-labelledby="faq-question-0">
           <p>Créez un compte gratuit, recherchez un médecin par spécialité ou commune,
           choisissez un créneau disponible et payez en Mobile Money. Vous recevrez une
           confirmation immédiate par notification et email.</p>
@@ -104,13 +103,13 @@
         </div>
       </div>
 
-      <div class="faq-item" data-category="paiement" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="paiement">
+        <button type="button" class="faq-question" id="faq-question-1" aria-expanded="false" aria-controls="faq-answer-1">
           <div class="faq-icon"><i data-lucide="credit-card"></i></div>
           <span>Quels sont les moyens de paiement acceptés ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-1" aria-labelledby="faq-question-1">
           <p>Nous acceptons plusieurs moyens de paiement adaptés au contexte local :</p>
           <ul class="faq-list-simple">
             <li><i data-lucide="check-circle-2"></i> M-Pesa</li>
@@ -122,13 +121,13 @@
         </div>
       </div>
 
-      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="consultation">
+        <button type="button" class="faq-question" id="faq-question-2" aria-expanded="false" aria-controls="faq-answer-2">
           <div class="faq-icon"><i data-lucide="wifi-off"></i></div>
           <span>Que faire si ma connexion est faible pendant une consultation ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-2" aria-labelledby="faq-question-2">
           <p>MONGANGA détecte automatiquement la qualité du réseau et vous propose
           de basculer en mode audio en un clic, sans couper la consultation.
           Vous pouvez aussi ignorer la suggestion et continuer en vidéo.</p>
@@ -137,13 +136,13 @@
         </div>
       </div>
 
-      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="consultation">
+        <button type="button" class="faq-question" id="faq-question-3" aria-expanded="false" aria-controls="faq-answer-3">
           <div class="faq-icon"><i data-lucide="file-text"></i></div>
           <span>Comment obtenir mon ordonnance après la consultation ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-3" aria-labelledby="faq-question-3">
           <p>L'ordonnance est émise directement par le médecin à la fin de la consultation.
           Elle apparaît immédiatement dans votre espace personnel sous forme de carte
           numérique sécurisée.</p>
@@ -152,13 +151,13 @@
         </div>
       </div>
 
-      <div class="faq-item" data-category="prise-rdv" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="prise-rdv">
+        <button type="button" class="faq-question" id="faq-question-4" aria-expanded="false" aria-controls="faq-answer-4">
           <div class="faq-icon"><i data-lucide="calendar-x"></i></div>
           <span>Comment annuler ou reporter un rendez-vous ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-4" aria-labelledby="faq-question-4">
           <p>Depuis votre espace personnel, dans "Mes rendez-vous", cliquez sur le rendez-vous
           concerné puis choisissez "Annuler" ou "Reporter".</p>
           <p class="mt-2">Annulation gratuite jusqu'à 24h avant le rendez-vous.
@@ -166,13 +165,13 @@
         </div>
       </div>
 
-      <div class="faq-item" data-category="medecin" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="medecin">
+        <button type="button" class="faq-question" id="faq-question-5" aria-expanded="false" aria-controls="faq-answer-5">
           <div class="faq-icon"><i data-lucide="stethoscope"></i></div>
           <span>Comment devenir médecin partenaire MONGANGA ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-5" aria-labelledby="faq-question-5">
           <p>Rendez-vous sur la page "Devenir médecin" et remplissez le formulaire
           de candidature en ligne. Vous devrez fournir :</p>
           <ul class="faq-list-simple">
@@ -186,13 +185,13 @@
         </div>
       </div>
 
-      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="consultation">
+        <button type="button" class="faq-question" id="faq-question-6" aria-expanded="false" aria-controls="faq-answer-6">
           <div class="faq-icon"><i data-lucide="shield-check"></i></div>
           <span>Comment mes données médicales sont-elles protégées ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-6" aria-labelledby="faq-question-6">
           <p>Vos données médicales sont chiffrées et stockées dans des serveurs sécurisés.
           Seuls votre médecin traitant et vous-même pouvez y accéder.</p>
           <p class="mt-2">Nous ne partageons jamais vos informations avec des tiers sans
@@ -200,13 +199,13 @@
         </div>
       </div>
 
-      <div class="faq-item" data-category="consultation" onclick="toggleFaq(this)">
-        <div class="faq-question">
+      <div class="faq-item" data-category="consultation">
+        <button type="button" class="faq-question" id="faq-question-7" aria-expanded="false" aria-controls="faq-answer-7">
           <div class="faq-icon"><i data-lucide="smartphone"></i></div>
           <span>Ai-je besoin d'une application mobile pour utiliser MONGANGA ?</span>
           <i data-lucide="chevron-down" class="faq-chevron"></i>
-        </div>
-        <div class="faq-answer">
+        </button>
+        <div class="faq-answer" id="faq-answer-7" aria-labelledby="faq-question-7">
           <p>Non. MONGANGA est une plateforme web accessible depuis n'importe quel
           navigateur moderne (Chrome, Safari, Firefox) sur ordinateur, tablette
           ou smartphone.</p>
@@ -369,32 +368,7 @@
 }
 </style>
 
-<script src="../assets/js/app.js"></script>
-<script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const isOpen = menu.style.right === '0px';
-    menu.style.right = isOpen ? '-300px' : '0px';
-    overlay.classList.toggle('active');
-  }
 
-  function toggleFaq(el) {
-    el.classList.toggle('open');
-  }
 
-  document.querySelectorAll('.chip[data-filter]').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('.chip[data-filter]').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
 
-      const filter = chip.dataset.filter;
-      document.querySelectorAll('.faq-item').forEach(item => {
-        const match = filter === 'all' || item.dataset.category === filter;
-        item.style.display = match ? '' : 'none';
-      });
-    });
-  });
-</script>
-</body>
-</html>
+</body></html>

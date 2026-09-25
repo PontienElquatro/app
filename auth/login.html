@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
+<html lang="fr" data-theme="light"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Connexion — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+
+
+
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/animations.css">
 <style>
@@ -134,11 +133,11 @@
   }
   .role-chip:hover { background: rgba(29, 78, 216, 0.18); }
 </style>
-</head>
-<body>
+<meta name="app-base" content="../"><link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg"><link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/restored.css"><script src="../assets/js/theme.js"></script><script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script><script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/restored-auth.js"></script><script defer="" src="../assets/js/restored-shell.js"></script></head>
+<body data-page="login" class="restored-auth">
 
 <div class="auth-wrapper">
-  <div class="auth-card">
+  <div class="auth-card" id="main-content" role="main">
 
     <a class="auth-back" href="../index.html">
       <i data-lucide="arrow-left"></i> Retour à l'accueil
@@ -152,46 +151,39 @@
     <h1 class="auth-title">Bon retour</h1>
     <p class="auth-subtitle">Connectez-vous pour accéder à votre espace</p>
 
-    <form onsubmit="handleLogin(event)">
+    <form id="login-form">
       <div class="form-group">
-        <label class="form-label">Email ou téléphone</label>
+        <label class="form-label" for="loginEmail">Email ou téléphone</label>
         <div class="input-wrap">
           <i data-lucide="mail" class="icon-left"></i>
-          <input type="text" id="loginEmail" class="form-input" placeholder="vous@monganga.cd" required>
+          <input type="text" id="loginEmail" class="form-input" placeholder="vous@monganga.cd" required="" name="email" autocomplete="username">
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Mot de passe</label>
+        <label class="form-label" for="loginPassword">Mot de passe</label>
         <div class="input-wrap">
           <i data-lucide="lock" class="icon-left"></i>
-          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required style="padding-right: 42px;">
-          <i data-lucide="eye" class="icon-right" onclick="togglePassword('loginPassword', this)" style="cursor:pointer;"></i>
+          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required="" style="padding-right: 42px;" name="password" autocomplete="current-password">
+          <button type="button" class="password-toggle" data-password-target="loginPassword" aria-label="Afficher le mot de passe" aria-pressed="false"><i data-lucide="eye" class="" style="cursor:pointer;"></i></button>
         </div>
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
         <label style="font-size:12px; display:flex; gap:6px; align-items:center; cursor:pointer; color: #64748B;">
-          <input type="checkbox" style="accent-color: var(--primary);"> Se souvenir
+          <input type="checkbox" style="accent-color: var(--primary);" name="remember"> Se souvenir
         </label>
-        <a class="auth-link" style="font-size:12px;" onclick="forgotPassword()">Mot de passe oublié ?</a>
+        <a class="auth-link" style="font-size:12px;" href="forgot.html">Mot de passe oublié ?</a>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block">
+      <p class="notice danger form-error" role="alert" tabindex="-1" hidden=""></p><button type="submit" class="btn btn-primary btn-lg btn-block">
         Se connecter <i data-lucide="arrow-right"></i>
       </button>
     </form>
 
-    <div class="demo-hint">
+    <div class="demo-hint" hidden="">
       <i data-lucide="info"></i>
-      <div>
-        <strong>Démo :</strong> tapez n'importe quel email, le rôle est détecté automatiquement.
-        <div class="role-chips">
-          <span class="role-chip" onclick="fillDemo('admin@monganga.cd')">Admin</span>
-          <span class="role-chip" onclick="fillDemo('dr.ilunga@monganga.cd')">Médecin</span>
-          <span class="role-chip" onclick="fillDemo('aline@email.com')">Patient</span>
-        </div>
-      </div>
+      <div><strong>Démo :</strong> choisissez un compte de test.<div class="role-chips"><button type="button" class="role-chip" data-demo-id="admin-demo">Admin</button><button type="button" class="role-chip" data-demo-id="user-ilunga">Médecin</button><button type="button" class="role-chip" data-demo-id="patient-demo">Patient</button></div></div>
     </div>
 
     <div class="auth-footer">
@@ -202,85 +194,8 @@
   </div>
 </div>
 
-<script src="../assets/js/api.js"></script>
-<script src="../assets/js/app.js"></script>
-<script>
-  // Toggle visibilité mot de passe
-  function togglePassword(inputId, icon) {
-    const input = document.getElementById(inputId);
-    const isPassword = input.type === 'password';
-    input.type = isPassword ? 'text' : 'password';
-    icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
-    Monganga.initLucide();
-  }
 
-  // Remplir un email de démo
-  function fillDemo(email) {
-    document.getElementById('loginEmail').value = email;
-    document.getElementById('loginPassword').value = 'demo1234';
-    document.getElementById('loginPassword').focus();
-  }
 
-  // Mot de passe oublié
-  function forgotPassword() {
-    Monganga.showToast('Un lien de réinitialisation a été envoyé à votre email', 'info');
-  }
 
-  // Login avec détection de rôle
-  function handleLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value.toLowerCase().trim();
 
-    let role = 'patient';
-    let destination = '../patient/dashboard.html';
-
-    if (email.includes('admin')) {
-      role = 'admin';
-      destination = '../admin/dashboard.html';
-    } else if (
-      email.includes('doctor') ||
-      email.includes('medecin') ||
-      email.includes('médecin') ||
-      email.startsWith('dr.') ||
-      email.startsWith('dr@')
-    ) {
-      role = 'doctor';
-      destination = '../doctor/dashboard.html';
-    }
-
-    // Message personnalisé selon le rôle
-    const messages = {
-      admin: 'Connexion réussie. Redirection vers l\'espace administrateur...',
-      doctor: 'Connexion réussie. Redirection vers votre espace médecin...',
-      patient: 'Connexion réussie. Redirection vers votre espace patient...'
-    };
-
-    if (window.MongangaApi) {
-      MongangaApi.setSession({
-        token: `demo-${role}-${Date.now()}`,
-        role,
-        email,
-        demo: true
-      });
-    }
-
-    Monganga.showToast(messages[role], 'success');
-
-    // Animation de chargement du bouton
-    const btn = e.target.querySelector('button[type="submit"]');
-    const originalHTML = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="loader" style="border-color: rgba(255,255,255,0.3); border-top-color: #fff; width: 18px; height: 18px;"></span> Connexion...';
-
-    setTimeout(() => {
-      window.location.href = destination;
-    }, 1200);
-  }
-
-  // Focus auto sur l'email au chargement
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => document.getElementById('loginEmail').focus(), 300);
-  });
-</script>
-</body>
-</html>
+</body></html>

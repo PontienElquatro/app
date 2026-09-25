@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Utilisateurs Admin | MONGANGA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css">
-  <link rel="stylesheet" href="../assets/css/animations.css">
-  <link rel="stylesheet" href="../assets/css/doctor.css">
-</head>
-<body class="doctor-body">
-  <div class="doctor-shell">
-    <aside class="doctor-sidebar">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Utilisateurs sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Utilisateurs — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/doctor.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="users" data-role="admin" data-auth-state="pending" class="doctor-body restored-space"><a class="skip-link" href="#main-content">Aller au contenu</a><div class="doctor-shell"><aside class="doctor-sidebar" id="workspace-sidebar">
       <div class="doctor-brand">
         <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
         <div class="doctor-brand-text">
@@ -27,7 +24,7 @@
         <a class="doctor-nav-link" href="dashboard.html"><i data-lucide="layout-grid"></i> Tableau de bord</a>
         <a class="doctor-nav-link" href="validations.html"><i data-lucide="shield-check"></i> Validations</a>
         <a class="doctor-nav-link" href="transactions.html"><i data-lucide="wallet"></i> Transactions</a>
-        <a class="doctor-nav-link active" href="users.html"><i data-lucide="users"></i> Utilisateurs</a>
+        <a class="doctor-nav-link active" href="users.html" aria-current="page"><i data-lucide="users"></i> Utilisateurs</a>
         <a class="doctor-nav-link" href="reports.html"><i data-lucide="bar-chart-3"></i> Rapports</a>
       </nav>
 
@@ -40,117 +37,4 @@
           </div>
         </div>
       </div>
-    </aside>
-
-    <main class="doctor-main">
-      <header class="doctor-topbar">
-        <div>
-          <h1 class="doctor-page-title">Utilisateurs</h1>
-          <p class="doctor-page-subtitle">Gestion des comptes patients, médecins et partenaires.</p>
-        </div>
-
-        <div class="doctor-header-actions">
-          <input class="form-input" id="user-search" type="search" placeholder="Rechercher un utilisateur" aria-label="Rechercher un utilisateur" style="width:220px; height:36px;">
-          <select class="form-input" id="user-filter" aria-label="Filtrer les utilisateurs" style="width:auto; height:36px;"><option value="all">Tous</option><option value="patient">Patients</option><option value="medecin">Médecins</option><option value="actif">Actifs</option><option value="attente">En attente</option></select>
-          <button class="btn btn-primary btn-sm" type="button" onclick="Monganga.showToast('Les comptes sont créés depuis les parcours d’inscription','info')"><i data-lucide="user-plus"></i> Ajouter</button>
-        </div>
-      </header>
-
-      <div class="doctor-main-grid">
-        <section class="card">
-          <div class="card-header-row">
-            <div>
-              <h2 class="card-title">Comptes actifs</h2>
-              <div class="card-subtitle">12 400 comptes</div>
-            </div>
-          </div>
-
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Utilisateur</th>
-                  <th>Rôle</th>
-                  <th>Inscription</th>
-                  <th>Statut</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr data-user="aline nkulu patient actif" data-role="patient" data-user-status="actif">
-                  <td>
-                    <div class="timeline-main">
-                      <div class="doctor-avatar">AN</div>
-                      <div>
-                        <div class="list-name">Aline Nkulu</div>
-                        <div class="list-meta">aline.nk@gmail.com</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>Patient</td>
-                  <td>12 Jan 2026</td>
-                  <td><span class="badge success">Actif</span></td>
-                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails(this,'Aline Nkulu','Patient','Actif')">Détails</button></td>
-                </tr>
-                <tr data-user="daniel k medecin attente">
-                  <td>
-                    <div class="timeline-main">
-                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;">DK</div>
-                      <div>
-                        <div class="list-name">Dr. Daniel K.</div>
-                        <div class="list-meta">danielk@monganga.com</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>Médecin</td>
-                  <td>18 Sept 2026</td>
-                  <td><span class="badge warning">En attente</span></td>
-                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails(this,'Dr. Daniel K.','Médecin','En attente')">Détails</button></td>
-                </tr>
-                <tr data-user="sarah m medecin actif">
-                  <td>
-                    <div class="timeline-main">
-                      <div class="doctor-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309;">SM</div>
-                      <div>
-                        <div class="list-name">Dr. Sarah M.</div>
-                        <div class="list-meta">sarahm@monganga.com</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>Médecin</td>
-                  <td>8 Août 2026</td>
-                  <td><span class="badge success">Actif</span></td>
-                  <td><button class="btn btn-secondary btn-sm" type="button" onclick="showUserDetails(this,'Dr. Sarah M.','Médecin','Actif')">Détails</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script src="../assets/js/api.js"></script>
-  <script src="../assets/js/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initLucide();
-      document.getElementById('user-search').addEventListener('input', filterUsers);
-      document.getElementById('user-filter').addEventListener('change', filterUsers);
-    });
-    function filterUsers() {
-      const query = document.getElementById('user-search').value.toLowerCase().trim();
-      const filter = document.getElementById('user-filter').value;
-      document.querySelectorAll('[data-user]').forEach(row => {
-        const matchesText = !query || row.dataset.user.includes(query);
-        const matchesFilter = filter === 'all' || row.dataset.role === filter || row.dataset.userStatus === filter;
-        row.style.display = matchesText && matchesFilter ? '' : 'none';
-      });
-    }
-    function showUserDetails(button, name, role, status) {
-      const nextStatus = status === 'Actif' ? 'Suspendu' : 'Actif';
-      Monganga.openModal({ action: 'info', title: `Compte de ${name}`, message: `Rôle : ${role}\\nStatut actuel : ${status}`, target: name, confirmLabel: nextStatus === 'Actif' ? 'Réactiver' : 'Suspendre', confirmClass: nextStatus === 'Actif' ? 'btn btn-primary' : 'btn btn-danger', onConfirm: () => { const row = button.closest('tr'); row.dataset.userStatus = nextStatus.toLowerCase(); row.querySelector('.badge').className = nextStatus === 'Actif' ? 'badge success' : 'badge danger'; row.querySelector('.badge').textContent = nextStatus; Monganga.closeModal(); Monganga.showToast(`${name} : compte ${nextStatus.toLowerCase()}`, 'success'); } });
-    }
-  </script>
-</body>
-</html>
+    <div class="sidebar-controls"><button class="btn btn-ghost btn-icon" type="button" data-theme-button="" aria-label="Changer de thème"><i data-lucide="moon"></i></button><button class="btn btn-ghost btn-icon" type="button" data-logout="" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button><button class="btn btn-ghost btn-icon workspace-menu-btn" type="button" data-sidebar-toggle="" aria-label="Fermer le menu"><i data-lucide="x"></i></button></div></aside><main id="main-content" class="doctor-main" tabindex="-1"><button class="btn btn-secondary btn-sm workspace-menu-btn" type="button" data-sidebar-toggle="" aria-controls="workspace-sidebar" aria-expanded="false"><i data-lucide="menu"></i> Menu</button><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></main></div><div class="workspace-sidebar-overlay" data-sidebar-toggle="" aria-hidden="true"></div></body></html>

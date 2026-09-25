@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
+<html lang="fr" data-theme="light"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MONGANGA — Téléconsultation médicale à Kinshasa</title>
 
 <!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+
 
 <!-- Lucide -->
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
 
 <!-- Styles -->
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/animations.css">
-</head>
-<body>
+<meta name="app-base" content=""><meta name="description" content="Monganga : consultez un médecin à distance à Kinshasa."><link rel="icon" href="assets/logo/monganga-icone.jpg"><link rel="stylesheet" href="assets/css/fonts.css"><link rel="stylesheet" href="assets/css/ui.css"><script src="assets/js/theme.js"></script><script src="assets/vendor/lucide-0.468.0.min.js" defer=""></script><script src="assets/js/config.js" defer=""></script><script src="assets/js/api.js" defer=""></script><script src="assets/js/catalog.js" defer=""></script><script src="assets/js/data.js" defer=""></script><script src="assets/js/app.js" defer=""></script><script src="assets/js/public-pages.js" defer=""></script></head>
+<body><a class="skip-link" href="#main-content">Aller au contenu</a>
 
 <!-- ============================================================
      HEADER
@@ -30,7 +29,7 @@
     </a>
 
     <nav class="pub-nav">
-      <a class="pub-nav-link active" href="index.html">Accueil</a>
+      <a class="pub-nav-link active" href="index.html" aria-current="page">Accueil</a>
       <a class="pub-nav-link" href="public/how.html">Comment ça marche</a>
       <a class="pub-nav-link" href="public/doctors.html">Médecins</a>
       <a class="pub-nav-link" href="public/pricing.html">Tarifs</a>
@@ -38,24 +37,24 @@
     </nav>
 
     <div class="pub-actions">
-      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" aria-label="Thème">
-        <i data-lucide="moon" data-theme-icon></i>
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
       </button>
       <a class="btn btn-ghost btn-sm" href="auth/login.html">Se connecter</a>
       <a class="btn btn-primary btn-sm" href="auth/register.html">S'inscrire</a>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
         <i data-lucide="menu"></i>
       </button>
     </div>
   </div>
-</header>
+</header><div id="mode-indicator" class="mode-indicator" hidden=""></div>
 
 <!-- Mobile drawer -->
 <div id="mobile-menu-overlay" class="drawer-overlay" onclick="toggleMobileMenu()"></div>
-<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;">
+<aside id="mobile-menu" class="drawer" style="width:280px; right:-300px;" hidden="">
   <div class="drawer-header">
     <span class="drawer-title">Menu</span>
-    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()">
+    <button class="btn btn-ghost btn-icon" onclick="toggleMobileMenu()" aria-label="Fermer le menu">
       <i data-lucide="x"></i>
     </button>
   </div>
@@ -74,7 +73,7 @@
   </div>
 </aside>
 
-<main>
+<main id="main-content" tabindex="-1">
 
   <!-- ============================================================
        HERO
@@ -106,26 +105,7 @@
       </div>
 
       <div class="hero-visual slide-in-right">
-        <div class="hero-visual-card">
-          <div class="hero-visual-top">
-            <span class="hero-pill">En ligne</span>
-            <span class="hero-rating"><i data-lucide="star"></i> 4.9/5</span>
-          </div>
-
-          <div class="hero-patient-card">
-            <div class="hero-avatar">DI</div>
-            <div>
-              <strong>Dr. Ilunga</strong>
-              <span>Médecine générale</span>
-            </div>
-          </div>
-
-          <div class="hero-callout">
-            <i data-lucide="video"></i>
-            Consultation 10:00
-          </div>
-        </div>
-        <i data-lucide="heart-pulse" class="icon-pulse"></i>
+        <img class="hero-visual-image" src="assets/images/doctor-teleconsultation.webp" alt="Médecin en téléconsultation avec un patient" width="1600" height="1067" fetchpriority="high" decoding="async">
       </div>
     </div>
   </section>
@@ -137,7 +117,7 @@
     <div class="container">
       <h2 class="h2 text-center mb-8">Comment ça marche ?</h2>
 
-      <div class="steps-grid" data-stagger>
+      <div class="steps-grid" data-stagger="">
         <div class="step-card">
           <div class="step-icon"><i data-lucide="search"></i></div>
           <div class="step-num">Étape 1</div>
@@ -176,10 +156,10 @@
       <div class="grid-2">
         <div class="diff-card">
           <div class="diff-icon"><i data-lucide="wifi-off"></i></div>
-          <h3 class="h3 mb-2">Connexion faible ? Bascule audio en un clic</h3>
+          <h3 class="h3 mb-2">Connexion instable ? Privilégiez l’audio</h3>
           <p class="text-2">
-            Notre système détecte automatiquement la qualité du réseau et vous propose
-            la meilleure option — sans couper la consultation.
+            Désactivez la caméra pendant l’appel pour réduire la consommation de données.
+            Les commandes de la consultation restent accessibles.
           </p>
         </div>
         <div class="diff-card">
@@ -294,64 +274,21 @@
   aspect-ratio: 1 / 0.95;
   background: linear-gradient(135deg, rgba(60,80,224,0.12) 0%, rgba(125,152,255,0.28) 100%);
   border-radius: var(--r-xl);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--primary);
+  display: block;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(60, 80, 224, 0.15);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 20px 45px rgba(60, 80, 224, 0.12);
 }
-.hero-visual-card {
-  position: relative;
-  z-index: 1;
-  width: min(84%, 360px);
-  background: rgba(255,255,255,0.92);
-  border: 1px solid rgba(148,163,184,0.25);
-  border-radius: 22px;
-  padding: 18px 18px 16px;
-  box-shadow: 0 18px 40px rgba(15,23,42,0.12);
-  backdrop-filter: blur(8px);
-}
-.hero-visual-top {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px;
-  font-size: 11.5px; font-weight: 700;
-}
-.hero-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--success-bg); color: var(--success-text);
-  padding: 5px 10px; border-radius: 999px;
-}
-.hero-rating {
-  display: inline-flex; align-items: center; gap: 4px;
-  color: #f59e0b;
-}
-.hero-rating [data-lucide] { width: 12px; height: 12px; }
-.hero-patient-card {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 0 14px;
-  border-bottom: 1px solid var(--border);
-}
-.hero-avatar {
-  width: 42px; height: 42px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--primary) 0%, #6d7df2 100%);
-  color: #fff; font-weight: 800; font-size: 12px;
-}
-.hero-patient-card strong {
-  display: block; font-size: 15px; font-weight: 800;
-}
-.hero-patient-card span {
-  display: block; font-size: 11px; color: var(--text-2);
-}
-.hero-callout {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 14px; background: var(--primary-light); color: var(--primary);
-  border-radius: 999px; padding: 8px 12px; font-size: 12px; font-weight: 700;
-}
-.hero-callout [data-lucide] { width: 14px; height: 14px; }
-.hero-visual [data-lucide="heart-pulse"] {
-  position: absolute; right: 12%; bottom: 10%; width: 160px; height: 160px; stroke-width: 1; opacity: 0.18;
+.hero-visual-image {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 63% center;
+  filter: saturate(0.94) contrast(0.98);
 }
 
 .steps-grid {
@@ -440,19 +377,16 @@
   .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; }
   .hero-visual { max-width: 400px; margin: 0 auto; width: 100%; }
 }
+
+@media (max-width: 540px) {
+  .hero-visual-image { object-position: 64% center; }
+}
 </style>
 
 <!-- Scripts -->
-<script src="assets/js/app.js"></script>
-<script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const isOpen = menu.style.right === '0px';
-    menu.style.right = isOpen ? '-300px' : '0px';
-    overlay.classList.toggle('active');
-  }
-</script>
 
-</body>
-</html>
+
+
+
+
+</body></html>

@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rapports Admin | MONGANGA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css">
-  <link rel="stylesheet" href="../assets/css/animations.css">
-  <link rel="stylesheet" href="../assets/css/doctor.css">
-</head>
-<body class="doctor-body">
-  <div class="doctor-shell">
-    <aside class="doctor-sidebar">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Rapports sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Rapports — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/doctor.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="reports" data-role="admin" data-auth-state="pending" class="doctor-body restored-space"><a class="skip-link" href="#main-content">Aller au contenu</a><div class="doctor-shell"><aside class="doctor-sidebar" id="workspace-sidebar">
       <div class="doctor-brand">
         <div class="doctor-brand-mark logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
         <div class="doctor-brand-text">
@@ -28,7 +25,7 @@
         <a class="doctor-nav-link" href="validations.html"><i data-lucide="shield-check"></i> Validations</a>
         <a class="doctor-nav-link" href="transactions.html"><i data-lucide="wallet"></i> Transactions</a>
         <a class="doctor-nav-link" href="users.html"><i data-lucide="users"></i> Utilisateurs</a>
-        <a class="doctor-nav-link active" href="reports.html"><i data-lucide="bar-chart-3"></i> Rapports</a>
+        <a class="doctor-nav-link active" href="reports.html" aria-current="page"><i data-lucide="bar-chart-3"></i> Rapports</a>
       </nav>
 
       <div class="doctor-profile-box">
@@ -40,135 +37,4 @@
           </div>
         </div>
       </div>
-    </aside>
-
-    <main class="doctor-main">
-      <header class="doctor-topbar">
-        <div>
-          <h1 class="doctor-page-title">Rapports & analytics</h1>
-          <p class="doctor-page-subtitle">Analyse détaillée des performances et tendances de la plateforme.</p>
-        </div>
-
-        <div class="doctor-header-actions">
-          <select class="form-input" aria-label="Période du rapport" onchange="changeReportPeriod(this.value)" style="width:auto; height:36px;"><option value="month">Mois</option><option value="week">Semaine</option><option value="year">Année</option></select>
-          <button class="btn btn-primary btn-sm" type="button" onclick="generateReport()"><i data-lucide="download"></i> Générer</button>
-        </div>
-      </header>
-
-      <div class="doctor-main-grid">
-        <section class="kpi-grid" data-stagger>
-          <article class="kpi-card">
-            <div class="kpi-label"><i data-lucide="activity"></i> Taux d’utilisation</div>
-            <div class="kpi-value">78%</div>
-            <span class="kpi-trend up"><i data-lucide="arrow-up-right"></i> +6.2%</span>
-          </article>
-
-          <article class="kpi-card">
-            <div class="kpi-label"><i data-lucide="stethoscope"></i> Médecins actifs</div>
-            <div class="kpi-value">1,320</div>
-            <span class="kpi-trend neutral"><i data-lucide="activity"></i> +11 cette semaine</span>
-          </article>
-
-          <article class="kpi-card">
-            <div class="kpi-label"><i data-lucide="calendar-check-2"></i> Consultations / semaine</div>
-            <div class="kpi-value">4,890</div>
-            <span class="kpi-trend success"><i data-lucide="check-circle-2"></i> Stable</span>
-          </article>
-        </section>
-
-        <section class="section-row">
-          <div class="card">
-            <div class="card-header-row">
-              <div>
-                <h2 class="card-title">Tendance des consultations</h2>
-                <div class="card-subtitle">Par semaine</div>
-              </div>
-            </div>
-
-            <div class="bar-chart" aria-label="Graphique des consultations par semaine">
-              <div class="bar-col">
-                <div class="bar-stack" style="height: 40%;"></div>
-                <span class="bar-label">S1</span>
-              </div>
-              <div class="bar-col">
-                <div class="bar-stack" style="height: 52%;"></div>
-                <span class="bar-label">S2</span>
-              </div>
-              <div class="bar-col">
-                <div class="bar-stack" style="height: 68%;"></div>
-                <span class="bar-label">S3</span>
-              </div>
-              <div class="bar-col">
-                <div class="bar-stack" style="height: 74%;"></div>
-                <span class="bar-label">S4</span>
-              </div>
-              <div class="bar-col">
-                <div class="bar-stack" style="height: 82%;"></div>
-                <span class="bar-label">S5</span>
-              </div>
-              <div class="bar-col">
-                <div class="bar-stack" style="height: 91%;"></div>
-                <span class="bar-label">S6</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header-row">
-              <div>
-                <h2 class="card-title">Points clés</h2>
-                <div class="card-subtitle">Insights</div>
-              </div>
-            </div>
-
-            <div class="list-stack">
-              <div class="list-row">
-                <div class="list-main">
-                  <div class="doctor-avatar">01</div>
-                  <div>
-                    <div class="list-name">Hausse du trafic mobile</div>
-                    <div class="list-meta">+18% sur 30 jours</div>
-                  </div>
-                </div>
-                <span class="badge success">Positive</span>
-              </div>
-
-              <div class="list-row">
-                <div class="list-main">
-                  <div class="doctor-avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309;">02</div>
-                  <div>
-                    <div class="list-name">Rupture de conversion</div>
-                    <div class="list-meta">Validation des médecins</div>
-                  </div>
-                </div>
-                <span class="badge warning">À revoir</span>
-              </div>
-
-              <div class="list-row">
-                <div class="list-main">
-                  <div class="doctor-avatar" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#047857;">03</div>
-                  <div>
-                    <div class="list-name">Paiements stabilisés</div>
-                    <div class="list-meta">95% de transactions validées</div>
-                  </div>
-                </div>
-                <span class="badge success">OK</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script src="../assets/js/api.js"></script>
-  <script src="../assets/js/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initLucide();
-    });
-    function changeReportPeriod(period) { Monganga.showToast(`Période du rapport : ${period === 'week' ? 'semaine' : period === 'year' ? 'année' : 'mois'}`, 'info'); }
-    function generateReport() { window.print(); Monganga.showToast('Rapport prêt pour impression ou export PDF', 'success'); }
-  </script>
-</body>
-</html>
+    <div class="sidebar-controls"><button class="btn btn-ghost btn-icon" type="button" data-theme-button="" aria-label="Changer de thème"><i data-lucide="moon"></i></button><button class="btn btn-ghost btn-icon" type="button" data-logout="" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button><button class="btn btn-ghost btn-icon workspace-menu-btn" type="button" data-sidebar-toggle="" aria-label="Fermer le menu"><i data-lucide="x"></i></button></div></aside><main id="main-content" class="doctor-main" tabindex="-1"><button class="btn btn-secondary btn-sm workspace-menu-btn" type="button" data-sidebar-toggle="" aria-controls="workspace-sidebar" aria-expanded="false"><i data-lucide="menu"></i> Menu</button><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></main></div><div class="workspace-sidebar-overlay" data-sidebar-toggle="" aria-hidden="true"></div></body></html>

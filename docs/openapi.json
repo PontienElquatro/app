@@ -1,0 +1,5207 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Monganga — contrat frontend proposé",
+    "version": "2.0.0",
+    "description": "Contrat à implémenter par le backend. Aucune API réelle incluse. Voir BACKEND_INTEGRATION.md pour les transitions, contrôles et services externes."
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "sessionCookie": []
+    }
+  ],
+  "paths": {
+    "/doctors": {
+      "get": {
+        "operationId": "doctors",
+        "tags": [
+          "Public"
+        ],
+        "summary": "doctors",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Doctor"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": []
+      }
+    },
+    "/doctors/{doctorId}/slots": {
+      "get": {
+        "operationId": "slots",
+        "tags": [
+          "Public"
+        ],
+        "summary": "slots",
+        "parameters": [
+          {
+            "name": "doctorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "excludeBooking",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Rendez-vous du même compte à déplacer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Slot"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": []
+      }
+    },
+    "/me/profile": {
+      "get": {
+        "operationId": "profile",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      },
+      "put": {
+        "operationId": "saveProfile",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "saveProfile",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profile"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/avatar": {
+      "post": {
+        "operationId": "avatar",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "avatar",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/preferences": {
+      "get": {
+        "operationId": "preferences",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "preferences",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preferences"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      },
+      "put": {
+        "operationId": "savePreferences",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "savePreferences",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preferences"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Preferences"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/password": {
+      "put": {
+        "operationId": "password",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "password",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "currentPassword": {
+                    "type": "string"
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 128
+                  }
+                },
+                "required": [
+                  "currentPassword",
+                  "newPassword"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/export": {
+      "post": {
+        "operationId": "dataExport",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "dataExport",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/bookings": {
+      "get": {
+        "operationId": "bookings",
+        "tags": [
+          "Rendez-vous"
+        ],
+        "summary": "bookings",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Booking"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createBooking",
+        "tags": [
+          "Rendez-vous"
+        ],
+        "summary": "createBooking",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "doctorId": {
+                    "type": "string"
+                  },
+                  "slot": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "doctorId",
+                  "slot"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{id}": {
+      "get": {
+        "operationId": "booking",
+        "tags": [
+          "Rendez-vous"
+        ],
+        "summary": "booking",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/bookings/{id}/cancel": {
+      "post": {
+        "operationId": "cancelBooking",
+        "tags": [
+          "Rendez-vous"
+        ],
+        "summary": "cancelBooking",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "reason"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{id}/slot": {
+      "put": {
+        "operationId": "reschedule",
+        "tags": [
+          "Rendez-vous"
+        ],
+        "summary": "reschedule",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "slot": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "slot"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{id}/payment": {
+      "post": {
+        "operationId": "paymentStart",
+        "tags": [
+          "Paiement"
+        ],
+        "summary": "paymentStart",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": [
+                      "M-Pesa",
+                      "Airtel Money",
+                      "Orange Money",
+                      "Visa",
+                      "Mastercard"
+                    ]
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "method"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "paymentStatus",
+        "tags": [
+          "Paiement"
+        ],
+        "summary": "paymentStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/bookings/{id}/payment/cancel": {
+      "post": {
+        "operationId": "paymentCancel",
+        "tags": [
+          "Paiement"
+        ],
+        "summary": "paymentCancel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/doctors/me/availability": {
+      "get": {
+        "operationId": "availability",
+        "tags": [
+          "Médecin"
+        ],
+        "summary": "availability",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Slot"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      },
+      "post": {
+        "operationId": "addSlot",
+        "tags": [
+          "Médecin"
+        ],
+        "summary": "addSlot",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Slot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "start"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctors/me/availability/{id}": {
+      "delete": {
+        "operationId": "removeSlot",
+        "tags": [
+          "Médecin"
+        ],
+        "summary": "removeSlot",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/doctors/me/availability/duplicate": {
+      "post": {
+        "operationId": "duplicateWeek",
+        "tags": [
+          "Médecin"
+        ],
+        "summary": "duplicateWeek",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startDate": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "startDate"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctors/me/patients": {
+      "get": {
+        "operationId": "patients",
+        "tags": [
+          "Médecin"
+        ],
+        "summary": "patients",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Patient"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/doctors/me/patients/{patientId}/note": {
+      "put": {
+        "operationId": "saveNote",
+        "tags": [
+          "Médecin"
+        ],
+        "summary": "saveNote",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patientId": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "type": "string",
+                    "maxLength": 5000
+                  }
+                },
+                "required": [
+                  "note"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/prescriptions": {
+      "get": {
+        "operationId": "prescriptions",
+        "tags": [
+          "Ordonnances"
+        ],
+        "summary": "prescriptions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Prescription"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPrescription",
+        "tags": [
+          "Ordonnances"
+        ],
+        "summary": "createPrescription",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prescription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bookingId": {
+                    "type": "string"
+                  },
+                  "medication": {
+                    "type": "string",
+                    "maxLength": 200
+                  },
+                  "instructions": {
+                    "type": "string",
+                    "maxLength": 4000
+                  }
+                },
+                "required": [
+                  "bookingId",
+                  "medication",
+                  "instructions"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/prescriptions/{id}/document": {
+      "get": {
+        "operationId": "document",
+        "tags": [
+          "Ordonnances"
+        ],
+        "summary": "document",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "operationId": "notifications",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "notifications",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/notifications/read": {
+      "post": {
+        "operationId": "readNotifications",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "readNotifications",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/consultations/{id}": {
+      "get": {
+        "operationId": "room",
+        "tags": [
+          "Consultation"
+        ],
+        "summary": "room",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Room"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/consultations/{id}/messages": {
+      "get": {
+        "operationId": "messages",
+        "tags": [
+          "Consultation"
+        ],
+        "summary": "messages",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      },
+      "post": {
+        "operationId": "sendMessage",
+        "tags": [
+          "Consultation"
+        ],
+        "summary": "sendMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consultations/{id}/attachments": {
+      "post": {
+        "operationId": "attachment",
+        "tags": [
+          "Consultation"
+        ],
+        "summary": "attachment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "bookingId": {
+                    "type": "string"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "id",
+                  "bookingId",
+                  "file"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consultations/{id}/join": {
+      "post": {
+        "operationId": "callToken",
+        "tags": [
+          "Consultation"
+        ],
+        "summary": "callToken",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Join"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/consultations/{id}/finish": {
+      "post": {
+        "operationId": "finishCall",
+        "tags": [
+          "Consultation"
+        ],
+        "summary": "finishCall",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/consultations/{id}/review": {
+      "post": {
+        "operationId": "review",
+        "tags": [
+          "Consultation"
+        ],
+        "summary": "review",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "rating": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  },
+                  "comment": {
+                    "type": "string",
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "rating"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/dashboard": {
+      "get": {
+        "operationId": "adminOverview",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "adminOverview",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOverview"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "operationId": "users",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/admin/users/{id}/status": {
+      "put": {
+        "operationId": "userStatus",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "userStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "active",
+                      "suspended"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "reason"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/applications": {
+      "get": {
+        "operationId": "applications",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "applications",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Application"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/admin/applications/{id}/status": {
+      "put": {
+        "operationId": "applicationStatus",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "applicationStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "approved",
+                      "rejected",
+                      "needs_documents"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/applications/{id}/documents/{documentId}": {
+      "get": {
+        "operationId": "applicationDocument",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "applicationDocument",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "get": {
+        "operationId": "transactions",
+        "tags": [
+          "Paiement"
+        ],
+        "summary": "transactions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/admin/transactions/{id}/refund": {
+      "post": {
+        "operationId": "refund",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "refund",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "reason"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{id}/request-status": {
+      "put": {
+        "operationId": "requestStatus",
+        "tags": [
+          "Rendez-vous"
+        ],
+        "summary": "requestStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "confirmed",
+                      "cancelled"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctor-applications": {
+      "post": {
+        "operationId": "application",
+        "tags": [
+          "Public"
+        ],
+        "summary": "application",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "commune": {
+                    "type": "string"
+                  },
+                  "orderNumber": {
+                    "type": "string"
+                  },
+                  "specialty": {
+                    "type": "string"
+                  },
+                  "bio": {
+                    "type": "string"
+                  },
+                  "attestation": {
+                    "type": "string"
+                  },
+                  "consent": {
+                    "type": "string"
+                  },
+                  "portrait": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "identity": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "medicalDiploma": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "orderCertificate": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "cv": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "specializationDiploma": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "firstName",
+                  "lastName",
+                  "email",
+                  "phone",
+                  "commune",
+                  "orderNumber",
+                  "specialty",
+                  "bio",
+                  "attestation",
+                  "consent",
+                  "portrait",
+                  "identity",
+                  "medicalDiploma",
+                  "orderCertificate",
+                  "cv"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact": {
+      "post": {
+        "operationId": "contact",
+        "tags": [
+          "Public"
+        ],
+        "summary": "contact",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "consent": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "subject",
+                  "message",
+                  "consent"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/csrf": {
+      "get": {
+        "operationId": "csrf",
+        "tags": [
+          "Public"
+        ],
+        "summary": "csrf",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "login",
+        "tags": [
+          "Public"
+        ],
+        "summary": "login",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identifier": {
+                    "type": "string",
+                    "description": "Email ou numéro de téléphone vérifié."
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "remember": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "identifier",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "operationId": "session",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "session",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "logout",
+        "tags": [
+          "Compte"
+        ],
+        "summary": "logout",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        }
+      }
+    },
+    "/auth/register/patient": {
+      "post": {
+        "operationId": "register",
+        "tags": [
+          "Public"
+        ],
+        "summary": "register",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Challenge"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Facultatif. Chaîne vide acceptée ; sinon adresse email valide."
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 128
+                  },
+                  "consent": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "phone",
+                  "password",
+                  "consent"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/verify-otp": {
+      "post": {
+        "operationId": "verifyOtp",
+        "tags": [
+          "Public"
+        ],
+        "summary": "verifyOtp",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "challengeId": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string",
+                    "pattern": "^[0-9]{6}$"
+                  }
+                },
+                "required": [
+                  "challengeId",
+                  "code"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/resend-otp": {
+      "post": {
+        "operationId": "resendOtp",
+        "tags": [
+          "Public"
+        ],
+        "summary": "resendOtp",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Challenge"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "challengeId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "challengeId"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "operationId": "forgotPassword",
+        "tags": [
+          "Public"
+        ],
+        "summary": "forgotPassword",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identifier": {
+                    "type": "string",
+                    "description": "Email ou téléphone vérifié ; envoi par email ou SMS selon le compte."
+                  }
+                },
+                "required": [
+                  "identifier"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "operationId": "resetPassword",
+        "tags": [
+          "Public"
+        ],
+        "summary": "resetPassword",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doit correspondre au cookie monganga_csrf validé par le serveur."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Recommandé pour les mutations, obligatoire pour les opérations financières."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat autoritaire",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée"
+          },
+          "403": {
+            "description": "Action non autorisée"
+          },
+          "404": {
+            "description": "Ressource introuvable"
+          },
+          "409": {
+            "description": "Conflit de disponibilité ou de transition"
+          },
+          "429": {
+            "description": "Limite de tentatives"
+          },
+          "500": {
+            "description": "Service indisponible"
+          }
+        },
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "monganga_session"
+      }
+    },
+    "schemas": {
+      "AdminOverview": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "activeUsers": {
+                "type": "integer"
+              },
+              "doctors": {
+                "type": "integer"
+              },
+              "approvalRate": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "volumeCents": {
+                "type": "integer"
+              },
+              "retentionRate": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "consultations": {
+                "type": "integer"
+              },
+              "satisfaction": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "activeUsers",
+              "doctors",
+              "approvalRate",
+              "volumeCents",
+              "retentionRate",
+              "consultations",
+              "satisfaction"
+            ]
+          },
+          "growth": {
+            "type": "object",
+            "properties": {
+              "week": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "count"
+                  ]
+                }
+              },
+              "month": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "count"
+                  ]
+                }
+              },
+              "year": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "count"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "week",
+              "month",
+              "year"
+            ]
+          },
+          "growthComplete": {
+            "type": "boolean"
+          },
+          "activity": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "at",
+                "title",
+                "detail",
+                "status"
+              ]
+            }
+          },
+          "audit": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "detail",
+                "status"
+              ]
+            }
+          },
+          "alerts": {
+            "type": "object",
+            "properties": {
+              "applications": {
+                "type": "integer"
+              },
+              "failedPayments": {
+                "type": "integer"
+              },
+              "refunds": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "applications",
+              "failedPayments",
+              "refunds"
+            ]
+          }
+        },
+        "required": [
+          "metrics",
+          "growth",
+          "growthComplete",
+          "activity",
+          "audit",
+          "alerts"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "patient",
+              "doctor",
+              "admin"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "description": "Chaîne vide pour un compte sans email."
+          },
+          "doctorId": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "name",
+          "email",
+          "expiresAt"
+        ]
+      },
+      "Doctor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "initials": {
+            "type": "string"
+          },
+          "specialty": {
+            "type": "string"
+          },
+          "commune": {
+            "type": "string"
+          },
+          "bio": {
+            "type": "string"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "priceCents": {
+            "type": "integer"
+          },
+          "durationMinutes": {
+            "type": "integer"
+          },
+          "rating": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "reviews": {
+            "type": "integer"
+          },
+          "nextSlot": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "color": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "specialty",
+          "commune",
+          "priceCents",
+          "durationMinutes",
+          "languages"
+        ]
+      },
+      "Slot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "doctorId": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "durationMinutes": {
+            "type": "integer"
+          },
+          "booked": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "doctorId",
+          "start",
+          "durationMinutes"
+        ]
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "doctorId": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "doctorName": {
+            "type": "string"
+          },
+          "patientName": {
+            "type": "string"
+          },
+          "slot": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "payment_pending",
+              "payment_failed",
+              "requested",
+              "confirmed",
+              "in_progress",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "paymentStatus": {
+            "type": "string",
+            "enum": [
+              "unpaid",
+              "pending",
+              "paid",
+              "failed",
+              "refund_pending",
+              "refunded"
+            ]
+          },
+          "priceCents": {
+            "type": "integer"
+          },
+          "feeCents": {
+            "type": "integer"
+          },
+          "totalCents": {
+            "type": "integer"
+          },
+          "method": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "checkoutUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "confirmedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "doctorId",
+          "patientId",
+          "doctorName",
+          "patientName",
+          "slot",
+          "status",
+          "paymentStatus",
+          "priceCents",
+          "feeCents",
+          "totalCents"
+        ]
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "description": "Adresse email ou chaîne vide."
+          },
+          "phone": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string"
+          },
+          "commune": {
+            "type": "string"
+          },
+          "bio": {
+            "type": "string"
+          },
+          "bloodType": {
+            "type": "string"
+          },
+          "height": {
+            "type": "string"
+          },
+          "allergies": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "string"
+          },
+          "medications": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ]
+      },
+      "Preferences": {
+        "type": "object",
+        "properties": {
+          "reminders": {
+            "type": "boolean"
+          },
+          "prescriptions": {
+            "type": "boolean"
+          },
+          "news": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "reminders",
+          "prescriptions",
+          "news"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "patient",
+              "doctor",
+              "admin"
+            ]
+          },
+          "doctorId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "suspended"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "role",
+          "status"
+        ]
+      },
+      "Patient": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/Profile"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "profile",
+          "note"
+        ]
+      },
+      "Prescription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "doctorId": {
+            "type": "string"
+          },
+          "doctorName": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "patientName": {
+            "type": "string"
+          },
+          "issuedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "medication": {
+            "type": "string"
+          },
+          "instructions": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "revoked"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "bookingId",
+          "doctorId",
+          "patientId",
+          "issuedAt",
+          "medication",
+          "instructions",
+          "status"
+        ]
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "qrUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "verificationUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "read": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "message",
+          "read",
+          "createdAt"
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "string"
+          },
+          "authorName": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "authorId",
+          "authorName",
+          "text",
+          "createdAt"
+        ]
+      },
+      "Transaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "patientId": {
+            "type": "string"
+          },
+          "patientName": {
+            "type": "string"
+          },
+          "doctorId": {
+            "type": "string"
+          },
+          "amountCents": {
+            "type": "integer"
+          },
+          "feeCents": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "paid",
+              "pending",
+              "failed",
+              "refund_pending",
+              "refunded"
+            ]
+          },
+          "method": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "bookingId",
+          "amountCents",
+          "feeCents",
+          "status",
+          "method",
+          "createdAt"
+        ]
+      },
+      "Application": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "orderNumber": {
+            "type": "string"
+          },
+          "specialty": {
+            "type": "string"
+          },
+          "commune": {
+            "type": "string"
+          },
+          "bio": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "needs_documents",
+              "approved",
+              "rejected"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "specialty",
+          "commune",
+          "status",
+          "documents"
+        ]
+      },
+      "Challenge": {
+        "type": "object",
+        "properties": {
+          "challengeId": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resendAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "challengeId",
+          "expiresAt",
+          "resendAt"
+        ]
+      },
+      "Room": {
+        "type": "object",
+        "properties": {
+          "booking": {
+            "$ref": "#/components/schemas/Booking"
+          },
+          "doctor": {
+            "$ref": "#/components/schemas/Doctor"
+          },
+          "patient": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "booking",
+          "doctor",
+          "patient"
+        ]
+      },
+      "Join": {
+        "type": "object",
+        "properties": {
+          "roomId": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "provider": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "roomId",
+          "token",
+          "expiresAt"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "saved": {
+            "type": "boolean"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "csrfToken": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

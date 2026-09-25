@@ -1,123 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mon ordonnance — MONGANGA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/animations.css">
-<link rel="stylesheet" href="../assets/css/patient.css">
-<style>
-  .prescription-card {
-    max-width: 480px;
-    margin: 0 auto;
-    background: var(--surface);
-    border-radius: var(--r-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
-    animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes cardIn {
-    from { transform: scale(0.95); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  .prescription-header {
-    background: linear-gradient(135deg, var(--primary) 0%, #5B6FF0 100%);
-    color: #fff;
-    padding: 28px 24px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .prescription-header::before {
-    content: '';
-    position: absolute;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    top: -60px; right: -60px;
-  }
-  .prescription-header .label-sm {
-    font-size: 10.5px;
-    letter-spacing: 0.3em;
-    opacity: 0.85;
-    margin-bottom: 6px;
-    font-weight: 800;
-    position: relative;
-  }
-  .prescription-header .brand {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    position: relative;
-  }
-  .prescription-body { padding: 24px; }
-  .prescription-divider {
-    border-top: 1.5px dashed var(--border);
-    margin: 16px 0;
-  }
-  .info-line {
-    display: flex; justify-content: space-between;
-    padding: 6px 0;
-    font-size: 13px;
-    align-items: center;
-  }
-  .info-line .label-sm {
-    color: var(--text-3);
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .med {
-    padding: 12px 0;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-  .med-icon {
-    width: 40px; height: 40px;
-    border-radius: var(--r-sm);
-    background: var(--primary-light);
-    color: var(--primary);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .med-icon [data-lucide] { width: 20px; height: 20px; }
-  .med-content { flex: 1; }
-  .med .name { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
-  .med .dosage { font-size: 12.5px; color: var(--text-2); }
-  .med .duration { font-size: 11.5px; color: var(--text-3); margin-top: 2px; }
-  .prescription-footer {
-    padding: 14px 24px;
-    background: var(--success-bg);
-    color: var(--success-text);
-    display: flex; align-items: center; gap: 10px;
-    font-size: 12.5px;
-    font-weight: 700;
-    border-top: 1px solid var(--success-bg);
-  }
-  .prescription-footer [data-lucide] { width: 16px; height: 16px; }
-
-  .prescription-actions {
-    max-width: 480px;
-    margin: 20px auto 0;
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 10px;
-  }
-
-  .history-list { max-width: 720px; margin: 0 auto; }
-</style>
-</head>
-<body>
-
-<header class="pat-header">
+<html lang="fr" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="app-base" content="../">
+<meta name="description" content="Mes ordonnances sur Monganga, téléconsultation à Kinshasa.">
+<meta name="robots" content="noindex,nofollow">
+<title>Mes ordonnances — MONGANGA</title>
+<link rel="icon" href="../assets/logo/monganga-icone.jpg" type="image/jpeg">
+<link rel="stylesheet" href="../assets/css/fonts.css"><link rel="stylesheet" href="../assets/css/styles.css"><link rel="stylesheet" href="../assets/css/ui.css">
+<script src="../assets/js/theme.js"></script>
+<script defer="" src="../assets/vendor/lucide-0.468.0.min.js"></script>
+<script defer="" src="../assets/js/config.js"></script><script defer="" src="../assets/js/api.js"></script><script defer="" src="../assets/js/catalog.js"></script><script defer="" src="../assets/js/data.js"></script><script defer="" src="../assets/js/app.js"></script><script defer="" src="../assets/js/pages.js"></script><script defer="" src="../assets/js/patient-pages.js"></script><script defer="" src="../assets/js/professional-pages.js"></script><script defer="" src="../assets/js/consultation.js"></script><script defer="" src="../assets/js/application.js"></script>
+<link rel="stylesheet" href="../assets/css/patient.css"><link rel="stylesheet" href="../assets/css/restored.css"><script defer="" src="../assets/js/restored-shell.js"></script><meta name="robots" content="noindex,nofollow"></head>
+<body data-page="prescriptions" data-role="patient" data-auth-state="pending"><a class="skip-link" href="#main-content">Aller au contenu</a><header class="pat-header">
   <div class="pat-header-inner">
     <a class="logo" href="../index.html">
       <div class="logo-icon logo-image-wrap"><img src="../assets/logo/monganga-icone.jpg" alt="MONGANGA"></div>
@@ -127,212 +21,44 @@
       <a class="pat-nav-link" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
       <a class="pat-nav-link" href="search.html"><i data-lucide="search"></i> Rechercher</a>
       <a class="pat-nav-link" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
-      <a class="pat-nav-link active" href="prescription.html"><i data-lucide="file-text"></i> Ordonnances</a>
+      <a class="pat-nav-link active" href="prescription.html" aria-current="page"><i data-lucide="file-text"></i> Ordonnances</a>
       <a class="pat-nav-link" href="profile.html"><i data-lucide="user"></i> Profil</a>
     </nav>
     <div class="pat-header-actions">
-      <button class="btn btn-ghost btn-icon" onclick="toggleTheme()"><i data-lucide="moon" data-theme-icon></i></button>
-      <button class="btn btn-ghost btn-icon" onclick="Monganga.openNotifications()" aria-label="Ouvrir les notifications"><i data-lucide="bell"></i><span class="dot-badge"></span></button>
-      <button class="btn btn-ghost btn-icon" onclick="logout()"><i data-lucide="log-out"></i></button>
+      <button class="btn btn-ghost btn-icon" aria-label="Thème" data-theme-button="">
+        <i data-lucide="moon" data-theme-icon=""></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Ouvrir les notifications" data-notifications="">
+        <i data-lucide="bell"></i>
+        
+      </button>
+      <button class="btn btn-ghost btn-icon" aria-label="Déconnexion" data-logout="">
+        <i data-lucide="log-out"></i>
+      </button>
+      <button class="btn btn-ghost btn-icon" onclick="toggleMenu()" aria-label="Menu" style="display:none;" id="patMenuBtn">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
   </div>
-</header>
-
-<main class="pat-main">
-  <div class="pat-content">
-
-    <div class="fade-in" style="margin-bottom: 24px; text-align: center;">
-      <h1 class="pat-page-title">Mon ordonnance</h1>
-      <p class="pat-page-sub">Émise le 24 septembre 2026</p>
-    </div>
-
-    <!-- Carte ordonnance -->
-    <div class="prescription-card">
-      <div class="prescription-header">
-        <div class="label-sm">ORDONNANCE NUMÉRIQUE</div>
-        <div class="brand">MONGANGA</div>
-      </div>
-
-      <div class="prescription-body">
-        <div class="info-line">
-          <span class="label-sm">Médecin</span>
-          <span style="font-weight: 700;">Dr Ilunga</span>
-        </div>
-        <div class="info-line">
-          <span class="label-sm">N° Ordre</span>
-          <span style="font-weight: 700;">12345</span>
-        </div>
-
-        <div class="prescription-divider"></div>
-
-        <div class="info-line">
-          <span class="label-sm">Patient</span>
-          <span style="font-weight: 700;">Aline Kabila</span>
-        </div>
-        <div class="info-line">
-          <span class="label-sm">Date</span>
-          <span style="font-weight: 700;">24 septembre 2026</span>
-        </div>
-        <div class="info-line">
-          <span class="label-sm">Référence</span>
-          <span style="font-weight: 700;">#ORD-1024</span>
-        </div>
-
-        <div class="prescription-divider"></div>
-
-        <div class="med">
-          <div class="med-icon"><i data-lucide="pill"></i></div>
-          <div class="med-content">
-            <div class="name">Paracétamol 500mg</div>
-            <div class="dosage">1 comprimé, 3 fois par jour</div>
-            <div class="duration">Durée : 5 jours</div>
-          </div>
-        </div>
-
-        <div class="med">
-          <div class="med-icon"><i data-lucide="pill"></i></div>
-          <div class="med-content">
-            <div class="name">Amoxicilline 500mg</div>
-            <div class="dosage">1 gélule, 2 fois par jour</div>
-            <div class="duration">Durée : 7 jours</div>
-          </div>
-        </div>
-
-        <div class="med">
-          <div class="med-icon"><i data-lucide="pill"></i></div>
-          <div class="med-content">
-            <div class="name">Pastilles pour la gorge</div>
-            <div class="dosage">1 pastille, 4 fois par jour</div>
-            <div class="duration">Durée : 3 jours</div>
-          </div>
-        </div>
-
-        <div class="prescription-divider"></div>
-
-        <div style="font-size: 12.5px; color: var(--text-2); line-height: 1.6;">
-          <strong style="color: var(--text);">Recommandations :</strong>
-          Repos vocal, hydratation abondante, éviter les aliments irritants.
-          Consulter à nouveau si les symptômes persistent au-delà de 5 jours.
-        </div>
-      </div>
-
-      <div class="prescription-footer">
-        <i data-lucide="shield-check"></i>
-        Document sécurisé — vérifiable en pharmacie par QR code
-      </div>
-    </div>
-
-    <!-- Actions -->
-    <div class="prescription-actions">
-      <button class="btn btn-primary btn-lg" onclick="showQR()">
-        <i data-lucide="qr-code"></i> Montrer en pharmacie
-      </button>
-      <button class="btn btn-secondary btn-icon" onclick="window.print()" title="Imprimer ou enregistrer en PDF" aria-label="Imprimer ou enregistrer en PDF">
-        <i data-lucide="download"></i>
-      </button>
-      <button class="btn btn-secondary btn-icon" onclick="sharePrescription()" title="Partager" aria-label="Partager l'ordonnance">
-        <i data-lucide="share-2"></i>
-      </button>
-    </div>
-
-    <section class="card prescription-history" aria-labelledby="prescription-history-title">
-      <div class="card-header-row"><div><h2 id="prescription-history-title" class="card-title">Historique des ordonnances</h2><div class="card-subtitle">Vos prescriptions récentes</div></div><select class="form-input" aria-label="Filtrer les ordonnances" onchange="filterPrescriptionHistory(this.value)" style="width:auto; height:34px;"><option value="all">Toutes</option><option value="active">Actives</option><option value="archived">Archivées</option></select></div>
-      <div id="prescription-history-list" class="list-stack">
-        <div class="list-row" data-prescription-status="active"><div><strong>Dr Ilunga · 24 septembre 2026</strong><div class="text-3" style="font-size:12px;">Paracétamol, Amoxicilline</div></div><span class="badge success">Active</span></div>
-        <div class="list-row" data-prescription-status="archived"><div><strong>Dr Mbayo · 12 août 2026</strong><div class="text-3" style="font-size:12px;">Traitement dermatologique</div></div><span class="badge neutral">Archivée</span></div>
-      </div>
-    </section>
-
-    <!-- Info -->
-    <div class="alert info" style="max-width: 480px; margin: 24px auto 0;">
-      <i data-lucide="info"></i>
-      <span>
-        Présentez cette ordonnance à votre pharmacien, ou montrez le QR code
-        ci-dessous. Le document est valable <strong>30 jours</strong>.
-      </span>
-    </div>
-
+</header><div class="pat-menu-overlay" id="patMenuOverlay" onclick="toggleMenu()"></div><aside class="pat-menu" id="patMenu">
+  <div class="pat-menu-header">
+    <span style="font-weight:800;">Menu</span>
+    <button class="btn btn-ghost btn-icon" onclick="toggleMenu()"><i data-lucide="x"></i></button>
   </div>
-</main>
-
-<nav class="pat-mobile-nav">
+  <div class="pat-menu-content">
+    <a class="pat-menu-item" href="dashboard.html"><i data-lucide="home"></i> Accueil</a>
+    <a class="pat-menu-item" href="search.html"><i data-lucide="search"></i> Rechercher</a>
+    <a class="pat-menu-item" href="history.html"><i data-lucide="calendar"></i> Mes RDV</a>
+    <a class="pat-menu-item active" href="prescription.html" aria-current="page"><i data-lucide="file-text"></i> Ordonnances</a>
+    <a class="pat-menu-item" href="profile.html"><i data-lucide="user"></i> Profil</a>
+    <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
+      <a class="pat-menu-item" data-logout="" role="button" tabindex="0"><i data-lucide="log-out"></i> Déconnexion</a>
+    </div>
+  </div>
+</aside><main id="main-content" class="pat-main" tabindex="-1"><div class="pat-content"><div><p id="mode-indicator" class="layout-demo" hidden=""></p><p id="offline-notice" class="notice warning" role="status" hidden="">Connexion internet indisponible.</p></div><noscript><p class="notice warning">Activez JavaScript pour utiliser les fonctionnalités de cet espace.</p></noscript><div id="page-root" aria-busy="true"><p class="loading-state" role="status">Chargement de votre espace…</p></div></div></main><nav class="pat-mobile-nav">
   <a class="pat-mobile-item" href="dashboard.html"><i data-lucide="home"></i><span>Accueil</span></a>
   <a class="pat-mobile-item" href="search.html"><i data-lucide="search"></i><span>Rechercher</span></a>
   <a class="pat-mobile-item" href="history.html"><i data-lucide="calendar"></i><span>Mes RDV</span></a>
-  <a class="pat-mobile-item active" href="prescription.html"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
+  <a class="pat-mobile-item active" href="prescription.html" aria-current="page"><i data-lucide="file-text"></i><span>Ordonnances</span></a>
   <a class="pat-mobile-item" href="profile.html"><i data-lucide="user"></i><span>Profil</span></a>
-</nav>
-
-<script src="../assets/js/api.js"></script>
-<script src="../assets/js/app.js"></script>
-<script>
-  function logout() {
-    Monganga.showToast('Vous êtes déconnecté', 'info');
-    setTimeout(() => window.location.href = '../index.html', 600);
-  }
-
-  async function sharePrescription() {
-    const data = { title: 'Ordonnance MONGANGA', text: 'Mon ordonnance MONGANGA - Dr Ilunga' };
-    if (navigator.share) {
-      try { await navigator.share(data); } catch (error) { if (error.name !== 'AbortError') Monganga.showToast('Partage indisponible', 'error'); }
-    } else {
-      await navigator.clipboard?.writeText(data.text);
-      Monganga.showToast('Lien de partage copié', 'success');
-    }
-  }
-  function filterPrescriptionHistory(status) { document.querySelectorAll('[data-prescription-status]').forEach(item => item.style.display = status === 'all' || item.dataset.prescriptionStatus === status ? '' : 'none'); }
-
-  function showQR() {
-    // Modal avec QR code simulé
-    const modal = document.createElement('div');
-    modal.style.cssText = 'position:fixed; inset:0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); z-index: 1500; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s;';
-    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
-
-    modal.innerHTML = `
-      <div style="background: #FFFFFF; border-radius: 20px; padding: 32px; max-width: 360px; width: 100%; text-align: center; transform: scale(0.95); transition: transform 0.3s;" onclick="event.stopPropagation()">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.2em; color: #64748B; margin-bottom: 4px;">PHARMACIE</div>
-        <div style="font-size: 20px; font-weight: 800; color: #0F172A; margin-bottom: 20px;">MONTREZ CE CODE</div>
-
-        <div style="background: #F8FAFC; border-radius: 16px; padding: 24px; margin-bottom: 20px; display: inline-block;">
-          <svg viewBox="0 0 200 200" width="220" height="220" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="200" fill="#FFFFFF"/>
-            <rect x="10" y="10" width="40" height="40" fill="#0F172A"/>
-            <rect x="15" y="15" width="30" height="30" fill="#FFFFFF"/>
-            <rect x="20" y="20" width="20" height="20" fill="#0F172A"/>
-
-            <rect x="150" y="10" width="40" height="40" fill="#0F172A"/>
-            <rect x="155" y="15" width="30" height="30" fill="#FFFFFF"/>
-            <rect x="160" y="20" width="20" height="20" fill="#0F172A"/>
-
-            <rect x="10" y="150" width="40" height="40" fill="#0F172A"/>
-            <rect x="15" y="155" width="30" height="30" fill="#FFFFFF"/>
-            <rect x="20" y="160" width="20" height="20" fill="#0F172A"/>
-
-            ${Array.from({ length: 60 }, () => {
-              const x = 60 + Math.floor(Math.random() * 100);
-              const y = 60 + Math.floor(Math.random() * 100);
-              const s = 6 + Math.floor(Math.random() * 8);
-              return `<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="#0F172A"/>`;
-            }).join('')}
-          </svg>
-        </div>
-
-        <div style="font-size: 12px; color: #64748B; margin-bottom: 20px; line-height: 1.6;">
-          Code : <strong style="color: #0F172A;">MN-ORD-1024-2026</strong>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="this.closest('div').parentElement.remove()" style="background: #3C50E0; color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; font-family: inherit; font-size: 14px;">
-          Fermer
-        </button>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-    setTimeout(() => {
-      modal.style.opacity = '1';
-      modal.querySelector('div').style.transform = 'scale(1)';
-    }, 20);
-  }
-</script>
-</body>
-</html>
+</nav></body></html>
