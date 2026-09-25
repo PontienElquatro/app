@@ -1,15 +1,11 @@
 {
   "version": 2,
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": null,
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/patient",
-      "destination": "/patient/search.html"
-    }
+    { "source": "/", "destination": "/index.html" }
   ]
 }
