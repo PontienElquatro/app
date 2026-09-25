@@ -2,10 +2,14 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/app-main/$1"
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/patient",
+      "destination": "/patient/search.html"
     }
   ]
 }
