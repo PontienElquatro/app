@@ -1,10 +1,11 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "rewrites": [
+  "trailingSlash": false,
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/app-main/$1"
+      "src": "/(.*)",
+      "dest": "/app-main/$1"
     }
   ]
 }
